@@ -22,3 +22,4 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 Route::get('client', [App\Http\Controllers\ClientController::class, 'index'])->name('client.index');
+Route::post('client', [App\Http\Controllers\ClientController::class, 'store'])->name('client.store');

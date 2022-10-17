@@ -13,8 +13,10 @@
         <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
 
         <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('assets/libs/mohithg-switchery/switchery.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('assets/css/app.min.css') }}" rel="stylesheet" type="text/css" id="app-style"/>
         <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+        @stack('css')
         <script src="{{ asset('assets/js/head.js') }}"></script>
 
     </head>
@@ -23,34 +25,28 @@
         <div id="wrapper">
             @include('layouts.partials.topbar')
 
-            <!-- ========== Left Sidebar Start ========== -->
             @include('layouts.partials.sidebar')
-            <!-- Left Sidebar End -->
-
-
-            <!-- ============================================================== -->
-            <!-- Start Page Content here -->
-            <!-- ============================================================== -->
 
             <div class="content-page">
                 <div class="content">
                     @yield('content')
                 </div>
 
-                <!-- Footer Start -->
                 @include('layouts.partials.footer')
-                <!-- end Footer -->
 
             </div>
         </div>
         <!-- END wrapper -->
 
         <div class="rightbar-overlay"></div>
-        <script src="assets/js/vendor.min.js"></script>
-        <script src="assets/libs/morris.js06/morris.min.js"></script>
-        <script src="assets/libs/raphael/raphael.min.js"></script>
-        <script src="assets/js/pages/dashboard-4.init.js"></script>
-        <script src="assets/js/app.min.js"></script>
+        <script src="{{ asset('assets/libs/mohithg-switchery/switchery.min.js') }}"></script>
+        <script src="{{ asset('assets/js/vendor.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/morris.js06/morris.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/raphael/raphael.min.js') }}"></script>
+        <script src="{{ asset('assets/js/pages/dashboard-4.init.js') }}"></script>
+        <script src="{{ asset('assets/js/app.min.js') }}"></script>
+
+        @stack('javascript')
 
     </body>
 </html>

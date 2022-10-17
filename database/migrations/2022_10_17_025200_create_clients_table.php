@@ -17,12 +17,13 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->text('alamat');
+            $table->string('kota');
             $table->string('no_telp');
             $table->string('kode_pos');
             $table->string('pic');
             $table->string('email_pic');
             $table->string('jabatan_pic');
-            $table->boolean('kerjasama');
+            $table->boolean('kerjasama')->default(false);
             $table->timestamps();
         });
     }
