@@ -6,6 +6,8 @@
         <link href="assets/libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet" type="text/css" />
         <link href="assets/libs/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" rel="stylesheet" type="text/css" />
         <link href="assets/libs/datatables.net-select-bs5/css//select.bootstrap5.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/libs/dropify/css/dropify.min.css" rel="stylesheet" type="text/css" />
     @endpush
 @endonce
 
@@ -30,23 +32,22 @@
             <div class="card">
                 <div class="card-body">
                     <div class="card-widgets">
-                        <a data-bs-toggle="collapse" href="#cardCollpase4" role="button" aria-expanded="false" aria-controls="cardCollpase4"><i class="mdi mdi-minus"></i></a>
+                        <a data-bs-toggle="collapse" href="#tableBank" role="button" aria-expanded="false" aria-controls="tableBank"><i class="mdi mdi-minus"></i></a>
                     </div>
-                    <h4 class="header-title mb-0">Data Client</h4>
-                    <div id="cardCollpase4" class="collapse show">
+                    <h4 class="header-title mb-0">Data PIC</h4>
+                    <div id="tableBank" class="collapse show">
                         <div class="table-responsive pt-3">
-                            <button type="button" class="btn btn-soft-success waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#addClient">Tambah</button>
-                            <table class="table table-bordered table-centered mb-0 client" style="width:100%" id="btn-editable">
+                            <button type="button" class="btn btn-soft-success waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#addPIC">Tambah</button>
+                            <table class="table table-bordered table-centered mb-0 pic" style="width:100%" id="btn-editable">
                                 <thead class="table-light">
                                     <tr>
-                                        <th class="text-center">Client</th>
-                                        <th class="text-center">Alamat</th>
-                                        <th class="text-center">Kota</th>
-                                        <th class="text-center">Kode Pos</th>
-                                        <th class="text-center">No. Telp</th>
-                                        <th class="text-center">PIC</th>
-                                        <th class="text-center">Jabatan PIC</th>
-                                        <th class="text-center">Kerjasama</th>
+                                        <th class="text-center">Nama</th>
+                                        <th class="text-center">Bank</th>
+                                        <th class="text-center">No.HP / Whatsapp</th>
+                                        <th class="text-center">Alamat Kantor</th>
+                                        <th class="text-center">Alamat Rumah</th>
+                                        <th class="text-center">Email</th>
+                                        <th class="text-center">Jabatan</th>
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -60,10 +61,7 @@
         </div>
     </div>
 </div>
-
-@include('pages.client.modal')
-
-
+@include('pages.pic.modal')
 @endsection
 
 @once
@@ -82,33 +80,24 @@
     <script src="assets/libs/pdfmake/build/pdfmake.min.js"></script>
     <script src="assets/libs/pdfmake/build/vfs_fonts.js"></script>
 
+    <script src="assets/libs/dropzone/min/dropzone.min.js"></script>
+    <script src="assets/libs/dropify/js/dropify.min.js"></script>
+    <script src="assets/js/pages/form-fileuploads.init.js"></script>
+
     <script type="text/javascript">
         $(function () {
-          var table = $('.client').DataTable({
+          var table = $('.pic').DataTable({
               processing: true,
               serverSide: true,
-              ajax: "{{ route('client.index') }}",
+              ajax: "{{ route('pic.index') }}",
               columns: [
                     {data: 'nama', name: 'nama'},
-                    {data: 'alamat', name: 'alamat'},
-                    {data: 'kota', name: 'kota'},
-                    {data: 'kode_pos', name: 'kode_pos'},
-                    {data: 'no_telp', name: 'no_telp'},
-                    {data: 'pic', name: 'pic'},
-                    {data: 'jabatan_pic', name: 'jabatan_pic'},
-                    {data: 'kerjasama', name: 'kerjasama',
-                        "render": function (data, type, row) {
-                            if (row.kerjasama == '1') {
-                                return `<div class="text-center">
-                                            <span class="badge bg-success text-dark p-1">Sudah</span>
-                                        </div>`;
-                            } else {
-                                return `<div class="text-center">
-                                            <span class="badge bg-danger text-dark p-1">Belum</span>
-                                        </div>`;
-                            }
-                        }
-                    },
+                    {data: 'bank', name: 'bank.nama'},
+                    {data: 'no_hp', name: 'no_hp'},
+                    {data: 'bank', name: 'bank.alamat'},
+                    {data: 'alamat_rumah', name: 'alamat_rumah'},
+                    {data: 'email_pribadi', name: 'email_pribadi'},
+                    {data: 'jabatan', name: 'jabatan'},
                     {data: 'action', name: 'action', orderable: false, searchable: false,
                         "render": function (data, type, row) {
                             if (row.kerjasama == '1') {

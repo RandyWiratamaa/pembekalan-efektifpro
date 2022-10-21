@@ -12,15 +12,16 @@ class ClientController extends Controller
     {
         $page_name = "Client";
         if ($request->ajax()) {
-            $data = Client::all();
+            $data = Client::orderBy('id', 'ASC');
             return Datatables::of($data)->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $btn = '<a href="javascript:void(0)" class="btn btn-primary btn-sm">View</a>';
+                    $btn = '<a href="javascript:void(0)" class="btn btn-soft-primary btn-sm">View</a>';
                     return $btn;
                 })
                 ->rawColumns(['action'])
                 ->make(true);
         }
+        $data = Client::all();
         return view('pages.client.index', get_defined_vars());
     }
 
@@ -43,5 +44,15 @@ class ClientController extends Controller
         } else {
             return redirect()->back()->withInput();
         }
+    }
+
+    public function update(Request $request, $id)
+    {
+
+    }
+
+    public function destroy($id)
+    {
+
     }
 }

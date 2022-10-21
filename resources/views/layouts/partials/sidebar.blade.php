@@ -34,11 +34,35 @@
                         <span> Dashboard </span>
                     </a>
                 </li>
-                <li class="menu-title">Data Master</li>
                 <li>
                     <a href="{{ route('client.index') }}">
                         <i data-feather="users"></i>
                         <span> Client </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('bank.index') }}">
+                        <i data-feather="home"></i>
+                        <span> List Bank </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('pic.index') }}">
+                        <i data-feather="users"></i>
+                        <span> List PIC </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('pembekalan.index') }}">
+                        <i data-feather="users"></i>
+                        <span> Jadwal Pembekalan </span>
+                    </a>
+                </li>
+                <li class="menu-title">Data Master</li>
+                <li>
+                    <a href="/table-master">
+                        <i data-feather="book-open"></i>
+                        <span> Table Master </span>
                     </a>
                 </li>
 
