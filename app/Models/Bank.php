@@ -4,6 +4,9 @@ namespace App\Models;
 
 use App\Models\Pic;
 use App\Models\JenisBank;
+use App\Models\Pembekalan;
+use App\Models\SuratPenawaran;
+use App\Models\SuratPenegasan;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -24,5 +27,20 @@ class Bank extends Model
     public function pic()
     {
         return $this->hasMany(Pic::class, 'bank_id', 'id');
+    }
+
+    public function surat_penawaran()
+    {
+        return $this->hasMany(SuratPenawaran::class, 'bank_id', 'id');
+    }
+
+    public function surat_penegasan()
+    {
+        return $this->hasMany(SuratPenegasan::class, 'bank_id', 'id');
+    }
+
+    public function pembekalan()
+    {
+        return $this->hasMany(Pembekalan::class, 'bank_id', 'id');
     }
 }

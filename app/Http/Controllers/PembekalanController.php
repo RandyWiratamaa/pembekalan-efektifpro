@@ -6,6 +6,7 @@ use App\Models\Pic;
 use App\Models\Bank;
 use App\Models\Pembekalan;
 use Illuminate\Http\Request;
+use App\Models\SuratPenawaran;
 use App\Models\LevelPembekalan;
 use App\Models\MateriPembekalan;
 use App\Models\MetodePembekalan;
@@ -20,6 +21,8 @@ class PembekalanController extends Controller
         $metode = MetodePembekalan::all();
         $bank = Bank::all();
         $data_pembekalan = Pembekalan::with(['metode_pembekalan', 'level_pembekalan', 'materi_pembekalan'])->get();
+        $check_isNotApproved = SuratPenawaran::where('is_approved', '0')->count() > 0;
+        $not_approved = SuratPenawaran::with(['bank', 'pembekalan'])->get();
         return view('pages.pembekalan.index', get_defined_vars());
     }
 
@@ -37,6 +40,7 @@ class PembekalanController extends Controller
         $uuid = "Epro-" .''. $date . $time;
         $pembekalan = new Pembekalan;
         $pembekalan->uuid = $uuid;
+        $pembekalan->bank_id = $request->bank;
         $pembekalan->materi_id = $request->materi_id;
         $pembekalan->level_id = $request->level_id;
         $pembekalan->investasi = $request->investasi;

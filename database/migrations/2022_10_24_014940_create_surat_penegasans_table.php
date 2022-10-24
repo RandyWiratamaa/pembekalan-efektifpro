@@ -13,20 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pembekalan', function (Blueprint $table) {
+        Schema::create('surat_penegasan', function (Blueprint $table) {
             $table->id();
-            $table->string('uuid');
+            $table->string('no_surat')->unique();
+            $table->date('tgl_surat');
             $table->unsignedBigInteger('bank_id');
-            $table->unsignedBigInteger('materi_id');
-            $table->unsignedBigInteger('level_id');
-            $table->string('investasi');
-            $table->date('hari_tanggal');
-            $table->time('mulai');
-            $table->time('selesai');
-            $table->unsignedBigInteger('metode_id');
-            $table->string('min_peserta');
+            $table->unsignedBigInteger('pembekalan_id');
+            $table->string('perihal');
+            $table->longText('body');
+            $table->boolean('is_approved')->default(false);
             $table->timestamps();
+
             $table->foreign('bank_id')->references('id')->on('bank')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreign('pembekalan_id')->references('id')->on('pembekalan')->onUpdate('cascade')->onDelete('restrict');
         });
     }
 
@@ -37,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pembekalan');
+        Schema::dropIfExists('surat_penegasan');
     }
 };

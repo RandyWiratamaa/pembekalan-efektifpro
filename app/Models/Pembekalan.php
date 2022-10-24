@@ -13,7 +13,7 @@ class Pembekalan extends Model
 {
     use HasFactory;
     protected $table = 'pembekalan';
-    protected $dates = ['hari_tanggal', 'created_at'];
+    protected $dates = ['hari_tanggal', 'created_at', 'mulai', 'selesai'];
     protected $fillable = [
         'uuid', 'investasi', 'materi_id', 'level_id', 'mulai', 'selesai', 'metode_id', 'min_peserta'
     ];
@@ -36,5 +36,20 @@ class Pembekalan extends Model
     public function materi_pembekalan()
     {
         return $this->belongsTo(MateriPembekalan::class, 'materi_id', 'id');
+    }
+
+    public function surat_penawaran()
+    {
+        return $this->hasMany(SuratPenawaran::class, 'pembekalan_id', 'id');
+    }
+
+    public function surat_penegasan()
+    {
+        return $this->hasMany(SuratPenegasan::class, 'pembekalan_id', 'id');
+    }
+
+    public function bank()
+    {
+        return $this->belongsTo(Bank::class, 'bank_id', 'id');
     }
 }

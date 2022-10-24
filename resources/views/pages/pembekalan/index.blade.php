@@ -14,6 +14,12 @@
         <link href="assets/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
         <link href="assets/libs/selectize/css/selectize.bootstrap3.css" rel="stylesheet" type="text/css" />
         <link href="assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" type="text/css" />
+
+        <link href="assets/libs/quill/quill.core.css" rel="stylesheet" type="text/css" />
+        <link href="assets/libs/quill/quill.bubble.css" rel="stylesheet" type="text/css" />
+        <link href="assets/libs/quill/quill.snow.css" rel="stylesheet" type="text/css" />
+
+        <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     @endpush
 @endonce
 
@@ -125,6 +131,16 @@
                                                                                 <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#beritaAcara{{ $i->uuid }}">
                                                                                     Berita Acara
                                                                                 </a>
+                                                                                <div class="dropdown-divider"></div>
+                                                                                @if ($check_isNotApproved)
+                                                                                <a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#notApproved">
+                                                                                    Belum diapprove
+                                                                                </a>
+                                                                                @else
+                                                                                <a class="dropdown-item text-success" href="#" data-bs-toggle="modal" data-bs-target="#beritaAcara{{ $i->uuid }}">
+                                                                                    Sudah diapprove
+                                                                                </a>
+                                                                                @endif
                                                                             </div>
                                                                         </div>
                                                                     </li>
@@ -134,71 +150,6 @@
                                                     </div>
                                                 </div>
                                                 @endforeach
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- upcoming tasks -->
-                                    <div class="mt-4">
-                                        <a class="text-dark" data-bs-toggle="collapse" href="#upcomingTasks" aria-expanded="false" aria-controls="upcomingTasks">
-                                            <h5 class="mb-0"><i class="mdi mdi-chevron-down font-18"></i> Upcoming <span class="text-muted font-14">(5)</span></h5>
-                                        </a>
-                                        <div class="collapse show" id="upcomingTasks">
-                                            <div class="card mb-0 shadow-none">
-                                                <div class="card-body pb-0" id="task-list-two">
-                                                    <!-- looping dari sini -->
-                                                    <div class="row justify-content-sm-between task-item">
-                                                        <div class="col-lg-6 mb-2">
-                                                            <div class="form-check">
-                                                                <input type="checkbox" class="form-check-input" id="task4" />
-                                                                <label class="form-check-label" for="task4">
-                                                                    Invite user to a project
-                                                                </label>
-                                                            </div>
-                                                            <!-- end checkbox -->
-                                                        </div>
-                                                        <!-- end col -->
-                                                        <div class="col-lg-6">
-                                                            <div class="d-sm-flex justify-content-between">
-                                                                <div id="tooltips-container3">
-                                                                    <img src="assets/images/users/user-2.jpg" alt="image" class="avatar-xs rounded-circle" data-bs-container="#tooltips-container3" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Assigned to James B" />
-                                                                </div>
-                                                                <div class="mt-3 mt-sm-0">
-                                                                    <ul class="list-inline font-13 text-sm-end">
-                                                                        <li class="list-inline-item pe-1">
-                                                                            <i class="mdi mdi-calendar-month-outline font-16 me-1"></i>
-                                                                            Tomorrow 7am
-                                                                        </li>
-                                                                        <li class="list-inline-item pe-1">
-                                                                            <i class="mdi mdi-account font-16 me-1"></i>
-                                                                            35
-                                                                        </li>
-                                                                        <li class="list-inline-item pe-2">
-                                                                            <i class="mdi mdi-comment-text-multiple-outline font-16 me-1"></i>
-                                                                            36
-                                                                        </li>
-                                                                        <li class="list-inline-item">
-                                                                            <div class="dropdown d-inline-block">
-                                                                                <button class="btn btn-light dropdown-toggle" type="button"
-                                                                                    data-bs-toggle="dropdown" aria-haspopup="true"
-                                                                                    aria-expanded="false">
-                                                                                    <i class='mdi mdi-dots-horizontal font-18'></i>
-                                                                                </button>
-                                                                                <div class="dropdown-menu dropdown-menu-end">
-                                                                                    <a class="dropdown-item" href="#">Surat Penawaran</a>
-                                                                                    <a class="dropdown-item" href="#">Surat Penegasan</a>
-                                                                                    <a class="dropdown-item" href="#">Berita Acara</a>
-                                                                                </div>
-                                                                            </div>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <!-- end .d-flex-->
-                                                        </div>
-                                                        <!-- end col -->
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -375,6 +326,14 @@
     <script src="assets/libs/dropify/js/dropify.min.js"></script>
     <script src="assets/js/pages/form-fileuploads.init.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
+     <!-- Plugins js -->
+     <script src="assets/libs/quill/quill.min.js"></script>
+
+     <!-- Init js-->
+     <script src="assets/js/pages/form-quilljs.init.js"></script>
+
     <script src="assets/libs/selectize/js/standalone/selectize.min.js"></script>
     <script src="assets/libs/mohithg-switchery/switchery.min.js"></script>
 
@@ -457,6 +416,10 @@
             });
         })
     </script>
-
+    <script>
+        $(document).ready(function() {
+            $('#body').summernote();
+        });
+    </script>
     @endpush
 @endonce

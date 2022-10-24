@@ -13,19 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('surat', function (Blueprint $table) {
+        Schema::create('surat_penawaran', function (Blueprint $table) {
             $table->id();
-            $table->string('uuid');
-            $table->string('no_surat');
+            $table->string('no_surat')->unique();
             $table->date('tgl_surat');
-            $table->unsignedBigInteger('jenis_id');
-            $table->unsignedBigInteger('client_id');
+            $table->unsignedBigInteger('bank_id');
+            $table->unsignedBigInteger('pembekalan_id');
             $table->string('perihal');
             $table->longText('body');
+            $table->boolean('is_approved')->default(false);
             $table->timestamps();
 
-            $table->foreign('jenis_id')->references('id')->on('jenis_surat')->onUpdate('cascade')->onDelete('restrict');
-            $table->foreign('client_id')->references('id')->on('client')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreign('bank_id')->references('id')->on('bank')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreign('pembekalan_id')->references('id')->on('pembekalan')->onUpdate('cascade')->onDelete('restrict');
         });
     }
 
@@ -36,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('surat');
+        Schema::dropIfExists('surat_penawaran');
     }
 };
