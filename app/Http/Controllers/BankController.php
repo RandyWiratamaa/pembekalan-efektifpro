@@ -48,4 +48,33 @@ class BankController extends Controller
             return redirect()->back()->withInput();
         }
     }
+
+    public function update(Request $request, $id)
+    {
+        $update_bank = Bank::firstWhere('id', $id);
+        $update_bank->nama = $request->nama;
+        $update_bank->jenis_id = $request->jenis_id;
+        $update_bank->telephone = $request->no_telp;
+        $update_bank->email = $request->email;
+        $update_bank->alamat = $request->alamat;
+        $update_bank->kota = $request->kota;
+        $update_bank->kode_pos = $request->kode_pos;
+        $update_bank->save();
+        if($update_bank) {
+            return redirect()->route('bank.index');
+        } else {
+            return redirect()->back()->withInput();
+        }
+    }
+
+    public function destroy($id)
+    {
+        $delete_bank = Bank::findOrFail($id);
+        $delete_bank->delete();
+        if($delete_bank) {
+            return redirect()->route('bank.index');
+        } else {
+            return redirect()->back()->withInput();
+        }
+    }
 }

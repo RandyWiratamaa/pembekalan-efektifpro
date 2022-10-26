@@ -31,7 +31,7 @@ class SuratPenawaranController extends Controller
 
     public function view($id)
     {
-        $surat_penawaran = SuratPenawaran::firstWhere('id', $id);
+        $surat_penawaran = SuratPenawaran::with('bank')->firstWhere('id', $id);
         return view('pages.surat-penawaran.detail', get_defined_vars());
     }
 }

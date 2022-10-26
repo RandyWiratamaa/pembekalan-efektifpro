@@ -19,6 +19,8 @@ Route::get('/table-master', function () {
 
 Route::get('bank', [App\Http\Controllers\BankController::class, 'index'])->name('bank.index');
 Route::post('bank', [App\Http\Controllers\BankController::class, 'store'])->name('bank.store');
+Route::match(['put', 'patch'], 'bank/{id}', [App\Http\Controllers\BankController::class, 'update'])->name('bank.update');
+Route::delete('bank/{id}', [App\Http\Controllers\BankController::class, 'destroy'])->name('bank.destroy');
 
 Route::get('pic', [App\Http\Controllers\PicController::class, 'index'])->name('pic.index');
 Route::post('pic', [App\Http\Controllers\PicController::class, 'store'])->name('pic.store');

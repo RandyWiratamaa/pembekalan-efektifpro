@@ -119,6 +119,14 @@
                 <h4 class="modal-title">Surat Penawaran</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            @if ($check_isNotApproved)
+            <div class="modal-body p-4">
+                <div class="alert alert-danger" role="alert">
+                    <h4 class="alert-heading">Gagal!</h4>
+                    <p>Program Pembekalan ini masih ada Surat Penawaran yang belum diapprove</p>
+                </div>
+            </div>
+            @else
             <form action="{{ route('surat-penawaran.index') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body p-4">
@@ -187,6 +195,7 @@
                     <button type="submit" class="btn btn-info waves-effect waves-light">Simpan</button>
                 </div>
             </form>
+            @endif
         </div>
     </div>
 </div>
@@ -260,6 +269,19 @@
         </div>
     </div>
 </div>
+
+{{-- Modal Peserta Pembekalan --}}
+<div id="dataPeserta" class="modal fade" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Peserta Pembekalan</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 {{-- Modal Berita Acara --}}
 <div id="penawaran" class="modal fade" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">

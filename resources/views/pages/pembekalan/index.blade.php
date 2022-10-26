@@ -128,6 +128,9 @@
                                                                                 <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#suratPenegasan{{ $i->uuid }}">
                                                                                     Surat Penegasan
                                                                                 </a>
+                                                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#dataPeserta">
+                                                                                    Peserta Pembekalan
+                                                                                </a>
                                                                                 <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#beritaAcara{{ $i->uuid }}">
                                                                                     Berita Acara
                                                                                 </a>

@@ -1,21 +1,20 @@
 <p>Dengan hormat,</p>
-<br>
 <p>Pertama-tama kami menyampaikan terimakasih dan penghargaan yang tinggi atas kepercayaan yang diberikan kepada kami. Dengan ini kami - PT. Efektifpro Knowledge Source - menawarkan program pembekalan {{ $i->materi_pembekalan->materi }} ({{ $i->materi_pembekalan->singkatan }}) {{ $i->level_pembekalan->level }} - LSPP sebagai berikut :</p>
-<table class="table-bordered" style="width:100%">
+<table class="table-bordered" style="width:95%; border: 1px solid black; border-collapse: collapse">
     <thead>
       <tr>
-        <th colspan="3" class="text-center">In House Class({{ $i->metode_pembekalan->metode }})</th>
+        <th colspan="3" class="text-center" style="border: 1px solid black; border-collapse: collapse">In House Class({{ $i->metode_pembekalan->metode }})</th>
       </tr>
     </thead>
     <tbody>
       <tr class="text-center">
-        <td>Pembekalan {{ $i->materi_pembekalan->materi }} ({{ $i->materi_pembekalan->singkatan }})</td>
-        <td>Investasi /Batch</td>
+        <td style="width: 25%; text-align:center; border: 1px solid black; border-collapse: collapse">Pembekalan {{ $i->materi_pembekalan->materi }} ({{ $i->materi_pembekalan->singkatan }})</td>
+        <td style="width: 25%; text-align:center; border: 1px solid black; border-collapse: collapse">Investasi /Batch</td>
         <td>
-            <table style="width: 100%">
+            <table style="width: 100%;">
                 <thead>
                     <tr>
-                        <th colspan="3">
+                        <th colspan="3" style="width: 55%;">
                             <p>
                                 <b>PT. Efektifpro Knowledge Source</b> <br>
                                 <i>Gandaria 8 Office Tower Lt. 19 Unit B</i><br>
@@ -50,11 +49,11 @@
         </td>
       </tr>
       <tr class="text-center">
-        <td rowspan="2" style="height:60px">{{ $i->level_pembekalan->level }}</td>
-        <td rowspan="2" style="height:60px">Rp. {{ $i->investasi }} /Batch</td>
+        <td rowspan="2" style="height:90px; text-align:center; border: 1px solid black; border-collapse: collapse">{{ $i->level_pembekalan->level }}</td>
+        <td rowspan="2" style="height:90px; text-align:center; border: 1px solid black; border-collapse: collapse">Rp. {{ $i->investasi }} /Batch</td>
       </tr>
       <tr class="text-center">
-        <td style="height:50px">Min. {{ $i->min_peserta }} Peserta</td>
+        <td style="height:50px; text-align:center; border: 1px solid black; border-collapse: collapse">Min. {{ $i->min_peserta }} Peserta</td>
       </tr>
     </tbody>
 </table>
