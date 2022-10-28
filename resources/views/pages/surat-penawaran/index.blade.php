@@ -81,11 +81,8 @@
                                                     <i class='mdi mdi-dots-horizontal font-18'></i>
                                                 </button>
                                                 <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item">
-                                                        View
-                                                    </a>
-                                                    <a class="dropdown-item">
-                                                        Peserta Pembekalan
+                                                    <a href="{{ url('surat-penawaran/view/'.$i->id) }}" class="dropdown-item" target="_blank">
+                                                        <i class='mdi mdi-eye me-1'></i> View
                                                     </a>
                                                     @if ($i->is_approved == 0)
                                                     <a class="dropdown-item">
@@ -102,71 +99,72 @@
                         </div>
                     </div>
                     @else
-                    <form action="{{ route('surat-penawaran.index') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="modal-body p-4">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">No. Surat *</label>
-                                        <input type="text" class="form-control" name="no_surat" id="no_surat">
+                    <div id="cardCollpase4" class="collapse show">
+                        <form action="{{ route('surat-penawaran.index') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="modal-body p-4">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">No. Surat *</label>
+                                            <input type="text" class="form-control" name="no_surat" id="no_surat">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Tanggal Surat *</label>
+                                            <input type="date" class="form-control" name="tgl_surat" id="tgl_surat">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">Tanggal Surat *</label>
-                                        <input type="date" class="form-control" name="tgl_surat" id="tgl_surat">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Pembekalan *</label>
+                                            <select name="pembekalan_id" id="pembekalan_id" class="form-control">
+                                                <option value="{{ $data_pembekalan->id }}">
+                                                    {{ $data_pembekalan->materi_pembekalan->materi }} ({{ $data_pembekalan->materi_pembekalan->singkatan }}) - {{ $data_pembekalan->level_pembekalan->level }}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Bank *</label>
+                                            <select name="bank_id" id="bank_id" class="form-control">
+                                                <option value="{{ $data_pembekalan->bank_id }}">{{ $data_pembekalan->bank->nama }}</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">Pembekalan *</label>
-                                        <select name="pembekalan_id" id="pembekalan_id" class="form-control">
-                                            <option value="{{ $data_pembekalan->id }}">
-                                                {{ $data_pembekalan->materi_pembekalan->materi }} ({{ $data_pembekalan->materi_pembekalan->singkatan }}) - {{ $data_pembekalan->level_pembekalan->level }}
-                                            </option>
-                                        </select>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Perihal *</label>
+                                            <input type="text" name="perihal" id="perihal" class="form-control" value="{{ $data_pembekalan->metode_pembekalan->metode}} - {{ $data_pembekalan->materi_pembekalan->materi }} {{ $data_pembekalan->level_pembekalan->level }}">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">Bank *</label>
-                                        <select name="bank_id" id="bank_id" class="form-control">
-                                            <option value="{{ $data_pembekalan->bank_id }}">{{ $data_pembekalan->bank->nama }}</option>
-                                        </select>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Body Surat *</label>
+                                            <textarea name="body" class="form-control" id="body">
+                                                @include('pages.surat-penawaran.body_surat_penawaran')
+                                            </textarea>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <label class="form-label">Perihal *</label>
-                                        <input type="text" name="perihal" id="perihal" class="form-control" value="{{ $data_pembekalan->metode_pembekalan->metode}} - {{ $data_pembekalan->materi_pembekalan->materi }} {{ $data_pembekalan->level_pembekalan->level }}">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <label class="form-label">Body Surat *</label>
-                                        <textarea name="body" class="form-control" id="body">
-                                            @include('pages.surat-penawaran.body_surat_penawaran')
-                                        </textarea>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="pull-left">
-                                <em class="text-danger">* harus diisi</em>
+                                <div class="pull-left">
+                                    <em class="text-danger">* harus diisi</em>
+                                </div>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-info waves-effect waves-light">Simpan</button>
-                        </div>
-                    </form>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-info waves-effect waves-light">Simpan</button>
+                            </div>
+                        </form>
+                    </div>
                     @endif
                 </div>
             </div>

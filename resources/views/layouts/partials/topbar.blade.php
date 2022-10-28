@@ -49,19 +49,19 @@
         <div class="logo-box">
             <a href="index.html" class="logo logo-dark text-center">
                 <span class="logo-sm">
-                    <img src="{{ asset('assets/images/logo-sm.png') }}" alt="" height="22">
+                    <img src="{{ asset('assets/images/efpro.png') }}" alt="" height="30">
                 </span>
                 <span class="logo-lg">
-                    <img src="{{ asset('assets/images/logo-dark.png') }}" alt="" height="20">
+                    <img src="{{ asset('assets/images/logoefpro.png') }}" alt="" height="60">
                 </span>
             </a>
 
             <a href="index.html" class="logo logo-light text-center">
                 <span class="logo-sm">
-                    <img src="{{ asset('assets/images/logo-sm.png') }}" alt="" height="22">
+                    <img src="{{ asset('assets/images/efpro.png') }}" alt="" height="30">
                 </span>
                 <span class="logo-lg">
-                    <img src="{{ asset('assets/images/logo-light.png') }}" alt="" height="20">
+                    <img src="{{ asset('assets/images/logoefpro.png') }}" alt="" height="60">
                 </span>
             </a>
         </div>

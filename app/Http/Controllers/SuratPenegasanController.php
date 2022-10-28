@@ -13,6 +13,11 @@ class SuratPenegasanController extends Controller
         $page_name = "Surat Penegasan";
         $penegasan_isExist = SuratPenegasan::where('pembekalan_id', $id)->count() > 0;
         $data_pembekalan = Pembekalan::with(['metode_pembekalan', 'level_pembekalan', 'materi_pembekalan'])->where('id', $id)->first();
+        $surat_penegasan = SuratPenegasan::where('pembekalan_id', $id)->with([
+            'pembekalan' => function($query){
+                return $query->with(['materi_pembekalan', 'level_pembekalan']);
+            }
+            , 'bank'])->get();
         return view('pages.surat-penegasan.index', get_defined_vars());
     }
 

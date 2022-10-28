@@ -50,19 +50,51 @@
                             <table class="table table-bordered table-centered mb-0 client" style="width:100%" id="btn-editable">
                                 <thead class="table-light">
                                     <tr>
-                                        <th class="text-center">Client</th>
-                                        <th class="text-center">Alamat</th>
-                                        <th class="text-center">Kota</th>
-                                        <th class="text-center">Kode Pos</th>
-                                        <th class="text-center">No. Telp</th>
-                                        <th class="text-center">PIC</th>
-                                        <th class="text-center">Jabatan PIC</th>
-                                        <th class="text-center">Kerjasama</th>
+                                        <th class="text-center">No. Surat</th>
+                                        <th class="text-center">Tanggal Surat</th>
+                                        <th class="text-center">Bank</th>
+                                        <th class="text-center">Program Pembekalan</th>
+                                        <th class="text-center">Level Pembekalan</th>
+                                        <th class="text-center">Status</th>
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-
+                                    @foreach ($surat_penegasan as $i)
+                                    <tr>
+                                        <td>{{ $i->no_surat }}</td>
+                                        <td>{{ $i->tgl_surat->isoFormat('dddd, DD MMMM YYYY') }}</td>
+                                        <td>{{ $i->bank->nama }}</td>
+                                        <td>{{ $i->pembekalan->materi_pembekalan->materi }}</td>
+                                        <td>{{ $i->pembekalan->level_pembekalan->level }}</td>
+                                        <td class="text-center">
+                                            @if ($i->is_approved == 1)
+                                                <span class="badge bg-success">Sudah diapprove</span>
+                                            @else
+                                                <span class="badge bg-danger">Belum diapprove</span>
+                                            @endif
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="dropdown d-inline-block">
+                                                <button class="btn btn-light dropdown-toggle" type="button"
+                                                    data-bs-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                    <i class='mdi mdi-dots-horizontal font-18'></i>
+                                                </button>
+                                                <div class="dropdown-menu dropdown-menu-end">
+                                                    <a href="{{ url('surat-penegasan/view/'.$i->id) }}" class="dropdown-item" target="_blank">
+                                                        <i class='mdi mdi-eye me-1'></i> View
+                                                    </a>
+                                                    @if ($i->is_approved == 0)
+                                                    <a class="dropdown-item">
+                                                        Approve
+                                                    </a>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
