@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Surat Penawaran</title>
+    <title>Surat Penegasan</title>
     <style type="text/css">
     /* Styles go here */
         .page-header, .page-header-space {
@@ -55,11 +55,11 @@
 
 <body>
     <div class="page-header" style="text-align: center">
-        Disini Header Surat Penawaran
+        Disini Header Surat Penegasan
     </div>
 
     <div class="page-footer" style="text-align: center">
-        Disini Footer Surat Penawaran
+        Disini Footer Surat Penegasan
     </div>
 
     <table>
@@ -80,13 +80,13 @@
                         <table style="border-collapse: collapse; width: 100%; height: 18px;" border="0">
                             <tbody>
                                 <tr style="height: 18px;">
-                                    <td style="height: 18px;">Nomor : {{ $surat_penawaran->no_surat }}</td>
-                                    <td style="height: 18px;">Jakarta, {{ $surat_penawaran->tgl_surat->isoFormat('DD MMMM YYYY') }}</td>
+                                    <td style="height: 18px;">Nomor : {{ $surat_penegasan->no_surat }}</td>
+                                    <td style="height: 18px;">Jakarta, {{ $surat_penegasan->tgl_surat->isoFormat('DD MMMM YYYY') }}</td>
                                 </tr>
                             </tbody>
                         </table>
                         <p>Kepada :</p>
-                        <p>{{ $surat_penawaran->bank->nama }}<br />{{ $surat_penawaran->bank->alamat }}<br />{{ $surat_penawaran->bank->kota }} - {{ $surat_penawaran->bank->kode_pos }}</p>
+                        <p>{{ $surat_penegasan->bank->nama }}<br />{{ $surat_penegasan->bank->alamat }}<br />{{ $surat_penegasan->bank->kota }} - {{ $surat_penegasan->bank->kode_pos }}</p>
                         <table style="border-collapse: collapse;" border="0">
                             <tbody>
                                 <tr>
@@ -106,13 +106,13 @@
                                 <tr>
                                     <td>Perihal</td>
                                     <td>:</td>
-                                    <td>{{ $surat_penawaran->perihal }}</td>
+                                    <td>{{ $surat_penegasan->perihal }}</td>
                                 </tr>
                             </tbody>
                         </table>
                         <p>&nbsp;</p>
                         <div style="text-align: justify">
-                            {!! $surat_penawaran->body !!}
+                            {!! $surat_penegasan->body !!}
                         </div>
                     </div>
                 </td>

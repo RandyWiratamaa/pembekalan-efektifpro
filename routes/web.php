@@ -24,6 +24,7 @@ Route::delete('bank/{id}', [App\Http\Controllers\BankController::class, 'destroy
 
 Route::get('pic', [App\Http\Controllers\PicController::class, 'index'])->name('pic.index');
 Route::post('pic', [App\Http\Controllers\PicController::class, 'store'])->name('pic.store');
+Route::delete('pic/{id}', [App\Http\Controllers\PicController::class, 'destroy'])->name('pic.destroy');
 
 Route::get('pembekalan', [App\Http\Controllers\PembekalanController::class, 'index'])->name('pembekalan.index');
 Route::get('/pembekalan/getPic/{id}', [App\Http\Controllers\PembekalanController::class, 'getPic'])->name('pembekalan.getPic');
@@ -31,6 +32,10 @@ Route::post('pembekalan', [App\Http\Controllers\PembekalanController::class, 'st
 
 Route::post('level', [App\Http\Controllers\LevelPembekalanController::class, 'store'])->name('level.index');
 
+Route::get('surat-penawaran/index/{id}', [App\Http\Controllers\SuratPenawaranController::class, 'index'])->name('surat-penawaran.index');
 Route::post('surat-penawaran', [App\Http\Controllers\SuratPenawaranController::class, 'store'])->name('surat-penawaran.index');
 Route::get('surat-penawaran/view/{id}', [App\Http\Controllers\SuratPenawaranController::class, 'view'])->name('surat-penawaran.view');
 
+Route::get('surat-penegasan/index/{id}', [App\Http\Controllers\SuratPenegasanController::class, 'index'])->name('surat-penegasan.index');
+Route::post('surat-penegasan', [App\Http\Controllers\SuratPenegasanController::class, 'store'])->name('surat-penegasan.index');
+Route::get('surat-penegasan/view/{id}', [App\Http\Controllers\SuratPenegasanController::class, 'view'])->name('surat-penegasan.view');

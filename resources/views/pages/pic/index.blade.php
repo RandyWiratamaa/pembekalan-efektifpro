@@ -100,30 +100,16 @@
                     {data: 'jabatan', name: 'jabatan'},
                     {data: 'action', name: 'action', orderable: false, searchable: false,
                         "render": function (data, type, row) {
-                            if (row.kerjasama == '1') {
-                                return `<div class="dropdown text-center">
-                                            <a href="#" class="dropdown-toggle card-drop arrow-none" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="mdi mdi-dots-horizontal m-0 text-muted h3"></i>
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-end">
-                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#edit` + row.id + `"><i class="fas fa-edit"></i> Edit </a>
-                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#delete` + row.id + `"><i class="fas fa-trash"></i> Delete</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#kirimEmail` + row.id + `">Kirim Email</a>
-                                            </div>
-                                        </div>`;
-                            } else {
-                                return `<div class="dropdown text-center">
-                                            <a href="#" class="dropdown-toggle card-drop arrow-none" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="mdi mdi-dots-horizontal m-0 text-muted h3"></i>
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-end">
-                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#view` + row.id + `"><i class="fas fa-eye"></i> View</a>
-                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#edit` + row.id + `"><i class="fas fa-edit"></i> Edit </a>
-                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#delete` + row.id + `"><i class="fas fa-trash"></i> Delete</a>
-                                            </div>
-                                        </div>`;
-                            }
+                            return `<div class="dropdown text-center">
+                                        <a href="#" class="dropdown-toggle card-drop arrow-none" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="mdi mdi-dots-horizontal m-0 text-muted h3"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#view` + row.id + `"><i class="fas fa-eye"></i> View</a>
+                                            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editPIC` + row.id + `"><i class="fas fa-edit"></i> Edit </a>
+                                            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#deletePIC` + row.id + `"><i class="fas fa-trash"></i> Delete</a>
+                                        </div>
+                                    </div>`;
                         }
                     }
               ]

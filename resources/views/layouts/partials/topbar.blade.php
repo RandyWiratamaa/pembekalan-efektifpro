@@ -14,7 +14,7 @@
             </li>
             <li class="dropdown notification-list topbar-dropdown">
                 <a class="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                    <img src="assets/images/users/user-6.jpg" alt="user-image" class="rounded-circle">
+                    <img src="{{ asset('assets/images/users/user-6.jpg') }}" alt="user-image" class="rounded-circle">
                     <span class="pro-user-name ms-1">
                         {{ Auth::user()->name }} <i class="mdi mdi-chevron-down"></i>
                     </span>
@@ -49,19 +49,19 @@
         <div class="logo-box">
             <a href="index.html" class="logo logo-dark text-center">
                 <span class="logo-sm">
-                    <img src="assets/images/logo-sm.png" alt="" height="22">
+                    <img src="{{ asset('assets/images/logo-sm.png') }}" alt="" height="22">
                 </span>
                 <span class="logo-lg">
-                    <img src="assets/images/logo-dark.png" alt="" height="20">
+                    <img src="{{ asset('assets/images/logo-dark.png') }}" alt="" height="20">
                 </span>
             </a>
 
             <a href="index.html" class="logo logo-light text-center">
                 <span class="logo-sm">
-                    <img src="assets/images/logo-sm.png" alt="" height="22">
+                    <img src="{{ asset('assets/images/logo-sm.png') }}" alt="" height="22">
                 </span>
                 <span class="logo-lg">
-                    <img src="assets/images/logo-light.png" alt="" height="20">
+                    <img src="{{ asset('assets/images/logo-light.png') }}" alt="" height="20">
                 </span>
             </a>
         </div>

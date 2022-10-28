@@ -91,7 +91,10 @@
                                                         <div class="form-check">
                                                             <input type="checkbox" class="form-check-input" id="task1" />
                                                             <label class="form-check-label" for="task1">
-                                                                {{ $i->materi_pembekalan->materi }} ({{ $i->materi_pembekalan->singkatan }}) - {{ $i->level_pembekalan->level }}
+                                                                {{ $i->bank->nama }}<br>
+                                                                <small>
+                                                                    {{ $i->materi_pembekalan->materi }} ({{ $i->materi_pembekalan->singkatan }}) - {{ $i->level_pembekalan->level }}
+                                                                </small>
                                                             </label>
                                                         </div>
                                                     </div>
@@ -104,7 +107,7 @@
                                                                 <ul class="list-inline font-13 text-sm-end">
                                                                     <li class="list-inline-item pe-1">
                                                                         <i class="mdi mdi-calendar-month-outline font-16 me-1"></i>
-                                                                        {{ $i->hari_tanggal->isoFormat('dddd, d-MMMM-Y') }}
+                                                                        {{ $i->hari_tanggal->isoFormat('dddd, DD-MMMM-Y') }}
                                                                     </li>
                                                                     <li class="list-inline-item pe-1">
                                                                         <i class="mdi mdi-account font-16 me-1"></i>
@@ -122,20 +125,23 @@
                                                                                 <i class='mdi mdi-dots-horizontal font-18'></i>
                                                                             </button>
                                                                             <div class="dropdown-menu dropdown-menu-end">
-                                                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#suratPenawaran{{ $i->uuid }}">
+                                                                                {{-- <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#suratPenawaran{{ $i->bank_id }}">
+                                                                                    Surat Penawaran
+                                                                                </a> --}}
+                                                                                <a class="dropdown-item" href="{{ url('surat-penawaran/index/'.$i->id) }}" target="_blank">
                                                                                     Surat Penawaran
                                                                                 </a>
-                                                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#suratPenegasan{{ $i->uuid }}">
+                                                                                <a class="dropdown-item" href="{{ url('surat-penegasan/index/'.$i->id) }}" target="_blank">
                                                                                     Surat Penegasan
                                                                                 </a>
                                                                                 <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#dataPeserta">
                                                                                     Peserta Pembekalan
                                                                                 </a>
-                                                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#beritaAcara{{ $i->uuid }}">
+                                                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#beritaAcara{{ $i->bank_id }}">
                                                                                     Berita Acara
                                                                                 </a>
                                                                                 <div class="dropdown-divider"></div>
-                                                                                @if ($check_isNotApproved)
+                                                                                {{-- @if ($check_penawaran_isNotApproved)
                                                                                 <a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#notApproved">
                                                                                     Belum diapprove
                                                                                 </a>
@@ -143,7 +149,7 @@
                                                                                 <a class="dropdown-item text-success" href="#" data-bs-toggle="modal" data-bs-target="#beritaAcara{{ $i->uuid }}">
                                                                                     Sudah diapprove
                                                                                 </a>
-                                                                                @endif
+                                                                                @endif --}}
                                                                             </div>
                                                                         </div>
                                                                     </li>

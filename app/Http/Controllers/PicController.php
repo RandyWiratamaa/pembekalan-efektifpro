@@ -55,4 +55,20 @@ class PicController extends Controller
             return redirect()->back()->withInput();
         }
     }
+
+    public function update(Request $request, $id)
+    {
+        $update_pic = Pic::firstWhere('id', $id);
+    }
+
+    public function destroy($id)
+    {
+        $delete_pic = Pic::findOrFail($id);
+        $delete_pic->delete();
+        if($delete_pic) {
+            return redirect()->route('pic.index');
+        } else {
+            return redirect()->back()->withInput();
+        }
+    }
 }

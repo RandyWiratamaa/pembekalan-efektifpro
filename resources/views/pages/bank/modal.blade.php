@@ -1,3 +1,4 @@
+{{-- Modal Tambah Data Bank --}}
 <div id="addBank" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
@@ -20,7 +21,8 @@
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label class="form-label">Jenis Bank</label>
-                                <select name="jenis_id" id="selectize-select" class="form-control">
+                                <select name="jenis_id" id="selectize-select" class="form-control" required>
+                                    <option value="">-- Pilih Jenis Bank --</option>
                                     @foreach ($jenis_bank as $i)
                                     <option value="{{ $i->id }}">{{ $i->jenis }}</option>
                                     @endforeach
@@ -104,8 +106,9 @@
                             <div class="mb-3">
                                 <label class="form-label">Jenis Bank</label>
                                 <select name="jenis_id" id="selectize-select" class="form-control">
+                                    <option value="">-- Pilih Jenis Bank --</option>
                                     @foreach ($jenis_bank as $j)
-                                    <option value="{{ $j->id }}">{{ $j->jenis }}</option>
+                                    <option value="{{ $j->id }}" @if($j->id == $i->jenis_id) selected @endif>{{ $j->jenis }}</option>
                                     @endforeach
                                 </select>
                             </div>

@@ -2,14 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pembekalan;
 use Illuminate\Http\Request;
 use App\Models\SuratPenawaran;
 
 class SuratPenawaranController extends Controller
 {
-    public function index()
+    public function index($id)
     {
-
+        $page_name = "Surat Penawaran";
+        $penawaran_isExist = SuratPenawaran::where('pembekalan_id', $id)->count() > 0;
+        $data_pembekalan = Pembekalan::with(['metode_pembekalan', 'level_pembekalan', 'materi_pembekalan'])->where('id', $id)->first();
+        $surat_penawaran = SuratPenawaran::where('pembekalan_id', $id)->with([
+            'pembekalan' => function($query){
+                return $query->with(['materi_pembekalan', 'level_pembekalan']);
+            }
+            , 'bank'])->get();
+        return view('pages.surat-penawaran.index', get_defined_vars());
     }
 
     public function store(Request $request)
