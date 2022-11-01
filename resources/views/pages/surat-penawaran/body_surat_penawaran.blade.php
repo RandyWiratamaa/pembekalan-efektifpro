@@ -1,5 +1,5 @@
 <p>Dengan hormat,</p>
-<p>Pertama-tama kami menyampaikan terimakasih dan penghargaan yang tinggi atas kepercayaan yang diberikan kepada kami. Dengan ini kami - PT. Efektifpro Knowledge Source - menawarkan program pembekalan {{ $data_pembekalan->materi_pembekalan->materi }} ({{ $data_pembekalan->materi_pembekalan->singkatan }}) {{ $data_pembekalan->level_pembekalan->level }} - LSPP sebagai berikut :</p>
+<p>Sesuai Peraturan Bank Indonesia No.12/7/PBI/2010 mengenai Pembekalan {{ $data_pembekalan->materi_pembekalan->materi }} ({{ $data_pembekalan->materi_pembekalan->singkatan }}) bagi Pengurus dan Pejabat Bank Umum, dengan ini kami - PT. Efektifpro Knowledge Source - menawarkan Pembekalan  Public Class (VC) {{ $data_pembekalan->materi_pembekalan->materi }} ({{ $data_pembekalan->materi_pembekalan->singkatan }}) {{ $data_pembekalan->level_pembekalan->level }} dengan ketentuan dan detail sebagai berikut:</p>
 <table class="table-bordered" style="width:95%; border: 1px solid black; border-collapse: collapse">
     <thead>
       <tr>

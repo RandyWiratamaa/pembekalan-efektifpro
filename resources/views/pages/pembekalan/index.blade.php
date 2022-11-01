@@ -86,7 +86,7 @@
                                             <div class="card-body pb-0" id="task-list-one">
                                                 <table class="table table-bordered table-centered mb-0 client" style="width:100%" id="btn-editable">
                                                     <thead class="table-light">
-                                                        <tr>
+                                                        <tr class="text-center">
                                                             <th>Bank</th>
                                                             <th>Sertifikasi</th>
                                                             <th>Level</th>
@@ -95,8 +95,8 @@
                                                             <th>Pengajar</th>
                                                             <th>Link Zoom</th>
                                                             <th>Durasi Pelatihan</th>
-                                                            <th>Jam Mulai</th>
-                                                            <th>Jam Selesai</th>
+                                                            <th>Jam Mulai (WIB)</th>
+                                                            <th>Jam Selesai (WIB)</th>
                                                             <th>PIC</th>
                                                             <th>Action</th>
                                                         </tr>
@@ -112,8 +112,8 @@
                                                             <td></td>
                                                             <td></td>
                                                             <td></td>
-                                                            <td>{{ $i->mulai->isoFormat('HH:mm') }} WIB</td>
-                                                            <td>{{ $i->selesai->isoFormat('HH:mm') }} WIB</td>
+                                                            <td>{{ $i->mulai->isoFormat('HH:mm') }}</td>
+                                                            <td>{{ $i->selesai->isoFormat('HH:mm') }}</td>
                                                             <td></td>
                                                             <td>
                                                                 <div class="dropdown d-inline-block">
