@@ -32,10 +32,12 @@ Route::post('pembekalan', [App\Http\Controllers\PembekalanController::class, 'st
 
 Route::post('level', [App\Http\Controllers\LevelPembekalanController::class, 'store'])->name('level.index');
 
-Route::get('surat-penawaran/index/{id}', [App\Http\Controllers\SuratPenawaranController::class, 'index'])->name('surat-penawaran.index');
-Route::post('surat-penawaran', [App\Http\Controllers\SuratPenawaranController::class, 'store'])->name('surat-penawaran.index');
+Route::get('surat_penawaran', [App\Http\Controllers\SuratPenawaranController::class, 'index'])->name('surat-penawaran.index');
+Route::get('surat-penawaran/show/{id}', [App\Http\Controllers\SuratPenawaranController::class, 'show'])->name('surat-penawaran.show');
+Route::post('surat-penawaran', [App\Http\Controllers\SuratPenawaranController::class, 'store'])->name('surat-penawaran.store');
 Route::get('surat-penawaran/view/{id}', [App\Http\Controllers\SuratPenawaranController::class, 'view'])->name('surat-penawaran.view');
 
-Route::get('surat-penegasan/index/{id}', [App\Http\Controllers\SuratPenegasanController::class, 'index'])->name('surat-penegasan.index');
-Route::post('surat-penegasan', [App\Http\Controllers\SuratPenegasanController::class, 'store'])->name('surat-penegasan.index');
+Route::get('surat-penegasan', [App\Http\Controllers\SuratPenegasanController::class, 'index'])->name('surat-penegasan.index');
+Route::get('surat-penegasan/show/{id}', [App\Http\Controllers\SuratPenegasanController::class, 'show'])->name('surat-penegasan.show');
+Route::post('surat-penegasan', [App\Http\Controllers\SuratPenegasanController::class, 'store'])->name('surat-penegasan.store');
 Route::get('surat-penegasan/view/{id}', [App\Http\Controllers\SuratPenegasanController::class, 'view'])->name('surat-penegasan.view');

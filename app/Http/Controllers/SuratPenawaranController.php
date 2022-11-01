@@ -8,7 +8,17 @@ use App\Models\SuratPenawaran;
 
 class SuratPenawaranController extends Controller
 {
-    public function index($id)
+    public function index()
+    {
+        $page_name = "Surat Penawaran";
+        $surat_penawaran = SuratPenawaran::with([
+            'pembekalan' => function($query){
+                return $query->with(['materi_pembekalan', 'level_pembekalan']);
+            }, 'bank'])->get();
+        return view('pages.surat-penawaran.index', get_defined_vars());
+    }
+
+    public function show($id)
     {
         $page_name = "Surat Penawaran";
         $penawaran_isExist = SuratPenawaran::where('pembekalan_id', $id)->count() > 0;
@@ -18,7 +28,7 @@ class SuratPenawaranController extends Controller
                 return $query->with(['materi_pembekalan', 'level_pembekalan']);
             }
             , 'bank'])->get();
-        return view('pages.surat-penawaran.index', get_defined_vars());
+        return view('pages.surat-penawaran.show', get_defined_vars());
     }
 
     public function store(Request $request)

@@ -110,124 +110,6 @@
     </div>
 </div>
 
-{{-- Modal Surat Penegasan --}}
-{{-- @foreach ($data_pembekalan as $i)
-<div id="suratPenegasan{{ $i->bank_id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog modal-dialog-centered modal-lg modal-full-width">
-        <div class="modal-content">
-            <div class="modal-header">
-                @if ($check_penegasan_isNotApproved)
-                <h4 class="modal-title">Surat Penegasan yang belum diapprove</h4>
-                @else
-                <h4 class="modal-title">Buat Surat Penegasan</h4>
-                @endif
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            @if ($check_penegasan_isNotApproved)
-            <div class="modal-body p-4">
-                <table class="table table-bordered table-centered mb-0" style="width:100%">
-                    <thead>
-                        <tr class="text-center">
-                            <th>No. Surat</th>
-                            <th>Tanggal Surat</th>
-                            <th>Bank</th>
-                            <th>Program Pembekalan</th>
-                            <th>Level Pembekalan</th>
-                            <th>Tanggal Pembekalan</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($data_penegasan_isNotApproved as $i)
-                        <tr>
-                            <td>{{ $i->no_surat }}</td>
-                            <td>{{ $i->tgl_surat->isoFormat('DD MMMM YYYY') }}</td>
-                            <td>{{ $i->bank->nama }}</td>
-                            <td>{{ $i->pembekalan->materi_pembekalan->materi }}</td>
-                            <td>{{ $i->pembekalan->level_pembekalan->level }}</td>
-                            <td>{{ $i->pembekalan->hari_tanggal->isoFormat('DD MMMM YYYY') }}</td>
-                            <td>
-                                <a href="{{ url('surat-penegasan/view/'.$i->id) }}" target="_blank">
-                                    <i class='mdi mdi-eye me-1'></i> View
-                                </a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-            @else
-            <form action="{{ route('surat-penegasan.index') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="modal-body p-4">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">No. Surat *</label>
-                                <input type="text" class="form-control" name="no_surat" id="no_surat">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">Tanggal Surat *</label>
-                                <input type="date" class="form-control" name="tgl_surat" id="tgl_surat">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">Pembekalan *</label>
-                                <select name="pembekalan_id" id="pembekalan_id" class="form-control">
-                                    <option value="{{ $i->id }}">
-                                        {{ $i->materi_pembekalan->materi }} ({{ $i->materi_pembekalan->singkatan }}) - {{ $i->level_pembekalan->level }}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">Bank *</label>
-                                <select name="bank_id" id="bank_id" class="form-control">
-                                    <option value="{{ $i->bank_id }}">{{ $i->bank->nama }}</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="mb-3">
-                                <label class="form-label">Perihal *</label>
-                                <input type="text" name="perihal" id="perihal" class="form-control" value="{{ $i->metode_pembekalan->metode}} - {{ $i->materi_pembekalan->materi }} {{ $i->level_pembekalan->level }}">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="mb-3">
-                                <label class="form-label">Body Surat *</label>
-                                <textarea name="body" class="form-control" id="body">
-                                    @include('pages.surat-penegasan.body_surat_penegasan')
-                                </textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="pull-left">
-                        <em class="text-danger">* harus diisi</em>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-info waves-effect waves-light">Simpan</button>
-                </div>
-            </form>
-            @endif
-        </div>
-    </div>
-</div>
-@endforeach --}}
-
 {{-- Modal Berita Acara --}}
 <div id="beritaAcara" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -247,6 +129,11 @@
             <div class="modal-header">
                 <h4 class="modal-title">Peserta Pembekalan</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table>
+
+                </table>
             </div>
         </div>
     </div>

@@ -16,337 +16,34 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-xl-4 col-md-6">
-            <!-- Portlet card -->
+        <div class="col-lg-6">
             <div class="card">
                 <div class="card-body">
-                    <div class="card-widgets">
-                        <a href="javascript: void(0);" data-toggle="reload"><i class="mdi mdi-refresh"></i></a>
-                        <a data-bs-toggle="collapse" href="#cardCollpase1" role="button" aria-expanded="false" aria-controls="cardCollpase1"><i class="mdi mdi-minus"></i></a>
-                        <a href="javascript: void(0);" data-toggle="remove"><i class="mdi mdi-close"></i></a>
-                    </div>
-                    <h4 class="header-title mb-0">Lifetime Sales</h4>
-
-                    <div id="cardCollpase1" class="collapse show">
-                        <div class="text-center pt-3">
-                            <div class="row mt-2">
-                                <div class="col-4">
-                                    <h3 data-plugin="counterup">3,487</h3>
-                                    <p class="text-muted font-13 mb-0 text-truncate">Total Sales</p>
-                                </div>
-                                <div class="col-4">
-                                    <h3 data-plugin="counterup">814</h3>
-                                    <p class="text-muted font-13 mb-0 text-truncate">Open Campaign</p>
-                                </div>
-                                <div class="col-4">
-                                    <h3 data-plugin="counterup">5,324</h3>
-                                    <p class="text-muted font-13 mb-0 text-truncate">Daily Sales</p>
-                                </div>
-                            </div> <!-- end row -->
-
-                            <div  dir="ltr">
-                                <div id="lifetime-sales" data-colors="#5671f0,#4a81d4,#ebeff2" style="height: 270px;" class="morris-chart mt-3"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xl-4 col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-widgets">
-                        <a href="javascript: void(0);" data-toggle="reload"><i class="mdi mdi-refresh"></i></a>
-                        <a data-bs-toggle="collapse" href="#cardCollpase3" role="button" aria-expanded="false" aria-controls="cardCollpase3"><i class="mdi mdi-minus"></i></a>
-                        <a href="javascript: void(0);" data-toggle="remove"><i class="mdi mdi-close"></i></a>
-                    </div>
-                    <h4 class="header-title mb-0">Statistics</h4>
-
-                    <div id="cardCollpase3" class="collapse show">
-                        <div class="text-center pt-3">
-
-                            <div class="row mt-2">
-                                <div class="col-6">
-                                    <h3 data-plugin="counterup">1,284</h3>
-                                    <p class="text-muted font-13 mb-0 text-truncate">Total Sales</p>
-                                </div>
-                                <div class="col-6">
-                                    <h3 data-plugin="counterup">7,841</h3>
-                                    <p class="text-muted font-13 mb-0 text-truncate">Open Campaign</p>
-                                </div>
-                            </div> <!-- end row -->
-
-                            <div  dir="ltr">
-                                <div id="statistics-chart" data-colors="#43bfe5" style="height: 270px;" class="morris-chart mt-3"></div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xl-4 col-md-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-widgets">
-                        <a href="javascript: void(0);" data-toggle="reload"><i class="mdi mdi-refresh"></i></a>
-                        <a data-bs-toggle="collapse" href="#cardCollpase2" role="button" aria-expanded="false" aria-controls="cardCollpase2"><i class="mdi mdi-minus"></i></a>
-                        <a href="javascript: void(0);" data-toggle="remove"><i class="mdi mdi-close"></i></a>
-                    </div>
-                    <h4 class="header-title mb-0">Income Amounts</h4>
-
-                    <div id="cardCollpase2" class="collapse show">
-                        <div class="text-center pt-3">
-                            <div class="row mt-2">
-                                <div class="col-4">
-                                    <h3 data-plugin="counterup">2,845</h3>
-                                    <p class="text-muted font-13 mb-0 text-truncate">Total Sales</p>
-                                </div>
-                                <div class="col-4">
-                                    <h3 data-plugin="counterup">6,487</h3>
-                                    <p class="text-muted font-13 mb-0 text-truncate">Open Campaign</p>
-                                </div>
-                                <div class="col-4">
-                                    <h3 data-plugin="counterup">201</h3>
-                                    <p class="text-muted font-13 mb-0 text-truncate">Daily Sales</p>
-                                </div>
-                            </div> <!-- end row -->
-
-                            <div  dir="ltr">
-                                <div id="income-amounts" data-colors="#f35d5d,#e3eaef" style="height: 270px;" class="morris-chart mt-3"></div>
-                            </div>
-                        </div>
+                    <h4 class="header-title">Curva Sertifikasi</h4>
+                    <div class="mt-4 chartjs-chart">
+                        <canvas id="chart-pembekalan" height="150" data-colors="#5671f0,#f35d5d" class="morris-chart mt-3"></canvas>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6 col-xl-3">
-            <div class="widget-rounded-circle card">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col-auto">
-                            <div class="avatar-lg">
-                                <img src="assets/images/users/user-3.jpg" class="img-fluid rounded-circle" alt="user-img">
-                            </div>
-                        </div>
-                        <div class="col">
-                            <h5 class="mb-1 mt-2 font-16">Thelma Fridley</h5>
-                            <p class="mb-2 text-muted">Admin User</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6 col-xl-3">
-            <div class="widget-rounded-circle card">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col-auto">
-                            <div class="avatar-lg">
-                                <img src="assets/images/users/user-4.jpg" class="img-fluid rounded-circle" alt="user-img">
-                            </div>
-                        </div>
-                        <div class="col">
-                            <h5 class="mb-1 mt-2 font-16">Chandler Hervieux</h5>
-                            <p class="mb-2 text-muted">Manager</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6 col-xl-3">
-            <div class="widget-rounded-circle card">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col-auto">
-                            <div class="avatar-lg">
-                                <img src="assets/images/users/user-5.jpg" class="img-fluid rounded-circle" alt="user-img">
-                            </div>
-                        </div>
-                        <div class="col">
-                            <h5 class="mb-1 mt-2 font-16">Percy Demers</h5>
-                            <p class="mb-2 text-muted">Director</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6 col-xl-3">
-            <div class="widget-rounded-circle card bg-blue">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col-auto">
-                            <div class="avatar-lg">
-                                <img src="assets/images/users/user-6.jpg" class="img-fluid rounded-circle img-thumbnail" alt="user-img">
-                            </div>
-                        </div>
-                        <div class="col">
-                            <h5 class="mb-1 mt-2 text-white font-16">Antoine Masson</h5>
-                            <p class="mb-2 text-white-50">Premium User</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-12">
-            <!-- Portlet card -->
+        <div class="col-lg-6">
             <div class="card">
                 <div class="card-body">
-                    <div class="card-widgets">
-                        <a href="javascript: void(0);" data-toggle="reload"><i class="mdi mdi-refresh"></i></a>
-                        <a data-bs-toggle="collapse" href="#cardCollpase4" role="button" aria-expanded="false" aria-controls="cardCollpase4"><i class="mdi mdi-minus"></i></a>
-                        <a href="javascript: void(0);" data-toggle="remove"><i class="mdi mdi-close"></i></a>
+                    <h4 class="header-title">Curva Surat Penawaran</h4>
+                    <div class="mt-4 chartjs-chart">
+                        <canvas id="chart-surat-penawaran" height="150" data-colors="#5671f0,#f35d5d"></canvas>
                     </div>
-                    <h4 class="header-title mb-0">Projects</h4>
-
-                    <div id="cardCollpase4" class="collapse show">
-                        <div class="table-responsive pt-3">
-                            <table class="table table-centered table-nowrap table-borderless mb-0">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th>Project Name</th>
-                                        <th>Start Date</th>
-                                        <th>Due Date</th>
-                                        <th>Team</th>
-                                        <th>Status</th>
-                                        <th>Clients</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>App design and development</td>
-                                        <td>Jan 03, 2015</td>
-                                        <td>Oct 12, 2018</td>
-                                        <td id="tooltip-container">
-                                            <div class="avatar-group">
-                                                <a href="javascript: void(0);" class="avatar-group-item" data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="top" title="Mat Helme">
-                                                    <img src="assets/images/users/user-1.jpg" class="rounded-circle avatar-xs" alt="friend">
-                                                </a>
-
-                                                <a href="javascript: void(0);" class="avatar-group-item" data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="top" title="Michael Zenaty">
-                                                    <img src="assets/images/users/user-2.jpg" class="rounded-circle avatar-xs" alt="friend">
-                                                </a>
-
-                                                <a href="javascript: void(0);" class="avatar-group-item" data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="top" title="James Anderson">
-                                                    <img src="assets/images/users/user-3.jpg" class="rounded-circle avatar-xs" alt="friend">
-                                                </a>
-
-                                                <a href="javascript: void(0);" class="avatar-group-item" data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="top" title="Username">
-                                                    <img src="assets/images/users/user-5.jpg" class="rounded-circle avatar-xs" alt="friend">
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td><span class="badge bg-soft-info text-info p-1">Work in Progress</span></td>
-                                        <td>Halette Boivin</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Coffee detail page - Main Page</td>
-                                        <td>Sep 21, 2016</td>
-                                        <td>May 05, 2018</td>
-                                        <td>
-                                            <div class="avatar-group">
-                                                <a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip" data-bs-placement="top" title="James Anderson">
-                                                    <img src="assets/images/users/user-3.jpg" class="rounded-circle avatar-xs" alt="friend">
-                                                </a>
-
-                                                <a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Mat Helme">
-                                                    <img src="assets/images/users/user-4.jpg" class="rounded-circle avatar-xs" alt="friend">
-                                                </a>
-
-                                                <a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Username">
-                                                    <img src="assets/images/users/user-5.jpg" class="rounded-circle avatar-xs" alt="friend">
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td><span class="badge bg-soft-warning text-warning p-1">Pending</span></td>
-                                        <td>Durandana Jolicoeur</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Poster illustation design</th>
-                                        <td>Mar 08, 2018</td>
-                                        <td>Sep 22, 2018</td>
-                                        <td>
-                                            <div class="avatar-group">
-
-                                                <a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Michael Zenaty">
-                                                    <img src="assets/images/users/user-2.jpg" class="rounded-circle avatar-xs" alt="friend">
-                                                </a>
-
-                                                <a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Mat Helme">
-                                                    <img src="assets/images/users/user-6.jpg" class="rounded-circle avatar-xs" alt="friend">
-                                                </a>
-
-                                                <a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Username">
-                                                    <img src="assets/images/users/user-7.jpg" class="rounded-circle avatar-xs" alt="friend">
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td><span class="badge bg-soft-success text-success p-1">Completed</span></td>
-                                        <td>Lucas Sabourin</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Drinking bottle graphics</td>
-                                        <td>Oct 10, 2017</td>
-                                        <td>May 07, 2018</td>
-                                        <td>
-                                            <div class="avatar-group">
-                                                <a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Mat Helme">
-                                                    <img src="assets/images/users/user-9.jpg" class="rounded-circle avatar-xs" alt="friend">
-                                                </a>
-
-                                                <a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Michael Zenaty">
-                                                    <img src="assets/images/users/user-10.jpg" class="rounded-circle avatar-xs" alt="friend">
-                                                </a>
-
-                                                <a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip" data-bs-placement="top" title="James Anderson">
-                                                    <img src="assets/images/users/user-1.jpg" class="rounded-circle avatar-xs" alt="friend">
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td><span class="badge bg-soft-info text-info p-1">Work in Progress</span></td>
-                                        <td>Donatien Brunelle</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Landing page design - Home</td>
-                                        <td>Coming Soon</td>
-                                        <td>May 25, 2021</td>
-                                        <td>
-                                            <div class="avatar-group">
-
-                                                <a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Michael Zenaty">
-                                                    <img src="assets/images/users/user-5.jpg" class="rounded-circle avatar-xs" alt="friend">
-                                                </a>
-
-                                                <a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip" data-bs-placement="top" title="James Anderson">
-                                                    <img src="assets/images/users/user-8.jpg" class="rounded-circle avatar-xs" alt="friend">
-                                                </a>
-
-                                                <a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Mat Helme">
-                                                    <img src="assets/images/users/user-2.jpg" class="rounded-circle avatar-xs" alt="friend">
-                                                </a>
-
-                                                <a href="javascript: void(0);" class="avatar-group-item" data-bs-toggle="tooltip" data-bs-placement="top" title="Username">
-                                                    <img src="assets/images/users/user-7.jpg" class="rounded-circle avatar-xs" alt="friend">
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td><span class="badge bg-soft-dark text-dark p-1">Coming Soon</span></td>
-                                        <td>Karel Auberjo</td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="header-title">Curva Surat Penegasan</h4>
+                    <div class="mt-4 chartjs-chart">
+                        <canvas id="chart-surat-penegasan" height="150" data-colors="#5671f0,#f35d5d" class="morris-chart mt-3"></canvas>
                     </div>
                 </div>
             </div>
@@ -354,3 +51,88 @@
     </div>
 </div>
 @endsection
+
+@once
+    @push('javascript')
+    <script src="{{ asset('assets/libs/morris.js06/morris.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/raphael/raphael.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/chart.js/Chart.bundle.min.js') }}"></script>
+
+    <script src="{{ asset('assets/js/pages/chartjs.init.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/dashboard-4.init.js') }}"></script>
+
+    <script type="text/javascript">
+        // Surat Penawaran
+        var label_surat_penawaran = {{ Js::from($label_surat_penawaran) }};
+        var surat_penawaran = {{ Js::from($data_surat_penawaran) }};
+
+        const data_surat_penawaran = {
+            labels: label_surat_penawaran,
+            datasets: [{
+            label: 'Surat Penawaran',
+            backgroundColor: '#fff',
+            borderColor: '#23b019',
+            data: surat_penawaran,
+            }]
+        };
+        const config_surat_penawaran = {
+            type: 'line',
+            data: data_surat_penawaran,
+            options: {}
+        };
+
+        const suratPenawaran = new Chart(
+            document.getElementById('chart-surat-penawaran'),
+            config_surat_penawaran
+        );
+
+        // Surat Penegasan
+        var label_surat_penegasan = {{ Js::from($label_surat_penegasan) }};
+        var surat_penegasan = {{ Js::from($data_surat_penegasan) }};
+
+        const data_surat_penegasan = {
+            labels: label_surat_penegasan,
+            datasets: [{
+            label: 'Surat Penegasan',
+            backgroundColor: '#fff',
+            borderColor: '#192bb0',
+            data: surat_penegasan,
+            }]
+        };
+        const config_surat_penegasan = {
+            type: 'line',
+            data: data_surat_penegasan,
+            options: {}
+        };
+
+        const suratPenegasan = new Chart(
+            document.getElementById('chart-surat-penegasan'),
+            config_surat_penegasan
+        );
+
+        // Sertifikasi Pembekalan
+        var label_pembekalan = {{ Js::from($label_pembekalan) }};
+        var pembekalan = {{ Js::from($data_pembekalan) }};
+
+        const data_pembekalan = {
+            labels: label_pembekalan,
+            datasets: [{
+            label: 'Sertifikasi',
+            backgroundColor: '#fff',
+            borderColor: '#c77a28',
+            data: pembekalan,
+            }]
+        };
+        const config_pembekalan = {
+            type: 'line',
+            data: data_pembekalan,
+            options: {}
+        };
+
+        const listPembekalan = new Chart(
+            document.getElementById('chart-pembekalan'),
+            config_pembekalan
+        );
+    </script>
+    @endpush
+@endonce

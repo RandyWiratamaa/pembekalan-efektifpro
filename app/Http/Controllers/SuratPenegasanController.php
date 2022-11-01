@@ -8,7 +8,18 @@ use App\Models\SuratPenegasan;
 
 class SuratPenegasanController extends Controller
 {
-    public function index($id)
+    public function index()
+    {
+        $page_name = "Surat Penegasan";
+        $surat_penegasan = SuratPenegasan::with([
+            'pembekalan' => function($query){
+                return $query->with(['materi_pembekalan', 'level_pembekalan']);
+            }
+        , 'bank'])->get();
+        return view('pages.surat-penegasan.index', get_defined_vars());
+    }
+
+    public function show($id)
     {
         $page_name = "Surat Penegasan";
         $penegasan_isExist = SuratPenegasan::where('pembekalan_id', $id)->count() > 0;
@@ -18,7 +29,7 @@ class SuratPenegasanController extends Controller
                 return $query->with(['materi_pembekalan', 'level_pembekalan']);
             }
             , 'bank'])->get();
-        return view('pages.surat-penegasan.index', get_defined_vars());
+        return view('pages.surat-penegasan.show', get_defined_vars());
     }
 
     public function store(Request $request)

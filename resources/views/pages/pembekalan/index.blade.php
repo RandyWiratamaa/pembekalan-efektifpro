@@ -40,7 +40,7 @@
     </div>
 
     <div class="row">
-        <div class="col-xl-8">
+        <div class="col-xl-12">
             <div class="row">
                 <div class="col">
                     <div class="card">
@@ -84,81 +84,68 @@
                                     <div class="collapse show" id="todayTasks">
                                         <div class="card mb-0 shadow-none">
                                             <div class="card-body pb-0" id="task-list-one">
-                                                {{-- Looping Dari Sini --}}
-                                                @foreach ($data_pembekalan as $i)
-                                                <div class="row justify-content-sm-between task-item">
-                                                    <div class="col-lg-6 mb-2">
-                                                        <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input" id="task1" />
-                                                            <label class="form-check-label" for="task1">
-                                                                {{ $i->bank->nama }}<br>
-                                                                <small>
-                                                                    {{ $i->materi_pembekalan->materi }} ({{ $i->materi_pembekalan->singkatan }}) - {{ $i->level_pembekalan->level }}
-                                                                </small>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <div class="d-sm-flex justify-content-between">
-                                                            <div id="tooltips-container">
-                                                                <img src="assets/images/users/user-9.jpg" lt="image" class="avatar-xs rounded-circle" data-bs-container="#tooltips-container" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Assigned to Arya S" />
-                                                            </div>
-                                                            <div class="mt-3 mt-sm-0">
-                                                                <ul class="list-inline font-13 text-sm-end">
-                                                                    <li class="list-inline-item pe-1">
-                                                                        <i class="mdi mdi-calendar-month-outline font-16 me-1"></i>
-                                                                        {{ $i->hari_tanggal->isoFormat('dddd, DD-MMMM-Y') }}
-                                                                    </li>
-                                                                    <li class="list-inline-item pe-1">
-                                                                        <i class="mdi mdi-account font-16 me-1"></i>
-                                                                        {{ $i->min_peserta }}
-                                                                    </li>
-                                                                    <li class="list-inline-item pe-2">
-                                                                        <i class="mdi mdi-comment-text-multiple-outline font-16 me-1"></i>
-                                                                        21
-                                                                    </li>
-                                                                    <li class="list-inline-item">
-                                                                        <div class="dropdown d-inline-block">
-                                                                            <button class="btn btn-light dropdown-toggle" type="button"
-                                                                                data-bs-toggle="dropdown" aria-haspopup="true"
-                                                                                aria-expanded="false">
-                                                                                <i class='mdi mdi-dots-horizontal font-18'></i>
-                                                                            </button>
-                                                                            <div class="dropdown-menu dropdown-menu-end">
-                                                                                {{-- <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#suratPenawaran{{ $i->bank_id }}">
-                                                                                    Surat Penawaran
-                                                                                </a> --}}
-                                                                                <a class="dropdown-item" href="{{ url('surat-penawaran/index/'.$i->id) }}" target="_blank">
-                                                                                    Surat Penawaran
-                                                                                </a>
-                                                                                <a class="dropdown-item" href="{{ url('surat-penegasan/index/'.$i->id) }}" target="_blank">
-                                                                                    Surat Penegasan
-                                                                                </a>
-                                                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#dataPeserta">
-                                                                                    Peserta Pembekalan
-                                                                                </a>
-                                                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#beritaAcara{{ $i->bank_id }}">
-                                                                                    Berita Acara
-                                                                                </a>
-                                                                                <div class="dropdown-divider"></div>
-                                                                                {{-- @if ($check_penawaran_isNotApproved)
-                                                                                <a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#notApproved">
-                                                                                    Belum diapprove
-                                                                                </a>
-                                                                                @else
-                                                                                <a class="dropdown-item text-success" href="#" data-bs-toggle="modal" data-bs-target="#beritaAcara{{ $i->uuid }}">
-                                                                                    Sudah diapprove
-                                                                                </a>
-                                                                                @endif --}}
-                                                                            </div>
-                                                                        </div>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                @endforeach
+                                                <table class="table table-bordered table-centered mb-0 client" style="width:100%" id="btn-editable">
+                                                    <thead class="table-light">
+                                                        <tr>
+                                                            <th>Bank</th>
+                                                            <th>Sertifikasi</th>
+                                                            <th>Level</th>
+                                                            <th>Tanggal</th>
+                                                            <th>Jumlah Peserta</th>
+                                                            <th>Pengajar</th>
+                                                            <th>Link Zoom</th>
+                                                            <th>Durasi Pelatihan</th>
+                                                            <th>Jam Mulai</th>
+                                                            <th>Jam Selesai</th>
+                                                            <th>PIC</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($data_pembekalan as $i)
+                                                        <tr>
+                                                            <td>{{ $i->bank->nama }}</td>
+                                                            <td>{{ $i->materi_pembekalan->materi }} ({{ $i->materi_pembekalan->singkatan }})</td>
+                                                            <td>{{ $i->level_pembekalan->level }}</td>
+                                                            <td>{{ $i->hari_tanggal->isoFormat('dddd, DD-MMMM-Y') }}</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td>{{ $i->mulai->isoFormat('HH:mm') }} WIB</td>
+                                                            <td>{{ $i->selesai->isoFormat('HH:mm') }} WIB</td>
+                                                            <td></td>
+                                                            <td>
+                                                                <div class="dropdown d-inline-block">
+                                                                    <button class="btn btn-light dropdown-toggle" type="button"
+                                                                        data-bs-toggle="dropdown" aria-haspopup="true"
+                                                                        aria-expanded="false">
+                                                                        <i class='mdi mdi-dots-horizontal font-18'></i>
+                                                                    </button>
+                                                                    <div class="dropdown-menu dropdown-menu-end">
+                                                                        {{-- <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#suratPenawaran{{ $i->bank_id }}">
+                                                                            Surat Penawaran
+                                                                        </a> --}}
+                                                                        <a class="dropdown-item" href="{{ url('surat-penawaran/show/'.$i->id) }}" target="_blank">
+                                                                            Surat Penawaran
+                                                                        </a>
+                                                                        <a class="dropdown-item" href="{{ url('surat-penegasan/show/'.$i->id) }}" target="_blank">
+                                                                            Surat Penegasan
+                                                                        </a>
+                                                                        <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#dataPeserta">
+                                                                            Peserta Pembekalan
+                                                                        </a>
+                                                                        <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#beritaAcara{{ $i->bank_id }}">
+                                                                            Berita Acara
+                                                                        </a>
+                                                                        <div class="dropdown-divider"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
@@ -171,7 +158,7 @@
         </div>
 
         <!-- task details -->
-        <div class="col-xl-4">
+        {{-- <div class="col-xl-4">
             <div class="card">
                 <div class="card-body">
                     <div class="row">
@@ -302,7 +289,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 </div>
 @include('pages.pembekalan.modal')

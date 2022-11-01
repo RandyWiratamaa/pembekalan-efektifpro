@@ -9,12 +9,12 @@
                     <div class="auth-logo">
                         <a href="index.html" class="logo logo-dark text-center">
                             <span class="logo-lg">
-                                <img src="{{ asset('assets/images/logo-dark.png') }}" alt="" height="22">
+                                <img src="{{ asset('assets/images/logoefpro.png') }}" alt="" height="70">
                             </span>
                         </a>
                         <a href="index.html" class="logo logo-light text-center">
                             <span class="logo-lg">
-                                <img src="{{ asset('assets/images/logo-light.png') }}" alt="" height="22">
+                                <img src="{{ asset('assets/images/logoefpro.png') }}" alt="" height="70">
                             </span>
                         </a>
                     </div>

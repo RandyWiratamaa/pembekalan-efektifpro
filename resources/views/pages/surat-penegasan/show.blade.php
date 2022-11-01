@@ -42,6 +42,7 @@
                     <div class="card-widgets">
                         <a data-bs-toggle="collapse" href="#cardCollpase4" role="button" aria-expanded="false" aria-controls="cardCollpase4"><i class="mdi mdi-minus"></i></a>
                     </div>
+                    @if ($penegasan_isExist)
                     <h4 class="header-title mb-0">Data {{ $page_name }}</h4>
                     <div id="cardCollpase4" class="collapse show">
                         <div class="table-responsive pt-3">
@@ -98,6 +99,73 @@
                             </table>
                         </div>
                     </div>
+                    @else
+                    <form action="{{ route('surat-penegasan.store') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="modal-body p-4">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">No. Surat *</label>
+                                        <input type="text" class="form-control" name="no_surat" id="no_surat">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Tanggal Surat *</label>
+                                        <input type="date" class="form-control" name="tgl_surat" id="tgl_surat">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Pembekalan *</label>
+                                        <select name="pembekalan_id" id="pembekalan_id" class="form-control">
+                                            <option value="{{ $data_pembekalan->id }}">
+                                                {{ $data_pembekalan->materi_pembekalan->materi }} ({{ $data_pembekalan->materi_pembekalan->singkatan }}) - {{ $data_pembekalan->level_pembekalan->level }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Bank *</label>
+                                        <select name="bank_id" id="bank_id" class="form-control">
+                                            <option value="{{ $data_pembekalan->bank_id }}">{{ $data_pembekalan->bank->nama }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Perihal *</label>
+                                        <input type="text" name="perihal" id="perihal" class="form-control" value="{{ $data_pembekalan->metode_pembekalan->metode}} - {{ $data_pembekalan->materi_pembekalan->materi }} {{ $data_pembekalan->level_pembekalan->level }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Body Surat *</label>
+                                        <textarea name="body" class="form-control" id="body">
+                                            @include('pages.surat-penegasan.body_surat_penegasan')
+                                        </textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pull-left">
+                                <em class="text-danger">* harus diisi</em>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-info waves-effect waves-light">Simpan</button>
+                        </div>
+                    </form>
+                    @endif
                 </div>
             </div>
         </div>
