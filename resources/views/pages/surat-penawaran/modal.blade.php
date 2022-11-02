@@ -37,6 +37,20 @@
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
+                                <label class="form-label">Level *</label>
+                                <select name="pembekalan_id" id="pembekalan_id" class="form-control">
+                                    @foreach ($level as $l)
+                                    <option value="{{ $l->id }}">
+                                        {{ $l->level }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
                                 <label class="form-label">Bank *</label>
                                 <select name="bank_id" id="bank_id" class="form-control">
                                     @foreach ($bank as $j)

@@ -26,6 +26,9 @@ Route::get('pic', [App\Http\Controllers\PicController::class, 'index'])->name('p
 Route::post('pic', [App\Http\Controllers\PicController::class, 'store'])->name('pic.store');
 Route::delete('pic/{id}', [App\Http\Controllers\PicController::class, 'destroy'])->name('pic.destroy');
 
+Route::get('pengajar', [App\Http\Controllers\PengajarController::class, 'index'])->name('pengajar.index');
+Route::post('pengajar', [App\Http\Controllers\PengajarController::class, 'store'])->name('pengajar.store');
+
 Route::get('pembekalan', [App\Http\Controllers\PembekalanController::class, 'index'])->name('pembekalan.index');
 Route::get('/pembekalan/getPic/{id}', [App\Http\Controllers\PembekalanController::class, 'getPic'])->name('pembekalan.getPic');
 Route::post('pembekalan', [App\Http\Controllers\PembekalanController::class, 'store'])->name('pembekalan.store');

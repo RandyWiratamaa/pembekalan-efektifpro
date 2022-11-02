@@ -59,7 +59,6 @@
     <script src="{{ asset('assets/libs/chart.js/Chart.bundle.min.js') }}"></script>
 
     <script src="{{ asset('assets/js/pages/chartjs.init.js') }}"></script>
-    <script src="{{ asset('assets/js/pages/dashboard-4.init.js') }}"></script>
 
     <script type="text/javascript">
         // Surat Penawaran
@@ -69,10 +68,10 @@
         const data_surat_penawaran = {
             labels: label_surat_penawaran,
             datasets: [{
-            label: 'Surat Penawaran',
-            backgroundColor: '#fff',
-            borderColor: '#23b019',
-            data: surat_penawaran,
+                label: 'Surat Penawaran',
+                backgroundColor: '#fff',
+                borderColor: '#23b019',
+                data: surat_penawaran,
             }]
         };
         const config_surat_penawaran = {
@@ -93,10 +92,10 @@
         const data_surat_penegasan = {
             labels: label_surat_penegasan,
             datasets: [{
-            label: 'Surat Penegasan',
-            backgroundColor: '#fff',
-            borderColor: '#192bb0',
-            data: surat_penegasan,
+                label: 'Surat Penegasan',
+                backgroundColor: '#fff',
+                borderColor: '#192bb0',
+                data: surat_penegasan,
             }]
         };
         const config_surat_penegasan = {
@@ -117,10 +116,10 @@
         const data_pembekalan = {
             labels: label_pembekalan,
             datasets: [{
-            label: 'Sertifikasi',
-            backgroundColor: '#fff',
-            borderColor: '#c77a28',
-            data: pembekalan,
+                label: 'Sertifikasi',
+                backgroundColor: '#fff',
+                borderColor: '#c77a28',
+                data: pembekalan,
             }]
         };
         const config_pembekalan = {
@@ -130,7 +129,7 @@
         };
 
         const listPembekalan = new Chart(
-            document.getElementById('chart-pembekalan'),
+            document.getElementById('chart-pembekalan').getContext('2d'),
             config_pembekalan
         );
     </script>

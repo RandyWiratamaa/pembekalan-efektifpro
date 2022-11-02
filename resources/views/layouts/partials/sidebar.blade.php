@@ -87,6 +87,12 @@
                         <span> Table Master </span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('pengajar.index') }}">
+                        <i data-feather="users"></i>
+                        <span> Pengajar </span>
+                    </a>
+                </li>
             </ul>
         </div>
         <div class="clearfix"></div>

@@ -6,6 +6,7 @@ use App\Models\Bank;
 use App\Models\Pembekalan;
 use Illuminate\Http\Request;
 use App\Models\SuratPenawaran;
+use App\Models\LevelPembekalan;
 use App\Models\MateriPembekalan;
 
 class SuratPenawaranController extends Controller
@@ -15,6 +16,7 @@ class SuratPenawaranController extends Controller
         $page_name = "Surat Penawaran";
         $materi = MateriPembekalan::all();
         $bank = Bank::all();
+        $level = LevelPembekalan::all();
         $surat_penawaran = SuratPenawaran::with([
             'pembekalan' => function($query){
                 return $query->with(['materi_pembekalan', 'level_pembekalan']);
