@@ -92,9 +92,9 @@
               ajax: "{{ route('pic.index') }}",
               columns: [
                     {data: 'nama', name: 'nama'},
-                    {data: 'bank', name: 'bank.nama'},
+                    {data: 'nama_bank', name: 'bank.nama'},
                     {data: 'no_hp', name: 'no_hp'},
-                    {data: 'bank', name: 'bank.alamat'},
+                    {data: 'alamat_bank', name: 'bank.alamat'},
                     {data: 'alamat_rumah', name: 'alamat_rumah'},
                     {data: 'email_pribadi', name: 'email_pribadi'},
                     {data: 'jabatan', name: 'jabatan'},

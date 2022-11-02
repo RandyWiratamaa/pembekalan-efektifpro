@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bank;
 use App\Models\Pembekalan;
 use Illuminate\Http\Request;
 use App\Models\SuratPenawaran;
+use App\Models\MateriPembekalan;
 
 class SuratPenawaranController extends Controller
 {
     public function index()
     {
         $page_name = "Surat Penawaran";
+        $materi = MateriPembekalan::all();
+        $bank = Bank::all();
         $surat_penawaran = SuratPenawaran::with([
             'pembekalan' => function($query){
                 return $query->with(['materi_pembekalan', 'level_pembekalan']);

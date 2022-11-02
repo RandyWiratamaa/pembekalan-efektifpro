@@ -43,6 +43,9 @@
                         <a data-bs-toggle="collapse" href="#cardCollpase4" role="button" aria-expanded="false" aria-controls="cardCollpase4"><i class="mdi mdi-minus"></i></a>
                     </div>
                     <h4 class="header-title mb-0">Data Surat Penawaran</h4>
+                    <div class="col-sm-3 mt-2 pull-right">
+                        <a href="#" class="btn btn-soft-success waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#addSuratPenawaran"><i class='fe-plus me-1'></i>Tambah</a>
+                    </div>
                     <div id="cardCollpase4" class="collapse show">
                         <div class="table-responsive pt-3" style="height: 600px">
                             <table class="table table-bordered table-centered mb-0 client" style="width:100%" id="btn-editable">
@@ -102,7 +105,7 @@
         </div>
     </div>
 </div>
-
+@include('pages.surat-penawaran.modal')
 @endsection
 
 @once

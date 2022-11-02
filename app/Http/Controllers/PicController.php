@@ -14,10 +14,13 @@ class PicController extends Controller
         $bank = Bank::all();
         $pic = Pic::with('bank')->get();
         if ($request->ajax()) {
-            $data = Pic::with('bank');
+            $data = Pic::with('bank')->orderBy('bank_id', 'ASC');
             return Datatables::of($data)->addIndexColumn()
-                ->addColumn('bank', function (Pic $pic) {
+                ->addColumn('nama_bank', function (Pic $pic) {
                     return $pic->bank->nama;
+                })
+                ->addColumn('alamat_bank', function (Pic $pic) {
+                    return $pic->bank->alamat;
                 })
                 ->addColumn('bank', function (Pic $pic) {
                     return $pic->bank->alamat;
