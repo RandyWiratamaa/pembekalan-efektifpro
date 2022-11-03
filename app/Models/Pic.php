@@ -25,4 +25,14 @@ class Pic extends Model
     {
         return $this->belongsToMany(Pembekalan::class, 'pembekalan_pic', 'pic_id', 'pembekalan_id');
     }
+
+    public function surat_penawaran()
+    {
+        return $this->hasMany(SuratPenawaran::class, 'pic_id', 'id');
+    }
+
+    public function surat_penegasan()
+    {
+        return $this->hasMany(SuratPenegasan::class, 'pic_id', 'id');
+    }
 }

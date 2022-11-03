@@ -14,7 +14,7 @@
     </thead>
     <tbody>
       <tr class="text-center">
-        <td style="width: 25%; text-align:center; border: 1px solid black; border-collapse: collapse">Pembekalan
+        <td style="width: 25%; text-align:center; border: 1px solid black; border-collapse: collapse">Nama Program Pembekalan
             {{-- {{ $data_pembekalan->materi_pembekalan->materi }} ({{ $data_pembekalan->materi_pembekalan->singkatan }}) --}}
         </td>
         <td style="width: 25%; text-align:center; border: 1px solid black; border-collapse: collapse">Investasi /Batch</td>
@@ -35,11 +35,13 @@
         </td>
       </tr>
       <tr class="text-center">
-        <td rowspan="2" style="height:90px; text-align:center; border: 1px solid black; border-collapse: collapse">
+        <td id="level" rowspan="2" style="height:90px; text-align:center; border: 1px solid black; border-collapse: collapse">
             {{-- {{ $data_pembekalan->level_pembekalan->level }} --}}
         </td>
         <td rowspan="2" style="height:90px; text-align:center; border: 1px solid black; border-collapse: collapse">
-            {{-- Rp. {{ $data_pembekalan->investasi }} /Batch --}}
+            Rp.
+            <p id="investasi"></p>
+            /Batch
         </td>
       </tr>
       <tr class="text-center">
@@ -65,6 +67,7 @@
                     <tr>
                         <td style="text-align: left">Room</td>
                         <td style="text-align: left">:</td>
+                        <td id="level"></td>
                         {{-- <td>{{ $data_pembekalan->metode_pembekalan->metode }}</td> --}}
                     </tr>
                 </tbody>

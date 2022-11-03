@@ -14,4 +14,9 @@ class MateriPembekalan extends Model
     {
         return $this->hasMany(Pembekalan::class, 'materi_id', 'id');
     }
+
+    public function surat_penawaran()
+    {
+        return $this->hasMany(SuratPenawaran::class, 'materi_id', 'id');
+    }
 }

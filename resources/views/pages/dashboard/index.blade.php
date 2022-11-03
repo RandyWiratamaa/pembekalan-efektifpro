@@ -26,6 +26,15 @@
                 </div>
             </div>
         </div>
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    {{-- <div class="mt-4 chartjs-chart"> --}}
+                        <div id="container" style="height: 150"></div>
+                    {{-- </div> --}}
+                </div>
+            </div>
+        </div>
     </div>
     <div class="row">
         <div class="col-lg-6">
@@ -59,6 +68,55 @@
     <script src="{{ asset('assets/libs/chart.js/Chart.bundle.min.js') }}"></script>
 
     <script src="{{ asset('assets/js/pages/chartjs.init.js') }}"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script type="text/javascript">
+        var label = {{ Js::from($label_surat_penawaran) }};
+        var userData = {{ Js::from($data_surat_penawaran) }};
+        Highcharts.chart('container', {
+            title: {
+                text: 'Surat Penawaran'
+            },
+            subtitle: {
+                text: 'PT. Efektifpro Knowledge Source'
+            },
+            xAxis: {
+                categories: label
+            },
+            yAxis: {
+                title: {
+                    text: 'Jumlah Surat Penawaran'
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle'
+            },
+            plotOptions: {
+                series: {
+                    allowPointSelect: true
+                }
+            },
+            series: [{
+                name: 'Surat Penawaran',
+                data: userData
+            }],
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
+            }
+        });
+    </script>
 
     <script type="text/javascript">
         // Surat Penawaran

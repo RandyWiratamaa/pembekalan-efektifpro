@@ -66,8 +66,8 @@
                                         <td>{{ $i->no_surat }}</td>
                                         <td>{{ $i->tgl_surat->isoFormat('dddd, DD MMMM YYYY') }}</td>
                                         <td>{{ $i->bank->nama }}</td>
-                                        <td>{{ $i->pembekalan->materi_pembekalan->materi }}</td>
-                                        <td>{{ $i->pembekalan->level_pembekalan->level }}</td>
+                                        <td>{{ $i->materi_pembekalan->materi }}</td>
+                                        <td>{{ $i->level_pembekalan->level }}</td>
                                         <td class="text-center">
                                             @if ($i->is_approved == 1)
                                                 <span class="badge bg-success">Sudah diapprove</span>
@@ -83,6 +83,9 @@
                                                     <i class='mdi mdi-dots-horizontal font-18'></i>
                                                 </button>
                                                 <div class="dropdown-menu dropdown-menu-end">
+                                                    <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#addSuratPenegasan{{ $i->id }}">
+                                                        <i class='mdi mdi-email-newsletter me-1'></i> Buatkan Surat Penagasan
+                                                    </a>
                                                     <a href="{{ url('surat-penawaran/view/'.$i->id) }}" class="dropdown-item" target="_blank">
                                                         <i class='mdi mdi-eye me-1'></i> View
                                                     </a>
@@ -134,6 +137,7 @@
     <script src="{{ asset('assets/libs/dropzone/min/dropzone.min.js') }}"></script>
     <script src="{{ asset('assets/libs/dropify/js/dropify.min.js') }}"></script>
     <script src="{{ asset('assets/js/pages/form-fileuploads.init.js') }}"></script>
+    <script src="assets/libs/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
@@ -207,7 +211,7 @@
     <script>
         jQuery(document).ready(function(){
         //get Kota berdasarkan provinsi
-            jQuery('select[name="bank"]').on('change', function()
+            jQuery('select[name="bank_id"]').on('change', function()
             {
                 var bank = jQuery(this).val();
                 if(bank)
@@ -235,6 +239,9 @@
     <script>
         $(document).ready(function() {
             $('#body').summernote();
+        });
+        $(document).ready(function() {
+            $('#body_penegasan').summernote();
         });
     </script>
     @endpush
