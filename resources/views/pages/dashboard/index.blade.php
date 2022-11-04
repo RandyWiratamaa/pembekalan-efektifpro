@@ -1,5 +1,11 @@
 @extends('layouts.main')
 
+@once
+    @push('css')
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    @endpush
+@endonce
+
 @section('content')
 <div class="container-fluid">
     <div class="row">
@@ -68,7 +74,7 @@
     <script src="{{ asset('assets/libs/chart.js/Chart.bundle.min.js') }}"></script>
 
     <script src="{{ asset('assets/js/pages/chartjs.init.js') }}"></script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
+
     <script type="text/javascript">
         var label = {{ Js::from($label_surat_penawaran) }};
         var userData = {{ Js::from($data_surat_penawaran) }};

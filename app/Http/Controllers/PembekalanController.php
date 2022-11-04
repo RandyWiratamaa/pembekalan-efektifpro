@@ -14,7 +14,7 @@ use App\Models\MetodePembekalan;
 
 class PembekalanController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $page_name = "Pembekalan";
         $level = LevelPembekalan::all();
@@ -24,6 +24,18 @@ class PembekalanController extends Controller
         $data_pembekalan = Pembekalan::with(['metode_pembekalan', 'level_pembekalan', 'materi_pembekalan', 'pengajar', 'pic'])->orderBy('hari_tanggal', 'ASC')->get();
         $pembekalan = Pembekalan::all();
 
+        $events = [];
+        foreach($data_pembekalan as $values) {
+            $mulai = $values->hari_tgl.' '.$values->mulai;
+            $selesai = $values->hari_tgl.' '.$values->selesai;
+            $title = $values->bank->nama.'-'.$values->materi_pembekalan->singkatan.'-'.$values->level_pembekalan->level;
+
+            $events[] = [
+                'title' => $title,
+                'start' => $mulai,
+                'end' => $selesai
+            ];
+        }
         return view('pages.pembekalan.index', get_defined_vars());
     }
 
