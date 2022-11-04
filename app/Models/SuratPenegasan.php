@@ -20,8 +20,23 @@ class SuratPenegasan extends Model
         return $this->belongsTo(Bank::class, 'bank_id', 'id');
     }
 
+    public function metode_pembekalan()
+    {
+        return $this->belongsTo(MetodePembekalan::class, 'metode_id', 'id');
+    }
+
+    public function level_pembekalan()
+    {
+        return $this->belongsTo(LevelPembekalan::class, 'level_id', 'id');
+    }
+
+    public function materi_pembekalan()
+    {
+        return $this->belongsTo(MateriPembekalan::class, 'materi_id', 'id');
+    }
+
     public function pembekalan()
     {
-        return $this->belongsTo(Pembekalan::class, 'pembekalan_id', 'id');
+        return $this->belongsTo(Pembekalan::class, 'pembekalan_uuid', 'uuid');
     }
 }

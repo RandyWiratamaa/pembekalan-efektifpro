@@ -122,8 +122,9 @@
                 <h4 class="modal-title">Buat Surat Penegasan</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{{ route('surat-penawaran.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('surat-penegasan.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+
                 <div class="modal-body p-4">
                     <div class="row">
                         <div class="col-md-4">
@@ -191,7 +192,7 @@
                             <div class="mb-3">
                                 <label class="form-label">Level *</label>
                                 <select name="level_id" id="level_id" class="form-control">
-                                    <option value="{{ $i->Level_id }}">
+                                    <option value="{{ $i->level_id }}">
                                         {{ $i->level_pembekalan->level }}
                                     </option>
                                 </select>
@@ -226,6 +227,9 @@
                             </div>
                         </div>
                     </div>
+
+                    <input type="hidden" name="min_peserta" value="35">
+
                     <div class="row">
                         <div class="col-md-12">
                             <div class="mb-3">
@@ -239,7 +243,7 @@
                             <div class="mb-3">
                                 <label class="form-label">Body Surat *</label>
                                 <textarea name="body_penegasan" class="form-control" id="body_penegasan">
-                                    @include('pages.surat-penawaran.body_surat_penawaran')
+                                    @include('pages.surat-penegasan.body_surat_penegasan')
                                 </textarea>
                             </div>
                         </div>

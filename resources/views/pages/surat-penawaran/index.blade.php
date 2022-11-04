@@ -87,7 +87,7 @@
                                                         <i class='mdi mdi-email-newsletter me-1'></i> Buatkan Surat Penagasan
                                                     </a>
                                                     <a href="{{ url('surat-penawaran/view/'.$i->id) }}" class="dropdown-item" target="_blank">
-                                                        <i class='mdi mdi-eye me-1'></i> View
+                                                        <i class='mdi mdi-eye me-1'></i> Review
                                                     </a>
                                                     @if ($i->is_approved == 0)
                                                     <a class="dropdown-item">

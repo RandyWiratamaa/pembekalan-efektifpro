@@ -44,8 +44,7 @@
                     </div>
                     <h4 class="header-title mb-0">Data {{ $page_name }}</h4>
                     <div id="cardCollpase4" class="collapse show">
-                        <div class="table-responsive pt-3">
-                            <button type="button" class="btn btn-soft-success waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#addClient">Tambah</button>
+                        <div class="table-responsive pt-3" style="height: 600px">
                             <table class="table table-bordered table-centered mb-0 client" style="width:100%" id="btn-editable">
                                 <thead class="table-light">
                                     <tr>
@@ -55,6 +54,7 @@
                                         <th class="text-center">Program Pembekalan</th>
                                         <th class="text-center">Level Pembekalan</th>
                                         <th class="text-center">Status</th>
+                                        <th class="text-center">Ket.</th>
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -68,9 +68,16 @@
                                         <td>{{ $i->pembekalan->level_pembekalan->level }}</td>
                                         <td class="text-center">
                                             @if ($i->is_approved == 1)
-                                                <span class="badge bg-success">Sudah diapprove</span>
+                                                <span class="badge bg-success text-dark">Sudah diapprove</span>
                                             @else
-                                                <span class="badge bg-danger">Belum diapprove</span>
+                                                <span class="badge bg-warning text-dark">Belum diapprove</span>
+                                            @endif
+                                        </td>
+                                        <td class="text-center">
+                                            @if ($i->status == 1)
+                                                <span class="badge bg-success">Sudah dikirim</span>
+                                            @else
+                                                <span class="badge bg-danger text-dark">Belum dikirim</span>
                                             @endif
                                         </td>
                                         <td class="text-center">
@@ -82,9 +89,16 @@
                                                 </button>
                                                 <div class="dropdown-menu dropdown-menu-end">
                                                     <a href="{{ url('surat-penegasan/view/'.$i->id) }}" class="dropdown-item" target="_blank">
-                                                        <i class='mdi mdi-eye me-1'></i> View
+                                                        <i class='mdi mdi-eye me-1'></i> Review
                                                     </a>
                                                     @if ($i->is_approved == 0)
+                                                    <a class="dropdown-item">
+                                                        Edit
+                                                    </a>
+                                                    <a class="dropdown-item">
+                                                        Another Action
+                                                    </a>
+                                                    <div class="dropdown-divider"></div>
                                                     <a class="dropdown-item">
                                                         Approve
                                                     </a>

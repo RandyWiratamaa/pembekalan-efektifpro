@@ -21,7 +21,7 @@ class PembekalanController extends Controller
         $materi = MateriPembekalan::all();
         $metode = MetodePembekalan::all();
         $bank = Bank::all();
-        $data_pembekalan = Pembekalan::with(['metode_pembekalan', 'level_pembekalan', 'materi_pembekalan'])->orderBy('hari_tanggal', 'ASC')->get();
+        $data_pembekalan = Pembekalan::with(['metode_pembekalan', 'level_pembekalan', 'materi_pembekalan', 'pengajar', 'pic'])->orderBy('hari_tanggal', 'ASC')->get();
         $pembekalan = Pembekalan::all();
 
         return view('pages.pembekalan.index', get_defined_vars());

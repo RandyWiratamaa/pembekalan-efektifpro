@@ -21,9 +21,9 @@ class Pic extends Model
         return $this->belongsTo(Bank::class, 'bank_id', 'id');
     }
 
-    public function Pembekalan()
+    public function pembekalan()
     {
-        return $this->belongsToMany(Pembekalan::class, 'pembekalan_pic', 'pic_id', 'pembekalan_id');
+        return $this->hasMany(Pembekalan::class, 'pic_id', 'id');
     }
 
     public function surat_penawaran()

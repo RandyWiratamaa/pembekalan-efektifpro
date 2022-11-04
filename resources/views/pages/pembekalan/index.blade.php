@@ -109,12 +109,12 @@
                                                             <td>{{ $i->level_pembekalan->level }}</td>
                                                             <td>{{ $i->hari_tanggal->isoFormat('dddd, DD-MMMM-Y') }}</td>
                                                             <td></td>
-                                                            <td></td>
+                                                            <td>{{ $i->pengajar->nama }}</td>
                                                             <td></td>
                                                             <td></td>
                                                             <td>{{ $i->mulai->isoFormat('HH:mm') }}</td>
                                                             <td>{{ $i->selesai->isoFormat('HH:mm') }}</td>
-                                                            <td></td>
+                                                            <td>{{ $i->pic->nama }}</td>
                                                             <td>
                                                                 <div class="dropdown d-inline-block">
                                                                     <button class="btn btn-light dropdown-toggle" type="button"

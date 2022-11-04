@@ -13,4 +13,8 @@ class Pengajar extends Model
         'nama', 'jenkel'
     ];
 
+    public function pembekalan()
+    {
+        return $this->hasMany(Pembekalan::class, 'pengajar_id', 'id');
+    }
 }

@@ -18,9 +18,9 @@ class Pembekalan extends Model
         'uuid', 'investasi', 'materi_id', 'level_id', 'mulai', 'selesai', 'metode_id', 'min_peserta'
     ];
 
-    public function Pic()
+    public function pic()
     {
-        return $this->belongsToMany(Pic::class);
+        return $this->belongsTo(Pic::class, 'pic_id', 'id');
     }
 
     public function metode_pembekalan()
@@ -45,11 +45,16 @@ class Pembekalan extends Model
 
     public function surat_penegasan()
     {
-        return $this->hasMany(SuratPenegasan::class, 'pembekalan_id', 'id');
+        return $this->hasMany(SuratPenegasan::class, 'pembekalan_uuid', 'uuid');
     }
 
     public function bank()
     {
         return $this->belongsTo(Bank::class, 'bank_id', 'id');
+    }
+
+    public function pengajar()
+    {
+        return $this->belongsTo(Pengajar::class, 'pengajar_id', 'id');
     }
 }
