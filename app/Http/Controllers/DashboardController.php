@@ -33,6 +33,14 @@ class DashboardController extends Controller
                         ->pluck('count', 'month_name');
         $label_pembekalan = $pembekalan->keys();
         $data_pembekalan = $pembekalan->values();
+
+        $jml_kelas_per_pengajar = Pembekalan::select(DB::raw("COUNT(*) as count"), DB::raw("pengajar.nama as nama"))
+                        ->join('pengajar', 'pembekalan.pengajar_id', '=', 'pengajar.id')
+                        ->whereYear('hari_tanggal', date('Y'))
+                        ->groupBy(DB::raw("pengajar_id"))
+                        ->pluck('count', 'nama');
+        $label_pengajar = $jml_kelas_per_pengajar->keys();
+        $data_pengajar = $jml_kelas_per_pengajar->values();
         return view('pages.dashboard.index', get_defined_vars());
     }
 }

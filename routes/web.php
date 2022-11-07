@@ -17,6 +17,9 @@ Route::get('/table-master', function () {
     return view('pages.table-master.index');
 });
 
+Route::get('materi_pembekalan', [App\Http\Controllers\MateriPembekalanController::class, 'index'])->name('materi_pembekalan.index');
+Route::post('materi_pembekalan', [App\Http\Controllers\MateriPembekalanController::class, 'store'])->name('materi_pembekalan.store');
+
 Route::get('bank', [App\Http\Controllers\BankController::class, 'index'])->name('bank.index');
 Route::post('bank', [App\Http\Controllers\BankController::class, 'store'])->name('bank.store');
 Route::match(['put', 'patch'], 'bank/{id}', [App\Http\Controllers\BankController::class, 'update'])->name('bank.update');

@@ -9,6 +9,7 @@ use App\Models\Pembekalan;
 use Illuminate\Http\Request;
 use App\Models\SuratPenawaran;
 use App\Models\SuratPenegasan;
+use App\Models\JenisPembekalan;
 use App\Models\LevelPembekalan;
 use App\Models\MateriPembekalan;
 use App\Models\MetodePembekalan;
@@ -59,27 +60,27 @@ class SuratPenawaranController extends Controller
 
         $pengajar = Pengajar::all();
         $page_name = "Surat Penawaran";
+        $jenis = JenisPembekalan::all();
         $materi = MateriPembekalan::all();
         $metode = MetodePembekalan::all();
         $bank = Bank::all();
-        $level = LevelPembekalan::all();
 
         if($request->get('bank_id')){
             // Filter data by Nama Bank
             $surat_penawaran = SuratPenawaran::with([
                 'pembekalan' => function($query){
-                    return $query->with(['materi_pembekalan', 'level_pembekalan']);
+                    return $query->with(['materi_pembekalan']);
             }, 'bank'])->where('bank_id', $request->get('bank_id'))->get();
         } elseif($request->get('materi_id')){
             // Filter data by Materi
             $surat_penawaran = SuratPenawaran::with([
                 'pembekalan' => function($query){
-                    return $query->with(['materi_pembekalan', 'level_pembekalan']);
+                    return $query->with(['materi_pembekalan']);
             }, 'bank'])->where('materi_id', $request->get('materi_id'))->get();
         } else {
             $surat_penawaran = SuratPenawaran::with([
                 'pembekalan' => function($query){
-                    return $query->with(['materi_pembekalan', 'level_pembekalan']);
+                    return $query->with(['materi_pembekalan']);
                 }, 'bank'])->get();
         }
         return view('pages.surat-penawaran.index', get_defined_vars());
@@ -109,7 +110,6 @@ class SuratPenawaranController extends Controller
         $surat_penawaran->bank_id = $request->bank_id;
         $surat_penawaran->pic_id = $request->pic_id;
         $surat_penawaran->materi_id = $request->materi_id;
-        $surat_penawaran->level_id = $request->level_id;
         $surat_penawaran->metode_id = $request->metode_id;
         $surat_penawaran->perihal = $request->perihal;
         $surat_penawaran->body = $request->body;

@@ -14,4 +14,10 @@ class LevelPembekalan extends Model
     {
         return $this->hasMany(Pembekalan::class, 'level_id', 'id');
     }
+
+    public function materi_pembekalan()
+    {
+        return $this->hasMany(MateriPembekalan::class, 'level_id', 'id');
+    }
+
 }

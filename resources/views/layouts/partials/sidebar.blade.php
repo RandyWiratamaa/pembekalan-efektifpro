@@ -80,17 +80,21 @@
                         </div>
                     </a>
                 </li>
-                <li class="menu-title">Data Master</li>
                 <li>
-                    <a href="/table-master">
+                    <a href="#general_info" data-bs-toggle="collapse">
                         <i data-feather="book-open"></i>
-                        <span> Table Master </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('pengajar.index') }}">
-                        <i data-feather="users"></i>
-                        <span> Pengajar </span>
+                        <span> General Info </span>
+                        <span class="menu-arrow"></span>
+                        <div class="collapse" id="general_info">
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a href="{{ route('materi_pembekalan.index') }}">Program Pembekalan</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('pengajar.index') }}">Pengajar</a>
+                                </li>
+                            </ul>
+                        </div>
                     </a>
                 </li>
             </ul>

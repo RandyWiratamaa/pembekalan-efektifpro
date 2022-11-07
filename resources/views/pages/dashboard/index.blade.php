@@ -41,6 +41,13 @@
                 </div>
             </div>
         </div>
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <div id="chart-pengajar" style="height: 150"></div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="row">
         <div class="col-lg-6">
@@ -76,6 +83,54 @@
     <script src="{{ asset('assets/js/pages/chartjs.init.js') }}"></script>
 
     <script type="text/javascript">
+        // Jml kelas per pengajar
+        var label_pengajar = {{ Js::from($label_pengajar) }};
+        var data_pengajar = {{ Js::from($data_pengajar) }};
+        Highcharts.chart('chart-pengajar', {
+            title: {
+                text: 'Jumlah Kelas'
+            },
+            subtitle: {
+                text: 'PT. Efektifpro Knowledge Source'
+            },
+            xAxis: {
+                categories: label_pengajar
+            },
+            yAxis: {
+                title: {
+                    text: 'Jumlah Kelas'
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle'
+            },
+            plotOptions: {
+                series: {
+                    allowPointSelect: true
+                }
+            },
+            series: [{
+                name: 'Pengajar',
+                data: data_pengajar
+            }],
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
+            }
+        });
+
         var label = {{ Js::from($label_surat_penawaran) }};
         var userData = {{ Js::from($data_surat_penawaran) }};
         Highcharts.chart('container', {
@@ -122,6 +177,8 @@
                 }]
             }
         });
+
+
     </script>
 
     <script type="text/javascript">

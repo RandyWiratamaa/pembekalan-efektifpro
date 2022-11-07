@@ -56,9 +56,9 @@
                                 <label class="form-label">Daftar Sertifikasi</label>
                                 <div class="input-group">
                                     <select class="form-select" name="materi_id" id="materi_id" type="text" placeholder="Cari berdasarkan nama Bank">
-                                        <option value="" disabled>-- Cari berdasarkan Sertifikasi --</option>
+                                        <option value="">-- All --</option>
                                         @foreach ($materi as $i)
-                                        <option value="{{ $i->id }}">{{ $i->materi }}</option>
+                                        <option value="{{ $i->id }}">{{ $i->kode }} - {{ $i->materi }}</option>
                                         @endforeach
                                     </select>
                                     <button type="submit" class="btn waves-effect waves-light btn-primary">
@@ -94,7 +94,6 @@
                                         <th class="text-center">Tanggal Surat</th>
                                         <th class="text-center">Bank</th>
                                         <th class="text-center">Program Pembekalan</th>
-                                        <th class="text-center">Level Pembekalan</th>
                                         <th class="text-center">Status</th>
                                         <th class="text-center">Action</th>
                                     </tr>
@@ -105,8 +104,7 @@
                                         <td>{{ $i->no_surat }}</td>
                                         <td>{{ $i->tgl_surat->isoFormat('dddd, DD MMMM YYYY') }}</td>
                                         <td>{{ $i->bank->nama }}</td>
-                                        <td>{{ $i->materi_pembekalan->materi }}</td>
-                                        <td>{{ $i->level_pembekalan->level }}</td>
+                                        <td>{{ $i->materi_pembekalan->kode }} - {{ $i->materi_pembekalan->materi }}</td>
                                         <td class="text-center">
                                             @if ($i->is_approved == 1)
                                                 <span class="badge bg-success">Sudah diapprove</span>

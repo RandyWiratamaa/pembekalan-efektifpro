@@ -52,7 +52,6 @@
                                         <th class="text-center">Tanggal Surat</th>
                                         <th class="text-center">Bank</th>
                                         <th class="text-center">Program Pembekalan</th>
-                                        <th class="text-center">Level Pembekalan</th>
                                         <th class="text-center">Status</th>
                                         <th class="text-center">Ket.</th>
                                         <th class="text-center">Action</th>
@@ -65,7 +64,6 @@
                                         <td>{{ $i->tgl_surat->isoFormat('dddd, DD MMMM YYYY') }}</td>
                                         <td>{{ $i->bank->nama }}</td>
                                         <td>{{ $i->pembekalan->materi_pembekalan->materi }}</td>
-                                        <td>{{ $i->pembekalan->level_pembekalan->level }}</td>
                                         <td class="text-center">
                                             @if ($i->is_approved == 1)
                                                 <span class="badge bg-success text-dark">Sudah diapprove</span>

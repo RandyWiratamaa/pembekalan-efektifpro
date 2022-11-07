@@ -45,26 +45,27 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label class="form-label">Jenis *</label>
+                                <select name="materi_id" id="materi_id" class="form-control">
+                                    {{-- <option value="">-- Pilih Jenis Sertifikasi --</option>     --}}
+                                    @foreach ($jenis as $i)
+                                    <option value="{{ $i->id }}">
+                                        {{ ucwords($i->jenis) }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
                             <div class="mb-3">
                                 <label class="form-label">Sertifikasi *</label>
                                 <select name="materi_id" id="materi_id" class="form-control">
                                     {{-- <option value="">-- Pilih Jenis Sertifikasi --</option>     --}}
                                     @foreach ($materi as $i)
                                     <option value="{{ $i->id }}">
-                                        {{ $i->materi }}
-                                    </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="mb-3">
-                                <label class="form-label">Level *</label>
-                                <select name="level_id" id="level_id" class="form-control">
-                                    @foreach ($level as $l)
-                                    <option value="{{ $l->id }}">
-                                        {{ $l->level }}
+                                        {{ strtoupper($i->kode) }} - {{ strtoupper($i->materi) }}
                                     </option>
                                     @endforeach
                                 </select>
@@ -76,7 +77,7 @@
                                 <select name="metode_id" id="metode_id" class="form-control">
                                     @foreach ($metode as $l)
                                     <option value="{{ $l->id }}">
-                                        {{ $l->metode }}
+                                        {{ ucwords($l->metode) }}
                                     </option>
                                     @endforeach
                                 </select>
@@ -184,16 +185,6 @@
                                 <select name="materi_id" id="materi_id" class="form-control">
                                     <option value="{{ $i->materi_id }}">
                                         {{ $i->materi_pembekalan->materi }}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="mb-3">
-                                <label class="form-label">Level *</label>
-                                <select name="level_id" id="level_id" class="form-control">
-                                    <option value="{{ $i->level_id }}">
-                                        {{ $i->level_pembekalan->level }}
                                     </option>
                                 </select>
                             </div>

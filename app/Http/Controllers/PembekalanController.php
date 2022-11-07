@@ -17,23 +17,25 @@ class PembekalanController extends Controller
     public function index(Request $request)
     {
         $page_name = "Pembekalan";
-        $level = LevelPembekalan::all();
         $materi = MateriPembekalan::all();
         $metode = MetodePembekalan::all();
         $bank = Bank::all();
-        $data_pembekalan = Pembekalan::with(['metode_pembekalan', 'level_pembekalan', 'materi_pembekalan', 'pengajar', 'pic'])->orderBy('hari_tanggal', 'ASC')->get();
+        $data_pembekalan = Pembekalan::with(['metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic'])->orderBy('hari_tanggal', 'ASC')->get();
         $pembekalan = Pembekalan::all();
 
         $events = [];
         foreach($data_pembekalan as $values) {
             $mulai = $values->hari_tanggal;
             $selesai = $values->hari_tanggal;
-            $title = $values->bank->nama.'-'.$values->materi_pembekalan->singkatan.'-'.$values->level_pembekalan->level;
-
+            $title = $values->materi_pembekalan->kode.' - '.$values->bank->nama;
+            // $color = ['red', 'blue', 'green'];
             $events[] = [
+                // 'groupId' => $mulai,
                 'title' => $title,
                 'start' => $mulai,
-                'end' => $selesai
+                'end' => $selesai,
+                'borderColor' => 'black',
+                'display' => 'background'
             ];
         }
         return view('pages.pembekalan.index', get_defined_vars());

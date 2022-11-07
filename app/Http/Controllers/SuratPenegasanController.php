@@ -52,7 +52,6 @@ class SuratPenegasanController extends Controller
         $pembekalan->bank_id = $request->bank_id;
         $pembekalan->pic_id = $request->pic_id;
         $pembekalan->materi_id = $request->materi_id;
-        $pembekalan->level_id = $request->level_id;
         $pembekalan->investasi = $request->investasi;
         $pembekalan->pengajar_id = $request->pengajar_id;
         $pembekalan->hari_tanggal = $request->hari_tanggal;

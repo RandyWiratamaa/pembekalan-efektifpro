@@ -15,12 +15,12 @@
                                 <label class="form-label">Program Pembekalan *</label>
                                 <select name="materi_id" id="materi_id" class="form-control">
                                     @foreach ($materi as $i)
-                                        <option value="{{ $i->id }}">{{ $i->singkatan }} - {{ $i->materi }}</option>
+                                        <option value="{{ $i->id }}">{{ $i->kode }} - {{ $i->materi }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        {{-- <div class="col-md-4">
                             <div class="mb-3">
                                 <label class="form-label">Level *</label>
                                 <select name="level_id" id="level_id" class="form-control">
@@ -29,7 +29,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="row">
                         <div class="col-md-6">

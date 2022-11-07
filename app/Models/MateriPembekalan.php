@@ -19,4 +19,9 @@ class MateriPembekalan extends Model
     {
         return $this->hasMany(SuratPenawaran::class, 'materi_id', 'id');
     }
+
+    public function level_pembekalan()
+    {
+        return $this->belongsTo(LevelPembekalan::class, 'level_id', 'id');
+    }
 }
