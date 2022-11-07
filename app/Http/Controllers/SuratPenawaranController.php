@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DataTables;
 use App\Models\Bank;
 use App\Models\Pengajar;
 use App\Models\Pembekalan;
@@ -42,7 +43,7 @@ class SuratPenawaranController extends Controller
         return $result;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $kode_perusahaan = 'EKS';
         $jenis_surat = 'PNW';
@@ -62,10 +63,25 @@ class SuratPenawaranController extends Controller
         $metode = MetodePembekalan::all();
         $bank = Bank::all();
         $level = LevelPembekalan::all();
-        $surat_penawaran = SuratPenawaran::with([
-            'pembekalan' => function($query){
-                return $query->with(['materi_pembekalan', 'level_pembekalan']);
-            }, 'bank'])->get();
+
+        if($request->get('bank_id')){
+            // Filter data by Nama Bank
+            $surat_penawaran = SuratPenawaran::with([
+                'pembekalan' => function($query){
+                    return $query->with(['materi_pembekalan', 'level_pembekalan']);
+            }, 'bank'])->where('bank_id', $request->get('bank_id'))->get();
+        } elseif($request->get('materi_id')){
+            // Filter data by Materi
+            $surat_penawaran = SuratPenawaran::with([
+                'pembekalan' => function($query){
+                    return $query->with(['materi_pembekalan', 'level_pembekalan']);
+            }, 'bank'])->where('materi_id', $request->get('materi_id'))->get();
+        } else {
+            $surat_penawaran = SuratPenawaran::with([
+                'pembekalan' => function($query){
+                    return $query->with(['materi_pembekalan', 'level_pembekalan']);
+                }, 'bank'])->get();
+        }
         return view('pages.surat-penawaran.index', get_defined_vars());
     }
 

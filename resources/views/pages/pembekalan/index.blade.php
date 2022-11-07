@@ -20,8 +20,11 @@
             /* .fc-event{
                 width: 150px !important;
             } */
+            /* .fc-axis {
+                display: none;
+            } */
         </style>
-        <link rel="stylesheet" href="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.css" />
+        {{-- <link rel="stylesheet" href="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.css" /> --}}
     @endpush
 @endonce
 
@@ -169,9 +172,9 @@
                 eventRender: function (event, view, info) {
                     // $(element).css('width','50px');
                     if (event.allDay === 'true') {
-                            event.allDay = true;
+                        event.allDay = true;
                     } else {
-                            event.allDay = true;
+                        event.allDay = true;
                     }
                 },
             });

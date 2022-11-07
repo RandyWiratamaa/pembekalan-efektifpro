@@ -26,8 +26,8 @@ class PembekalanController extends Controller
 
         $events = [];
         foreach($data_pembekalan as $values) {
-            $mulai = $values->hari_tgl.' '.$values->mulai;
-            $selesai = $values->hari_tgl.' '.$values->selesai;
+            $mulai = $values->hari_tanggal;
+            $selesai = $values->hari_tanggal;
             $title = $values->bank->nama.'-'.$values->materi_pembekalan->singkatan.'-'.$values->level_pembekalan->level;
 
             $events[] = [

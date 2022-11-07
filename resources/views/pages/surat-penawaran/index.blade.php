@@ -43,12 +43,51 @@
                         <a data-bs-toggle="collapse" href="#cardCollpase4" role="button" aria-expanded="false" aria-controls="cardCollpase4"><i class="mdi mdi-minus"></i></a>
                     </div>
                     <h4 class="header-title mb-0">Data Surat Penawaran</h4>
-                    <div class="col-sm-3 mt-2 pull-right">
-                        <a href="#" class="btn btn-soft-success waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#addSuratPenawaran"><i class='fe-plus me-1'></i>Tambah</a>
+                    <div class="row">
+                        <div class="col-sm-3 mt-2">
+                            <a href="#" class="btn btn-soft-success waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#addSuratPenawaran"><i class='fe-plus me-1'></i>Tambah</a>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <small>Cari :</small>
+                        <div class="col-sm-3 mt-2">
+                            <form class="search-bar form-inline" method="get" action="{{ route('surat-penawaran.index') }}" >
+                                @csrf
+                                <label class="form-label">Daftar Sertifikasi</label>
+                                <div class="input-group">
+                                    <select class="form-select" name="materi_id" id="materi_id" type="text" placeholder="Cari berdasarkan nama Bank">
+                                        <option value="" disabled>-- Cari berdasarkan Sertifikasi --</option>
+                                        @foreach ($materi as $i)
+                                        <option value="{{ $i->id }}">{{ $i->materi }}</option>
+                                        @endforeach
+                                    </select>
+                                    <button type="submit" class="btn waves-effect waves-light btn-primary">
+                                        <i class="mdi mdi-magnify"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-sm-3 mt-2">
+                            <form class="search-bar form-inline" method="get" action="{{ route('surat-penawaran.index') }}" >
+                                @csrf
+                                <label class="form-label">Daftar Nama Bank</label>
+                                <div class="input-group">
+                                    <select class="form-select" name="bank_id" id="bank_id" type="text" placeholder="Cari berdasarkan nama Bank">
+                                        <option value="">-- Cari berdasarkan nama Bank --</option>
+                                        @foreach ($bank as $i)
+                                        <option value="{{ $i->id }}">{{ $i->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                    <button type="submit" class="btn waves-effect waves-light btn-primary">
+                                        <i class="mdi mdi-magnify"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                     <div id="cardCollpase4" class="collapse show">
                         <div class="table-responsive pt-3" style="height: 600px">
-                            <table class="table table-bordered table-centered mb-0 client" style="width:100%" id="btn-editable">
+                            <table class="table table-bordered table-centered mb-0" style="width:100%" id="penawaran">
                                 <thead class="table-light">
                                     <tr>
                                         <th class="text-center">No. Surat</th>
@@ -72,7 +111,7 @@
                                             @if ($i->is_approved == 1)
                                                 <span class="badge bg-success">Sudah diapprove</span>
                                             @else
-                                                <span class="badge bg-danger">Belum diapprove</span>
+                                                <span class="badge bg-warning text-dark">Belum diapprove</span>
                                             @endif
                                         </td>
                                         <td class="text-center">
@@ -148,66 +187,6 @@
         $(".js-example-basic-multiple").select2();
     </script>
 
-    {{-- <script type="text/javascript">
-        $(function () {
-          var table = $('.client').DataTable({
-              processing: true,
-              serverSide: true,
-              ajax: "{{ route('client.index') }}",
-              columns: [
-                    {data: 'nama', name: 'nama'},
-                    {data: 'alamat', name: 'alamat'},
-                    {data: 'kota', name: 'kota'},
-                    {data: 'kode_pos', name: 'kode_pos'},
-                    {data: 'no_telp', name: 'no_telp'},
-                    {data: 'pic', name: 'pic'},
-                    {data: 'jabatan_pic', name: 'jabatan_pic'},
-                    {data: 'kerjasama', name: 'kerjasama',
-                        "render": function (data, type, row) {
-                            if (row.kerjasama == '1') {
-                                return `<div class="text-center">
-                                            <span class="badge bg-success text-dark p-1">Sudah</span>
-                                        </div>`;
-                            } else {
-                                return `<div class="text-center">
-                                            <span class="badge bg-danger text-dark p-1">Belum</span>
-                                        </div>`;
-                            }
-                        }
-                    },
-                    {data: 'action', name: 'action', orderable: false, searchable: false,
-                        "render": function (data, type, row) {
-                            if (row.kerjasama == '1') {
-                                return `<div class="dropdown text-center">
-                                            <a href="#" class="dropdown-toggle card-drop arrow-none" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="mdi mdi-dots-horizontal m-0 text-muted h3"></i>
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-end">
-                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#edit` + row.id + `"><i class="fas fa-edit"></i> Edit </a>
-                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#delete` + row.id + `"><i class="fas fa-trash"></i> Delete</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#kirimEmail` + row.id + `">Kirim Email</a>
-                                            </div>
-                                        </div>`;
-                            } else {
-                                return `<div class="dropdown text-center">
-                                            <a href="#" class="dropdown-toggle card-drop arrow-none" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="mdi mdi-dots-horizontal m-0 text-muted h3"></i>
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-end">
-                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#edit` + row.id + `"><i class="fas fa-edit"></i> Edit </a>
-                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#delete` + row.id + `"><i class="fas fa-trash"></i> Delete</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#kirimPenawaran` + row.id + `">Kirim Surat Penawaran</a>
-                                            </div>
-                                        </div>`;
-                            }
-                        }
-                    }
-              ]
-          });
-        });
-    </script> --}}
     <script>
         jQuery(document).ready(function(){
         //get Kota berdasarkan provinsi
