@@ -52,7 +52,7 @@ class PembekalanController extends Controller
 
     public function getPeserta(Request $request, $uuid)
     {
-        $peserta = Peserta::where('pembekalan_uuid', $uuid)->get();
+        $peserta = Peserta::where('pembekalan_uuid', $uuid)->orderBy('nama', 'ASC')->get();
         $jml_peserta = Peserta::where('pembekalan_uuid', $uuid)->count();
 
         return response()->json($peserta, 200);

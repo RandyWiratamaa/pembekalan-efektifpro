@@ -124,14 +124,17 @@
 
 @foreach ($data_pembekalan as $i)
 {{-- Modal Peserta Pembekalan --}}
-<div id="peserta" class="modal fade" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div id="peserta{{ $i->uuid }}" class="modal fade" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Peserta Pembekalan</h4>
+                <h4 class="modal-title">Peserta Pembekalan {{ $i->bank->nama }}</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            @if ($peserta->isEmpty())
+            {{-- @if ($peserta->isEmpty())
+            <div class="col-sm-3 mt-2">
+                <a href="#" class="btn btn-soft-info waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#import{{ $i->uuid }}"><i class='fe-plus me-1'></i>Import Excel</a></span>
+            </div>
             <form action="{{ route('peserta.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body p-4">
@@ -208,15 +211,18 @@
                     <button type="submit" class="btn btn-info waves-effect waves-light">Simpan</button>
                 </div>
             </form>
-            @else
+            @else --}}
             <div class="modal-body p-4">
                 <div class="row">
-                    <div class="col-sm-3 mt-2">
+                    <div class="col-sm-2 mt-2">
                         <a href="#" class="btn btn-soft-success waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#tambahPeserta{{ $i->uuid }}"><i class='fe-plus me-1'></i>Tambah</a>
+                    </div>
+                    <div class="col-sm-3 mt-2">
+                        <a href="#" class="btn btn-soft-info waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#import{{ $i->uuid }}"><i class='fe-plus me-1'></i>Import Excel</a></span>
                     </div>
                 </div>
                 <div class="table-responsive pt-3" style="height: 600px">
-                    Jumlah Peserta : <span id="jml_peserta"></span>
+                    Jumlah Peserta : <span id="jml_peserta{{ $i->uuid }}"></span>
                     <table class="table table-bordered table-centered mb-0 client" style="width:100%" id="btn-editable">
                         <thead class="table-light">
                             <tr class="text-center">
@@ -224,13 +230,13 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody id="data-peserta">
+                        <tbody id="data-peserta{{ $i->uuid }}">
 
                         </tbody>
                     </table>
                 </div>
             </div>
-            @endif
+            {{-- @endif --}}
         </div>
     </div>
 </div>
@@ -327,6 +333,55 @@
 </div>
 @endforeach
 
+@foreach ($data_pembekalan as $i)
+{{-- Modal Update Pelatihan --}}
+<div id="import{{ $i->uuid }}" class="modal fade" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Import</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <small class="text-danger">Pastikan urutan header file excel seperti contoh berikut : </small>
+                    <table class="table table-bordered table-centered mb-0 client" style="width:100%" id="btn-editable">
+                        <thead class="table-light">
+                            <tr class="text-center">
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>No. HP</th>
+                                <th>Email</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <form action="{{ route('peserta.import') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body p-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label class="form-label">File Excel *</label>
+                                <input type="file" name="file" id="file" class="form-control" placeholder="File Excel">
+                            </div>
+                            <input type="text" class="form-control" name="uuid" value="{{ $i->uuid }}">
+                        </div>
+                    </div>
+                    <div class="pull-left">
+                        <em class="text-danger">* harus diisi</em>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-info waves-effect waves-light">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endforeach
 
 {{-- Modal Berita Acara --}}
 <div id="penawaran" class="modal fade" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">

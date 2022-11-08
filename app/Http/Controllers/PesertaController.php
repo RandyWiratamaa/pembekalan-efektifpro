@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Peserta;
 use Illuminate\Http\Request;
+use App\Imports\PesertaImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PesertaController extends Controller
 {
@@ -25,5 +27,23 @@ class PesertaController extends Controller
         if ($peserta) {
             return redirect()->route('pembekalan.index');
         }
+    }
+
+    public function import_excel(Request $request)
+    {
+        // $this->validate($request, [
+		// 	'file' => 'required|mimes:csv,xls,xlsx'
+		// ]);
+
+        // $file = $request->file('file');
+        // $nama_file = rand().getClientOriginalName();
+
+        // $file->move('peserta', $nama_file);
+        // Excell::import(new SiswaImport, public_path('/peserta/'.$nama_file));
+        $uuid = $request->uuid;
+
+        Excel::import(new PesertaImport($uuid),
+            $request->file('file')->store('files'));
+        return redirect()->route('pembekalan.index');
     }
 }

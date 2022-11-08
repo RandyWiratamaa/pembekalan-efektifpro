@@ -95,7 +95,7 @@
                                                 </td>
                                                 <td>{{ $i->pengajar->nama }}</td>
                                                 <td></td>
-                                                <td></td>
+                                                <td>{{ $i->uuid }}</td>
                                                 <td>{{ $i->pic->nama }}</td>
                                                 <td>
                                                     <div class="dropdown d-inline-block">
@@ -185,10 +185,10 @@
 
     <script>
         $(document).on('click', '#dataPeserta', function() {
-            $('#peserta').modal('show');
             var idx = $(this).attr('data-id')
+            $('#peserta'+idx).modal('show');
         // console.log(idx);
-            var data_peserta = $('#data-peserta')
+            var data_peserta = $('#data-peserta'+idx)
             data_peserta.html('')
             $.ajax({
                 url:"{{ url('peserta') }}/"+idx,
@@ -199,14 +199,14 @@
                     // $('#alamat').text(res.shipping.detail_alamat)
                     // $('#ongkir').text(res.ongkir)
                     // $('#total').text(res.total)
-                    $('#jml_peserta').text(res.length)
+                    $('#jml_peserta'+idx).text(res.length)
                     console.log(res)
                     $.each(res, function(idk,val){
                     //     sub_total = parseInt(val.menu.harga * val.qty)
                         data_peserta.append(`
                             <tr>
                                 <td>${val.nama}</td>
-                                <td>${val.jenkel.toUpperCase()}</td>
+                                <td></td>
                             </tr>
                         `)
                     })

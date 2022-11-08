@@ -51,3 +51,4 @@ Route::get('surat-penegasan/view/{id}', [App\Http\Controllers\SuratPenegasanCont
 
 Route::post('peserta', [App\Http\Controllers\PesertaController::class, 'store'])->name('peserta.store');
 Route::get('peserta/{uuid}', [App\Http\Controllers\PembekalanController::class, 'getPeserta'])->name('peserta.getPeserta');
+Route::post('peserta/import', [App\Http\Controllers\PesertaController::class, 'import_excel'])->name('peserta.import');
