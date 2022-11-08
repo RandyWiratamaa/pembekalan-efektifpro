@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pic;
 use App\Models\Bank;
+use App\Models\Peserta;
 use App\Models\Pembekalan;
 use Illuminate\Http\Request;
 use App\Models\SuratPenawaran;
@@ -37,6 +38,14 @@ class PembekalanController extends Controller
                 'borderColor' => 'black',
                 'display' => 'background'
             ];
+
+            $peserta = Peserta::join('pembekalan', 'pembekalan.uuid', '=', 'peserta.pembekalan_uuid')
+                            ->where('peserta.pembekalan_uuid', $values->uuid)
+                            ->get();
+            $jml_peserta = Peserta::join('pembekalan', 'pembekalan.uuid', '=', 'peserta.pembekalan_uuid')
+                            ->where('peserta.pembekalan_uuid', $values->uuid)
+                            ->count();
+            // die($peserta);
         }
         return view('pages.pembekalan.index', get_defined_vars());
     }

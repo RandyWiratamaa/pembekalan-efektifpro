@@ -53,13 +53,13 @@
                 </li>
                 <li>
                     <a href="{{ route('pembekalan.index') }}">
-                        <i data-feather="book-open"></i>
+                        <i data-feather="calendar"></i>
                         <span> Schedule </span>
                     </a>
                 </li>
                 <li>
                     <a href="#document" data-bs-toggle="collapse">
-                        <i data-feather="folder-plus"></i>
+                        <i data-feather="book"></i>
                         <span> Documents </span>
                         <span class="menu-arrow"></span>
                         <div class="collapse" id="document">
@@ -82,7 +82,7 @@
                 </li>
                 <li>
                     <a href="#general_info" data-bs-toggle="collapse">
-                        <i data-feather="book-open"></i>
+                        <i data-feather="folder-plus"></i>
                         <span> General Info </span>
                         <span class="menu-arrow"></span>
                         <div class="collapse" id="general_info">

@@ -70,7 +70,7 @@
                             </div>
                             <h4>Schedule Pembekalan</h4>
                             <div id="tableJadwal" class="collapse show">
-                                <div class="table-responsive pt-3">
+                                <div class="table-responsive pt-3" style="height: 600px">
                                     <table class="table table-bordered table-centered mb-0 client" style="width:100%" id="btn-editable">
                                         <thead class="table-light">
                                             <tr class="text-center">
@@ -81,8 +81,6 @@
                                                 <th>Pengajar</th>
                                                 <th>Link Zoom</th>
                                                 <th>Durasi Pelatihan</th>
-                                                <th>Jam Mulai (WIB)</th>
-                                                <th>Jam Selesai (WIB)</th>
                                                 <th>PIC</th>
                                                 <th>Action</th>
                                             </tr>
@@ -92,13 +90,14 @@
                                             <tr>
                                                 <td>{{ $i->bank->nama }}</td>
                                                 <td>{{ $i->materi_pembekalan->materi }} ({{ $i->materi_pembekalan->kode }})</td>
-                                                <td>{{ $i->hari_tanggal->isoFormat('dddd, DD MMMM Y') }}</td>
-                                                <td></td>
+                                                <td>
+                                                    {{ $i->hari_tanggal->isoFormat('dddd, DD MMMM Y') }}
+                                                    ({{ $i->mulai->isoFormat('HH:mm') }} - {{ $i->selesai->isoFormat('HH:mm') }} WIB)
+                                                </td>
+                                                <td>{{ $jml_peserta }} orang</td>
                                                 <td>{{ $i->pengajar->nama }}</td>
                                                 <td></td>
-                                                <td>{{ $i->uuid }}</td>
-                                                <td>{{ $i->mulai->isoFormat('HH:mm') }}</td>
-                                                <td>{{ $i->selesai->isoFormat('HH:mm') }}</td>
+                                                <td></td>
                                                 <td>{{ $i->pic->nama }}</td>
                                                 <td>
                                                     <div class="dropdown d-inline-block">
@@ -117,13 +116,16 @@
                                                             <a class="dropdown-item" href="{{ url('surat-penegasan/show/'.$i->id) }}" target="_blank">
                                                                 Surat Penegasan
                                                             </a>
-                                                            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#dataPeserta">
+                                                            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#dataPeserta{{ $i->uuid }}">
                                                                 Peserta Pembekalan
                                                             </a>
                                                             <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#beritaAcara{{ $i->bank_id }}">
                                                                 Berita Acara
                                                             </a>
                                                             <div class="dropdown-divider"></div>
+                                                            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#update{{ $i->uuid }}">
+                                                                Update Pelatihan
+                                                            </a>
                                                         </div>
                                                     </div>
                                                 </td>
