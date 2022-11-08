@@ -50,6 +50,14 @@ class PembekalanController extends Controller
         return view('pages.pembekalan.index', get_defined_vars());
     }
 
+    public function getPeserta(Request $request, $uuid)
+    {
+        $peserta = Peserta::where('pembekalan_uuid', $uuid)->get();
+        $jml_peserta = Peserta::where('pembekalan_uuid', $uuid)->count();
+
+        return response()->json($peserta, 200);
+    }
+
     public function getPic($id)
     {
         $pic = Pic::where('bank_id', $id)->pluck("nama", "id");

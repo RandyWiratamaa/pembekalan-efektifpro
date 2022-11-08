@@ -124,7 +124,7 @@
 
 @foreach ($data_pembekalan as $i)
 {{-- Modal Peserta Pembekalan --}}
-<div id="dataPeserta{{ $i->uuid }}" class="modal fade" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div id="peserta" class="modal fade" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -216,6 +216,7 @@
                     </div>
                 </div>
                 <div class="table-responsive pt-3" style="height: 600px">
+                    Jumlah Peserta : <span id="jml_peserta"></span>
                     <table class="table table-bordered table-centered mb-0 client" style="width:100%" id="btn-editable">
                         <thead class="table-light">
                             <tr class="text-center">
@@ -223,13 +224,8 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @foreach ($peserta as $j)
-                            <tr>
-                                <td>{{ $j->nama }}</td>
-                                <td></td>
-                            </tr>
-                            @endforeach
+                        <tbody id="data-peserta">
+
                         </tbody>
                     </table>
                 </div>

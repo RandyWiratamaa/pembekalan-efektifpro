@@ -50,3 +50,4 @@ Route::post('surat-penegasan', [App\Http\Controllers\SuratPenegasanController::c
 Route::get('surat-penegasan/view/{id}', [App\Http\Controllers\SuratPenegasanController::class, 'view'])->name('surat-penegasan.view');
 
 Route::post('peserta', [App\Http\Controllers\PesertaController::class, 'store'])->name('peserta.store');
+Route::get('peserta/{uuid}', [App\Http\Controllers\PembekalanController::class, 'getPeserta'])->name('peserta.getPeserta');

@@ -77,7 +77,6 @@
                                                 <th>Bank</th>
                                                 <th>Sertifikasi</th>
                                                 <th>Tanggal</th>
-                                                <th>Jumlah Peserta</th>
                                                 <th>Pengajar</th>
                                                 <th>Link Zoom</th>
                                                 <th>Durasi Pelatihan</th>
@@ -94,7 +93,6 @@
                                                     {{ $i->hari_tanggal->isoFormat('dddd, DD MMMM Y') }}
                                                     ({{ $i->mulai->isoFormat('HH:mm') }} - {{ $i->selesai->isoFormat('HH:mm') }} WIB)
                                                 </td>
-                                                <td>{{ $jml_peserta }} orang</td>
                                                 <td>{{ $i->pengajar->nama }}</td>
                                                 <td></td>
                                                 <td></td>
@@ -116,7 +114,7 @@
                                                             <a class="dropdown-item" href="{{ url('surat-penegasan/show/'.$i->id) }}" target="_blank">
                                                                 Surat Penegasan
                                                             </a>
-                                                            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#dataPeserta{{ $i->uuid }}">
+                                                            <a class="dropdown-item" id="dataPeserta" data-id="{{ $i->uuid }}">
                                                                 Peserta Pembekalan
                                                             </a>
                                                             <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#beritaAcara{{ $i->bank_id }}">
@@ -183,6 +181,42 @@
             });
         });
 
+    </script>
+
+    <script>
+        $(document).on('click', '#dataPeserta', function() {
+            $('#peserta').modal('show');
+            var idx = $(this).attr('data-id')
+        // console.log(idx);
+            var data_peserta = $('#data-peserta')
+            data_peserta.html('')
+            $.ajax({
+                url:"{{ url('peserta') }}/"+idx,
+                method:'get',
+                success:function(res){
+                    // $('#penerima').text(res.user.name)
+                    // $('#phone').text(res.user.nohp)
+                    // $('#alamat').text(res.shipping.detail_alamat)
+                    // $('#ongkir').text(res.ongkir)
+                    // $('#total').text(res.total)
+                    $('#jml_peserta').text(res.length)
+                    console.log(res)
+                    $.each(res, function(idk,val){
+                    //     sub_total = parseInt(val.menu.harga * val.qty)
+                        data_peserta.append(`
+                            <tr>
+                                <td>${val.nama}</td>
+                                <td>${val.jenkel.toUpperCase()}</td>
+                            </tr>
+                        `)
+                    })
+                },
+                error: function(xhr, status, error) {
+                    // alert(xhr.responseText);
+                    alert("error")
+                }
+            })
+        })
     </script>
     @endpush
 @endonce
