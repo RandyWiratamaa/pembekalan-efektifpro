@@ -35,6 +35,7 @@ Route::post('pengajar', [App\Http\Controllers\PengajarController::class, 'store'
 Route::get('pembekalan', [App\Http\Controllers\PembekalanController::class, 'index'])->name('pembekalan.index');
 Route::get('/pembekalan/getPic/{id}', [App\Http\Controllers\PembekalanController::class, 'getPic'])->name('pembekalan.getPic');
 Route::post('pembekalan', [App\Http\Controllers\PembekalanController::class, 'store'])->name('pembekalan.store');
+Route::match(['put', 'patch'], 'pembekalan/{uuid}', [App\Http\Controllers\PembekalanController::class, 'update'])->name('pembekalan.update');
 
 Route::post('level', [App\Http\Controllers\LevelPembekalanController::class, 'store'])->name('level.index');
 

@@ -122,8 +122,8 @@
     </div>
 </div>
 
-@foreach ($data_pembekalan as $i)
 {{-- Modal Peserta Pembekalan --}}
+@foreach ($data_pembekalan as $i)
 <div id="peserta{{ $i->uuid }}" class="modal fade" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
@@ -243,8 +243,8 @@
 @endforeach
 
 
-@foreach ($data_pembekalan as $i)
 {{-- Modal Tambah Peserta Pembekalan --}}
+@foreach ($data_pembekalan as $i)
 <div id="tambahPeserta{{ $i->uuid }}" class="modal fade" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
@@ -405,8 +405,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <small><em>Tanggal Pelatihan : {{ $i->hari_tanggal->isoFormat('dddd, DD MMMM YYYY') }}</em></small>
-            <form action="#" method="POST" enctype="multipart/form-data">
+            <form action="{{ url('pembekalan', $i->uuid) }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @method('PATCH')
                 <div class="modal-body p-4">
                     <div class="row">
                         <div class="col-md-12">

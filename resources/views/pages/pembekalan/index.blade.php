@@ -94,8 +94,11 @@
                                                     ({{ $i->mulai->isoFormat('HH:mm') }} - {{ $i->selesai->isoFormat('HH:mm') }} WIB)
                                                 </td>
                                                 <td>{{ $i->pengajar->nama }}</td>
+                                                <td>
+                                                    <a href="{{ $i->link_zoom }}" target="_blank">
+                                                    {{ $i->link_zoom }}
+                                                </td>
                                                 <td></td>
-                                                <td>{{ $i->uuid }}</td>
                                                 <td>{{ $i->pic->nama }}</td>
                                                 <td>
                                                     <div class="dropdown d-inline-block">
@@ -108,7 +111,7 @@
                                                             {{-- <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#suratPenawaran{{ $i->bank_id }}">
                                                                 Surat Penawaran
                                                             </a> --}}
-                                                            <a class="dropdown-item" href="{{ url('surat-penawaran/show/'.$i->id) }}" target="_blank">
+                                                            <a class="dropdown-item" href="{{ url('surat-penawaran/show/'.$i->uuid) }}" target="_blank">
                                                                 Surat Penawaran
                                                             </a>
                                                             <a class="dropdown-item" href="{{ url('surat-penegasan/show/'.$i->id) }}" target="_blank">
@@ -171,7 +174,6 @@
                 textColor: 'black',
                 displayEventTime: false,
                 eventRender: function (event, view, info) {
-                    // $(element).css('width','50px');
                     if (event.allDay === 'true') {
                         event.allDay = true;
                     } else {
@@ -194,11 +196,6 @@
                 url:"{{ url('peserta') }}/"+idx,
                 method:'get',
                 success:function(res){
-                    // $('#penerima').text(res.user.name)
-                    // $('#phone').text(res.user.nohp)
-                    // $('#alamat').text(res.shipping.detail_alamat)
-                    // $('#ongkir').text(res.ongkir)
-                    // $('#total').text(res.total)
                     $('#jml_peserta'+idx).text(res.length)
                     console.log(res)
                     $.each(res, function(idk,val){

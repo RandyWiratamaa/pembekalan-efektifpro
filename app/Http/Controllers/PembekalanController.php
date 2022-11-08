@@ -87,4 +87,16 @@ class PembekalanController extends Controller
             return redirect()->back()->withInput();
         }
     }
+
+    public function update(Request $request, $uuid)
+    {
+        $pembekalan = Pembekalan::firstWhere('uuid', $uuid);
+        $pembekalan->link_zoom = $request->zoom;
+        $pembekalan->save();
+        if ($pembekalan) {
+            return redirect()->route('pembekalan.index');
+        } else {
+            return redirect()->back()->withInput();
+        }
+    }
 }

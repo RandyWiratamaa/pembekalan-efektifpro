@@ -86,11 +86,11 @@ class SuratPenawaranController extends Controller
         return view('pages.surat-penawaran.index', get_defined_vars());
     }
 
-    public function show($id)
+    public function show($uuid)
     {
         $page_name = "Surat Penawaran";
-        $penawaran_isExist = SuratPenawaran::where('pembekalan_id', $id)->count() > 0;
-        $data_pembekalan = Pembekalan::with(['metode_pembekalan', 'level_pembekalan', 'materi_pembekalan'])->where('id', $id)->first();
+        $penawaran_isExist = SuratPenawaran::where('pembekalan_uuid', $uuid)->count() > 0;
+        $data_pembekalan = Pembekalan::with(['metode_pembekalan', 'level_pembekalan', 'materi_pembekalan'])->where('uuid', $uuid)->first();
 
         $surat_penawaran = SuratPenawaran::with(['materi_pembekalan', 'level_pembekalan', 'metode_pembekalan', 'bank'])->get();
         // $surat_penawaran = SuratPenawaran::where('pembekalan_id', $id)->with([
