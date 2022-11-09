@@ -121,7 +121,7 @@
                                                 </button>
                                                 <div class="dropdown-menu dropdown-menu-end">
                                                     <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#addSuratPenegasan{{ $i->id }}">
-                                                        <i class='mdi mdi-email-newsletter me-1'></i> Buatkan Surat Penagasan
+                                                        <i class='mdi mdi-email-newsletter me-1'></i> Buatkan Surat Penegasan
                                                     </a>
                                                     <a href="{{ url('surat-penawaran/view/'.$i->id) }}" class="dropdown-item" target="_blank">
                                                         <i class='mdi mdi-eye me-1'></i> Review

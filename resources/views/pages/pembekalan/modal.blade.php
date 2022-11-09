@@ -218,7 +218,7 @@
                         <a href="#" class="btn btn-soft-success waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#tambahPeserta{{ $i->uuid }}"><i class='fe-plus me-1'></i>Tambah</a>
                     </div>
                     <div class="col-sm-3 mt-2">
-                        <a href="#" class="btn btn-soft-info waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#import{{ $i->uuid }}"><i class='fe-plus me-1'></i>Import Excel</a></span>
+                        <a href="#" class="btn btn-soft-info waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#import{{ $i->uuid }}"><i class='fe-upload me-1'></i>Import Excel</a></span>
                     </div>
                 </div>
                 <div class="table-responsive pt-3" style="height: 600px">
@@ -333,8 +333,8 @@
 </div>
 @endforeach
 
-@foreach ($data_pembekalan as $i)
 {{-- Modal Update Pelatihan --}}
+@foreach ($data_pembekalan as $i)
 <div id="import{{ $i->uuid }}" class="modal fade" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
@@ -395,8 +395,8 @@
     </div>
 </div>
 
-@foreach ($data_pembekalan as $i)
 {{-- Modal Update Pelatihan --}}
+@foreach ($data_pembekalan as $i)
 <div id="update{{ $i->uuid }}" class="modal fade" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">

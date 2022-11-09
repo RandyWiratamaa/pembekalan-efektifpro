@@ -108,24 +108,18 @@
                                                             <i class='mdi mdi-dots-horizontal font-18'></i>
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-end">
-                                                            {{-- <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#suratPenawaran{{ $i->bank_id }}">
-                                                                Surat Penawaran
-                                                            </a> --}}
-                                                            <a class="dropdown-item" href="{{ url('surat-penawaran/show/'.$i->uuid) }}" target="_blank">
-                                                                Surat Penawaran
-                                                            </a>
-                                                            <a class="dropdown-item" href="{{ url('surat-penegasan/show/'.$i->id) }}" target="_blank">
-                                                                Surat Penegasan
-                                                            </a>
                                                             <a class="dropdown-item" id="dataPeserta" data-id="{{ $i->uuid }}">
                                                                 Peserta Pembekalan
                                                             </a>
                                                             <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#beritaAcara{{ $i->bank_id }}">
                                                                 Berita Acara
                                                             </a>
-                                                            <div class="dropdown-divider"></div>
                                                             <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#update{{ $i->uuid }}">
                                                                 Update Pelatihan
+                                                            </a>
+                                                            <div class="dropdown-divider"></div>
+                                                            <a class="dropdown-item" href="{{ url('pembekalan/detail/'.$i->uuid) }}">
+                                                                Detail
                                                             </a>
                                                         </div>
                                                     </div>

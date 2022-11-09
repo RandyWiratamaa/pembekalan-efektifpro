@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bank;
 use App\Models\Pembekalan;
 use Illuminate\Http\Request;
 use App\Models\SuratPenegasan;
+use App\Models\MateriPembekalan;
 
 class SuratPenegasanController extends Controller
 {
@@ -21,10 +23,17 @@ class SuratPenegasanController extends Controller
         return $random;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $page_name = "Surat Penegasan";
-        $surat_penegasan = SuratPenegasan::with(['materi_pembekalan', 'level_pembekalan', 'bank'])->get();
+
+        $materi = MateriPembekalan::all();
+        $bank = Bank::all();
+        if($request->get('bank_id')){
+            $surat_penegasan = SuratPenegasan::with(['materi_pembekalan', 'level_pembekalan', 'bank'])->where('bank_id', $request->get('bank_id'))->get();
+        } else{
+            $surat_penegasan = SuratPenegasan::with(['materi_pembekalan', 'level_pembekalan', 'bank'])->get();
+        }
         return view('pages.surat-penegasan.index', get_defined_vars());
     }
 

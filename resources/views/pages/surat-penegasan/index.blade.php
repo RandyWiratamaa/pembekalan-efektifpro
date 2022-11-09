@@ -43,6 +43,26 @@
                         <a data-bs-toggle="collapse" href="#cardCollpase4" role="button" aria-expanded="false" aria-controls="cardCollpase4"><i class="mdi mdi-minus"></i></a>
                     </div>
                     <h4 class="header-title mb-0">Data {{ $page_name }}</h4>
+                    <div class="row mt-4">
+                        <small>Cari :</small>
+                        <div class="col-sm-3 mt-2">
+                            <form class="search-bar form-inline" method="get" action="{{ route('surat-penegasan.index') }}" >
+                                @csrf
+                                <label class="form-label">Daftar Nama Bank</label>
+                                <div class="input-group">
+                                    <select class="form-select" name="bank_id" id="bank_id" type="text" placeholder="Cari berdasarkan nama Bank">
+                                        <option value="">-- Cari berdasarkan nama Bank --</option>
+                                        @foreach ($bank as $i)
+                                        <option value="{{ $i->id }}">{{ $i->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                    <button type="submit" class="btn waves-effect waves-light btn-primary">
+                                        <i class="mdi mdi-magnify"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                     <div id="cardCollpase4" class="collapse show">
                         <div class="table-responsive pt-3" style="height: 600px">
                             <table class="table table-bordered table-centered mb-0 client" style="width:100%" id="btn-editable">

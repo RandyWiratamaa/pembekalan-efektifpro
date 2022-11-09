@@ -29,9 +29,7 @@ class PembekalanController extends Controller
             $mulai = $values->hari_tanggal;
             $selesai = $values->hari_tanggal;
             $title = $values->materi_pembekalan->kode.' - '.$values->bank->nama;
-            // $color = ['red', 'blue', 'green'];
             $events[] = [
-                // 'groupId' => $mulai,
                 'title' => $title,
                 'start' => $mulai,
                 'end' => $selesai,
@@ -45,7 +43,6 @@ class PembekalanController extends Controller
             $jml_peserta = Peserta::join('pembekalan', 'pembekalan.uuid', '=', 'peserta.pembekalan_uuid')
                             ->where('peserta.pembekalan_uuid', $values->uuid)
                             ->count();
-            // die($peserta);
         }
         return view('pages.pembekalan.index', get_defined_vars());
     }
@@ -98,5 +95,18 @@ class PembekalanController extends Controller
         } else {
             return redirect()->back()->withInput();
         }
+    }
+
+    public function detail($uuid)
+    {
+        $page_name = "Data Pembekalan";
+        $materi = MateriPembekalan::all();
+        $metode = MetodePembekalan::all();
+        $bank = Bank::all();
+        $detail_pembekalan = Pembekalan::with(['metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic'])->orderBy('hari_tanggal', 'ASC')->where('uuid',$uuid)->first();
+        $surat_penegasan = SuratPenegasan::where('pembekalan_uuid', $uuid)->first();
+        $peserta = Peserta::where('pembekalan_uuid', $uuid)->orderBy('nama', 'ASC')->get();
+        $data_pembekalan = Pembekalan::with(['metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic'])->orderBy('hari_tanggal', 'ASC')->get();
+        return view('pages.pembekalan.detail', get_defined_vars());
     }
 }
