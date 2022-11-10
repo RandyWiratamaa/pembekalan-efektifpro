@@ -39,8 +39,6 @@ Route::group(['middleware' => 'auth'], function (){
     Route::match(['put', 'patch'], 'pembekalan/{uuid}', [App\Http\Controllers\PembekalanController::class, 'update'])->name('pembekalan.update');
     Route::get('pembekalan/detail/{uuid}', [App\Http\Controllers\PembekalanController::class, 'detail'])->name('pembekalan.detail');
 
-    Route::post('level', [App\Http\Controllers\LevelPembekalanController::class, 'store'])->name('level.index');
-
     Route::get('surat-penawaran', [App\Http\Controllers\SuratPenawaranController::class, 'index'])->name('surat-penawaran.index');
     Route::get('surat-penawaran/show/{id}', [App\Http\Controllers\SuratPenawaranController::class, 'show'])->name('surat-penawaran.show');
     Route::post('surat-penawaran', [App\Http\Controllers\SuratPenawaranController::class, 'store'])->name('surat-penawaran.store');

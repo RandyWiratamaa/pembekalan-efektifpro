@@ -13,4 +13,9 @@ class Peserta extends Model
     protected $fillable = [
         'nik', 'nama', 'jenkel', 'nohp', 'jabatan', 'email_kantor', 'email_pribadi', 'alamat', 'pembekalan_uuid'
     ];
+
+    public function pembekalan()
+    {
+        return $this->belongsTo(Pembekalan::class, 'pembekalan_uuid', 'uuid');
+    }
 }

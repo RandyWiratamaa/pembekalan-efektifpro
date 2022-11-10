@@ -46,11 +46,12 @@
                     <h5>Data Peserta</h5>
                     <table class="table table-bordered table-centered mb-0" style="width:100%">
                         <thead>
-                            <tr>
+                            <tr class="text-center">
                                 <th>No.</th>
                                 <th>Nama</th>
                                 <th>No. HP</th>
                                 <th>Email</th>
+                                <th>Kirim Invitation</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -60,6 +61,11 @@
                                 <td>{{ $i->nama }}</td>
                                 <td>(+62) {{ $i->nohp }}</td>
                                 <td>{{ strtolower($i->email_kantor) }}</td>
+                                <td class="text-center">
+                                    <a href="#" class="text-danger" data-bs-toggle="modal" data-bs-target="#invite{{ $i->id }}">
+                                        <i class='fe-chevrons-right me-1'></i>Kirim <i class='fe-chevrons-left me-1'></i>
+                                    </a>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

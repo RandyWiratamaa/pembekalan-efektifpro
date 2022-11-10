@@ -57,4 +57,9 @@ class Pembekalan extends Model
     {
         return $this->belongsTo(Pengajar::class, 'pengajar_id', 'id');
     }
+
+    public function peserta()
+    {
+        return $this->hasMany(Peserta::class, 'pembekalan_uuid', 'uuid');
+    }
 }

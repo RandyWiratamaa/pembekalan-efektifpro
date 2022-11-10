@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DataTables;
 use App\Models\Bank;
+use App\Models\Peserta;
 use App\Models\Pengajar;
 use App\Models\Pembekalan;
 use Illuminate\Http\Request;

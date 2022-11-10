@@ -21,7 +21,7 @@ class PembekalanController extends Controller
         $materi = MateriPembekalan::all();
         $metode = MetodePembekalan::all();
         $bank = Bank::all();
-        $data_pembekalan = Pembekalan::with(['metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic'])->orderBy('hari_tanggal', 'ASC')->get();
+        $data_pembekalan = Pembekalan::with(['metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic', 'peserta'])->orderBy('hari_tanggal', 'ASC')->get();
         $pembekalan = Pembekalan::all();
 
         $events = [];
@@ -105,8 +105,8 @@ class PembekalanController extends Controller
         $bank = Bank::all();
         $detail_pembekalan = Pembekalan::with(['metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic'])->orderBy('hari_tanggal', 'ASC')->where('uuid',$uuid)->first();
         $surat_penegasan = SuratPenegasan::where('pembekalan_uuid', $uuid)->first();
-        $peserta = Peserta::where('pembekalan_uuid', $uuid)->orderBy('nama', 'ASC')->get();
-        $data_pembekalan = Pembekalan::with(['metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic'])->orderBy('hari_tanggal', 'ASC')->get();
+        $peserta = Peserta::with('pembekalan')->where('pembekalan_uuid', $uuid)->orderBy('nama', 'ASC')->get();
+        $data_pembekalan = Pembekalan::with(['metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic'])->orderBy('hari_tanggal', 'ASC')->get(); $data_peserta = Peserta::with('pembekalan')->where('pembekalan_uuid', $uuid)->get();
         return view('pages.pembekalan.detail', get_defined_vars());
     }
 }
