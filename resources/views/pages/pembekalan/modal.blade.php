@@ -111,16 +111,50 @@
 </div>
 
 {{-- Modal Berita Acara --}}
-<div id="beritaAcara" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+@foreach ($data_pembekalan as $i)
+<div id="beritaAcara{{ $i->uuid }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Berita Acara</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <div class="modal-body p-4">
+                <div class="table-responsive pt-3" style="height: 600px">
+                    <table class="table table-bordered table-centered mb-0 client" style="width:100%" id="btn-editable">
+                        <thead class="table-light">
+                            <tr class="text-center">
+                                <th>Bank</th>
+                                <th>Sertifikasi</th>
+                                <th>Tanggal</th>
+                                <th>Pengajar</th>
+                                <th>Link Zoom</th>
+                                <th>Surat Penawaran</th>
+                                <th>Surat Penegasan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Nama Bank</td>
+                                <td>Nama Pelatihan</td>
+                                <td>Tanggal</td>
+                                <td>Nama Pengajar</td>
+                                <td>Link Zoom</td>
+                                <td>
+                                    file surat penawaran
+                                </td>
+                                <td>
+                                    file surat penawaran
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+@endforeach
 
 {{-- Modal Peserta Pembekalan --}}
 @foreach ($data_pembekalan as $i)

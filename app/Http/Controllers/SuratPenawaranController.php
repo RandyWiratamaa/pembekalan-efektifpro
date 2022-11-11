@@ -10,10 +10,12 @@ use App\Models\Pembekalan;
 use Illuminate\Http\Request;
 use App\Models\SuratPenawaran;
 use App\Models\SuratPenegasan;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\JenisPembekalan;
 use App\Models\LevelPembekalan;
 use App\Models\MateriPembekalan;
 use App\Models\MetodePembekalan;
+use Illuminate\Support\Facades\Storage;
 
 class SuratPenawaranController extends Controller
 {
@@ -126,5 +128,17 @@ class SuratPenawaranController extends Controller
     {
         $surat_penawaran = SuratPenawaran::with('bank')->firstWhere('id', $id);
         return view('pages.surat-penawaran.detail', get_defined_vars());
+    }
+
+    public function generatePDF($id)
+    {
+        $surat_penawaran = SuratPenawaran::with('bank')->firstWhere('id', $id);
+        $filename = "{$surat_penawaran->bank->nama}.pdf";
+        $data = [
+            'surat_penawaran' => $surat_penawaran
+        ];
+
+        $pdf = Pdf::loadView('pages.surat-penawaran.download', $data);
+        return $pdf->download($filename);
     }
 }

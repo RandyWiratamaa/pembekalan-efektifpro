@@ -111,7 +111,7 @@
                                                             <a class="dropdown-item" id="dataPeserta" data-id="{{ $i->uuid }}">
                                                                 Peserta Pembekalan
                                                             </a>
-                                                            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#beritaAcara{{ $i->bank_id }}">
+                                                            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#beritaAcara{{ $i->uuid }}">
                                                                 Berita Acara
                                                             </a>
                                                             <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#update{{ $i->uuid }}">
@@ -145,7 +145,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
-    <script src="{{ asset('assets/js/calendar/toastui-calendar.min.js') }}"></script>
 
 
     <script type="text/javascript">
@@ -153,7 +152,7 @@
             var pembekalan = @json($events)
 
             var calendar = $('#calendar').fullCalendar({
-                editable: true,
+                editable: false,
                 selectable: true,
                 default: true,
                 eventBackgroundColor: '#ff291095',

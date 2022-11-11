@@ -126,6 +126,9 @@
                                                     <a href="{{ url('surat-penawaran/view/'.$i->id) }}" class="dropdown-item" target="_blank">
                                                         <i class='mdi mdi-eye me-1'></i> Review
                                                     </a>
+                                                    <a href="{{ url('surat-penawaran/generate-PDF/'.$i->id) }}" class="dropdown-item" target="_blank">
+                                                        <i class='mdi mdi-download me-1'></i> Download Surat Penawaran
+                                                    </a>
                                                     @if ($i->is_approved == 0)
                                                     <a class="dropdown-item">
                                                         Approve
