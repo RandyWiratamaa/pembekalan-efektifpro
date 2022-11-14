@@ -109,4 +109,10 @@ class PembekalanController extends Controller
         $data_pembekalan = Pembekalan::with(['metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic'])->orderBy('hari_tanggal', 'ASC')->get(); $data_peserta = Peserta::with('pembekalan')->where('pembekalan_uuid', $uuid)->get();
         return view('pages.pembekalan.detail', get_defined_vars());
     }
+
+    public function getDetail($uuid)
+    {
+        $detail_pembekalan = Pembekalan::with(['metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic'])->orderBy('hari_tanggal', 'ASC')->where('uuid',$uuid)->first();
+        return response()->json($detail_pembekalan, 200);
+    }
 }

@@ -16,6 +16,7 @@
         <link href="assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" type="text/css" />
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css" />
+        <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
         <style>
             /* .fc-event{
                 width: 150px !important;
@@ -111,8 +112,12 @@
                                                             <a class="dropdown-item" id="dataPeserta" data-id="{{ $i->uuid }}">
                                                                 Peserta Pembekalan
                                                             </a>
-                                                            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#beritaAcara{{ $i->uuid }}">
+                                                            <a class="dropdown-item" id="beritaAcara" data-id="{{ $i->uuid }}">
                                                                 Berita Acara
+                                                            </a>
+
+                                                            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#beritaAcara{{ $i->uuid }}">
+                                                                Berita Acara2
                                                             </a>
                                                             <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#update{{ $i->uuid }}">
                                                                 Update Pelatihan
@@ -142,10 +147,11 @@
 
 @once
     @push('javascript')
+    <script src="{{ asset('assets/js/moment.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -206,7 +212,78 @@
                     alert("error")
                 }
             })
+        });
+
+        $(document).on('click', '#beritaAcara', function() {
+            var idx = $(this).attr('data-id')
+            $('#beritaAcara'+idx).modal('show');
+            console.log(idx);
+            var berita_acara = $('#beritaAcara'+idx)
+            // berita_acara.html('')
+            $.ajax({
+                url:"{{ url('pembekalan/getDetail') }}/"+idx,
+                method:'get',
+                success:function(res){
+                    $('#nama_program1').text(res.metode_pembekalan.metode + ' ' + res.materi_pembekalan.materi + ' - ' + res.materi_pembekalan.kode)
+                    $('#nama_program2').text(res.metode_pembekalan.metode + ' ' + res.materi_pembekalan.materi + ' - ' + res.materi_pembekalan.kode)
+                    $('#pengajar').text(res.pengajar.nama)
+                    $('#tgl_pembekalan').text(res.hari_tanggal)
+                    $('#lokasi').text(res.metode_pembekalan.metode)
+                    $('#investasi1').text(res.investasi)
+                    $('#investasi2').text(res.investasi)
+                    $('#investasi3').text(res.investasi)
+                    console.log(res)
+                },
+                error: function(xhr, status, error) {
+                    // alert(xhr.responseText);
+                    alert("error")
+                }
+            })
+        });
+
+        jQuery(document).ready(function(){
+            jQuery('select[name="bank_id"]').on('change', function()
+            {
+                var bank = jQuery(this).val();
+                if(bank)
+                {
+                    jQuery.ajax({
+                        url : '/pembekalan/getPic/' +bank,
+                        type : "GET",
+                        dataType : "json",
+                        success:function(data)
+                        {
+                            jQuery('select[name="pic_id"]').empty();
+                            jQuery.each(data, function(key, value){
+                                $('select[name="pic_id"]').append('<option value="'+ key +'">'+ value + '</option>');
+                            });
+                        }
+                    });
+                }
+                else
+                {
+                    $('select[name="pic_id"]').empty();
+                }
+            });
         })
+
+
+        $(document).ready(function() {
+            $('#berita-acara').summernote();
+        });
+
+        function currency(val){
+            bilangan = val;
+            var number_string = bilangan.toString(),
+                sisa    = number_string.length % 3,
+                rupiah  = number_string.substr(0, sisa),
+                ribuan  = number_string.substr(sisa).match(/\d{3}/g);
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+            return "Rp. "+rupiah
+        }
     </script>
     @endpush
 @endonce

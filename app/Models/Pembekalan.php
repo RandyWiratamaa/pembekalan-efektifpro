@@ -62,4 +62,9 @@ class Pembekalan extends Model
     {
         return $this->hasMany(Peserta::class, 'pembekalan_uuid', 'uuid');
     }
+
+    public function berita_acara()
+    {
+        return $this->hasMany(BeritaAcara::class, 'pembekalan_uuid', 'uuid');
+    }
 }

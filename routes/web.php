@@ -35,6 +35,7 @@ Route::group(['middleware' => 'auth'], function (){
 
     Route::get('pembekalan', [App\Http\Controllers\PembekalanController::class, 'index'])->name('pembekalan.index');
     Route::get('/pembekalan/getPic/{id}', [App\Http\Controllers\PembekalanController::class, 'getPic'])->name('pembekalan.getPic');
+    Route::get('/pembekalan/getDetail/{id}', [App\Http\Controllers\PembekalanController::class, 'getDetail'])->name('pembekalan.getDetail');
     Route::post('pembekalan', [App\Http\Controllers\PembekalanController::class, 'store'])->name('pembekalan.store');
     Route::match(['put', 'patch'], 'pembekalan/{uuid}', [App\Http\Controllers\PembekalanController::class, 'update'])->name('pembekalan.update');
     Route::get('pembekalan/detail/{uuid}', [App\Http\Controllers\PembekalanController::class, 'detail'])->name('pembekalan.detail');
@@ -53,4 +54,8 @@ Route::group(['middleware' => 'auth'], function (){
     Route::post('peserta', [App\Http\Controllers\PesertaController::class, 'store'])->name('peserta.store');
     Route::get('peserta/{uuid}', [App\Http\Controllers\PembekalanController::class, 'getPeserta'])->name('peserta.getPeserta');
     Route::post('peserta/import', [App\Http\Controllers\PesertaController::class, 'import_excel'])->name('peserta.import');
+
+    Route::get('berita-acara', [App\Http\Controllers\BeritaAcaraController::class, 'index'])->name('berita-acara.index');
+    Route::post('berita-acara', [App\Http\Controllers\BeritaAcaraController::class, 'store'])->name('berita-acara.store');
+    Route::get('berita-acara/view/{id}', [App\Http\Controllers\BeritaAcaraController::class, 'view'])->name('berita-acara.view');
 });

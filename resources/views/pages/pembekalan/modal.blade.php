@@ -116,41 +116,71 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Berita Acara</h4>
+                <h4 class="modal-title">Buat {{ $page_name }}</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body p-4">
-                <div class="table-responsive pt-3" style="height: 600px">
-                    <table class="table table-bordered table-centered mb-0 client" style="width:100%" id="btn-editable">
-                        <thead class="table-light">
-                            <tr class="text-center">
-                                <th>Bank</th>
-                                <th>Sertifikasi</th>
-                                <th>Tanggal</th>
-                                <th>Pengajar</th>
-                                <th>Link Zoom</th>
-                                <th>Surat Penawaran</th>
-                                <th>Surat Penegasan</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Nama Bank</td>
-                                <td>Nama Pelatihan</td>
-                                <td>Tanggal</td>
-                                <td>Nama Pengajar</td>
-                                <td>Link Zoom</td>
-                                <td>
-                                    file surat penawaran
-                                </td>
-                                <td>
-                                    file surat penawaran
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <form action="{{ route('berita-acara.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body p-4">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Tanggal Surat *</label>
+                                <input type="date" class="form-control" name="tanggal" id="tanggal">
+                            </div>
+                        </div>
+                        <input type="hidden" class="form-control" name="uuid" id="uuid" value="{{ $i->uuid }}">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Bank *</label>
+                                <select name="bank_id" id="bank_id" class="form-control">
+                                    <option value="">-- Pilih Bank --</option>
+                                    @foreach ($bank as $j)
+                                    <option value="{{ $j->id }}">{{ $j->nama }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">PIC *</label><br>
+                                <select name="pic_id" id="pic_id" class="form-control" required>
+                                </select>
+                                <small class="text-danger"><em>Pilih Bank terlebih dahulu </em></small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label class="form-label">Body Surat *</label>
+                                <textarea name="body" class="form-control" id="berita-acara">
+                                    @include('pages.berita-acara.body')
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Absensi</label>
+                                <input type="file" name="absensi" class="form-control" id="absensi">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Dokumentasi</label>
+                                <input type="file" name="dokumentasi" class="form-control" id="dokumentasi">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-info waves-effect waves-light">Simpan</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -416,18 +446,6 @@
     </div>
 </div>
 @endforeach
-
-{{-- Modal Berita Acara --}}
-<div id="penawaran" class="modal fade" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Berita Acara</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-        </div>
-    </div>
-</div>
 
 {{-- Modal Update Pelatihan --}}
 @foreach ($data_pembekalan as $i)

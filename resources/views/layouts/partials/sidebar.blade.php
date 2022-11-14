@@ -71,7 +71,7 @@
                                     <a href="{{ route('surat-penegasan.index') }}">Surat Penegasan</a>
                                 </li>
                                 <li>
-                                    <a href="#">Berita Acara</a>
+                                    <a href="{{ route('berita-acara.index') }}">Berita Acara</a>
                                 </li>
                                 <li>
                                     <a href="#">Invoice</a>
