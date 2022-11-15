@@ -25,6 +25,7 @@ class MateriPembekalanController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
+        $data = MateriPembekalan::all();
         return view('pages.materi.index', get_defined_vars());
     }
 
@@ -36,6 +37,30 @@ class MateriPembekalanController extends Controller
         $materi->save();
 
         if($materi){
+            return redirect()->route('materi_pembekalan.index');
+        } else {
+            return redirect()->back()->withInput();
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        $materi = MateriPembekalan::firstWhere('id', $id);
+        $materi->kode = $request->kode;
+        $materi->materi = $request->nama;
+        $materi->save();
+        if($materi) {
+            return redirect()->route('materi_pembekalan.index');
+        } else {
+            return redirect()->back()->withInput();
+        }
+    }
+
+    public function destroy($id)
+    {
+        $delete_materi = MateriPembekalan::findOrFail($id);
+        $delete_materi->delete();
+        if($delete_materi) {
             return redirect()->route('materi_pembekalan.index');
         } else {
             return redirect()->back()->withInput();

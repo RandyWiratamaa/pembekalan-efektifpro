@@ -235,8 +235,8 @@
                     console.log(res)
                 },
                 error: function(xhr, status, error) {
-                    // alert(xhr.responseText);
-                    alert("error")
+                    alert(xhr.responseText);
+                    // alert("error")
                 }
             })
         });

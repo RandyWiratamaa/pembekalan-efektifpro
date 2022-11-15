@@ -17,7 +17,6 @@ class BeritaAcaraController extends Controller
                 return $query->with(['materi_pembekalan', 'bank']);
             }
             ])->get();
-        // dd($berita_acara);
         return view('pages.berita-acara.index', get_defined_vars());
     }
 

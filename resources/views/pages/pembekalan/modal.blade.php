@@ -132,27 +132,6 @@
                         <input type="hidden" class="form-control" name="uuid" id="uuid" value="{{ $i->uuid }}">
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">Bank *</label>
-                                <select name="bank_id" id="bank_id" class="form-control">
-                                    <option value="">-- Pilih Bank --</option>
-                                    @foreach ($bank as $j)
-                                    <option value="{{ $j->id }}">{{ $j->nama }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">PIC *</label><br>
-                                <select name="pic_id" id="pic_id" class="form-control" required>
-                                </select>
-                                <small class="text-danger"><em>Pilih Bank terlebih dahulu </em></small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label class="form-label">Body Surat *</label>

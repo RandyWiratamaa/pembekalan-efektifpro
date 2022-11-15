@@ -20,6 +20,8 @@ Route::group(['middleware' => 'auth'], function (){
 
     Route::get('materi_pembekalan', [App\Http\Controllers\MateriPembekalanController::class, 'index'])->name('materi_pembekalan.index');
     Route::post('materi_pembekalan', [App\Http\Controllers\MateriPembekalanController::class, 'store'])->name('materi_pembekalan.store');
+    Route::match(['put', 'patch'], 'materi_pembekalan/{id}', [App\Http\Controllers\MateriPembekalanController::class, 'update'])->name('materi_pembekalan.update');
+    Route::delete('materi_pembekalan/{id}', [App\Http\Controllers\MateriPembekalanController::class, 'destroy'])->name('materi_pembekalan.destroy');
 
     Route::get('bank', [App\Http\Controllers\BankController::class, 'index'])->name('bank.index');
     Route::post('bank', [App\Http\Controllers\BankController::class, 'store'])->name('bank.store');
@@ -32,6 +34,8 @@ Route::group(['middleware' => 'auth'], function (){
 
     Route::get('pengajar', [App\Http\Controllers\PengajarController::class, 'index'])->name('pengajar.index');
     Route::post('pengajar', [App\Http\Controllers\PengajarController::class, 'store'])->name('pengajar.store');
+    Route::match(['put', 'patch'], 'pengajar/{id}', [App\Http\Controllers\PengajarController::class, 'update'])->name('pengajar.update');
+    Route::delete('pengajar/{id}', [App\Http\Controllers\PengajarController::class, 'destroy'])->name('pengajar.destroy');
 
     Route::get('pembekalan', [App\Http\Controllers\PembekalanController::class, 'index'])->name('pembekalan.index');
     Route::get('/pembekalan/getPic/{id}', [App\Http\Controllers\PembekalanController::class, 'getPic'])->name('pembekalan.getPic');

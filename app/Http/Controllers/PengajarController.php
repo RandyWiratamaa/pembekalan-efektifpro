@@ -21,6 +21,7 @@ class PengajarController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
+        $data = Pengajar::all();
         return view('pages.pengajar.index', get_defined_vars());
     }
     public function store(Request $request)
@@ -32,6 +33,33 @@ class PengajarController extends Controller
         $pengajar->jenkel = $request->jenkel;
         $pengajar->photo = $request->photo;
         $pengajar->save();
+        if($pengajar) {
+            return redirect()->route('pengajar.index');
+        } else {
+            return redirect()->back()->withInput();
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        $pengajar = Pengajar::firstWhere('id', $id);
+        $pengajar->nama = $request->nama;
+        $pengajar->email = $request->email;
+        $pengajar->no_hp = $request->no_hp;
+        $pengajar->jenkel = $request->jenkel;
+        $pengajar->photo = $request->photo;
+        $pengajar->save();
+        if($pengajar) {
+            return redirect()->route('pengajar.index');
+        } else {
+            return redirect()->back()->withInput();
+        }
+    }
+
+    public function destroy($id)
+    {
+        $pengajar = Pengajar::findOrFail($id);
+        $pengajar->delete();
         if($pengajar) {
             return redirect()->route('pengajar.index');
         } else {
