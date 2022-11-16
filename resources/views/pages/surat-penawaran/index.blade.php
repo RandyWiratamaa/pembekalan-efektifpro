@@ -107,7 +107,7 @@
                                         <td>{{ $i->materi_pembekalan->kode }} - {{ $i->materi_pembekalan->materi }}</td>
                                         <td class="text-center">
                                             @if ($i->is_approved == 1)
-                                                <span class="badge bg-success">Sudah diapprove</span>
+                                                <span class="badge bg-success text-dark">Sudah diapprove</span>
                                             @else
                                                 <span class="badge bg-warning text-dark">Belum diapprove</span>
                                             @endif
@@ -130,7 +130,14 @@
                                                         <i class='mdi mdi-download me-1'></i> Download Surat Penawaran
                                                     </a>
                                                     @if ($i->is_approved == 0)
-                                                    <a class="dropdown-item">
+                                                    <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editSuratPenawaran{{ $i->id }}">
+                                                        <i class='mdi mdi-lead-pencil me-1'></i> Edit
+                                                    </a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#hapusSuratPenawaran{{ $i->id }}">
+                                                        <i class='mdi mdi-trash-can me-1'></i> Delete
+                                                    </a>
+                                                    <a class="dropdown-item text-center text-dark bg-soft-success" href="#"  data-bs-toggle="modal" data-bs-target="#approve{{ $i->id }}">
                                                         Approve
                                                     </a>
                                                     @endif
@@ -219,6 +226,9 @@
     <script>
         $(document).ready(function() {
             $('#body').summernote();
+        });
+        $(document).ready(function() {
+            $('.edit_body').summernote();
         });
         $(document).ready(function() {
             $('#body_penegasan').summernote();

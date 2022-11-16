@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use DataTables;
+use App\Models\Pic;
 use App\Models\Bank;
 use App\Models\Peserta;
 use App\Models\Pengajar;
@@ -10,9 +11,9 @@ use App\Models\Pembekalan;
 use Illuminate\Http\Request;
 use App\Models\SuratPenawaran;
 use App\Models\SuratPenegasan;
-use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\JenisPembekalan;
 use App\Models\LevelPembekalan;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\MateriPembekalan;
 use App\Models\MetodePembekalan;
 use Illuminate\Support\Facades\Storage;
@@ -67,6 +68,7 @@ class SuratPenawaranController extends Controller
         $materi = MateriPembekalan::all();
         $metode = MetodePembekalan::all();
         $bank = Bank::all();
+        $pic = Pic::all();
 
         if($request->get('bank_id')){
             // Filter data by Nama Bank
@@ -130,6 +132,25 @@ class SuratPenawaranController extends Controller
         return view('pages.surat-penawaran.detail', get_defined_vars());
     }
 
+    public function update(Request $request, $id)
+    {
+        $update_penawaran = SuratPenawaran::firstWhere('id', $id);
+        $update_penawaran->no_surat = $request->no_surat;
+        $update_penawaran->tgl_surat = $request->tgl_surat;
+        $update_penawaran->bank_id = $request->bank_id;
+        $update_penawaran->pic_id = $request->pic_id;
+        $update_penawaran->materi_id = $request->materi_id;
+        $update_penawaran->metode_id = $request->metode_id;
+        $update_penawaran->perihal = $request->perihal;
+        $update_penawaran->body = $request->edit_body;
+        $update_penawaran->save();
+        if($update_penawaran) {
+            return redirect()->route('surat-penawaran.index');
+        } else {
+            return redirect()->back()->withInput();
+        }
+    }
+
     public function generatePDF($id)
     {
         $surat_penawaran = SuratPenawaran::with('bank')->firstWhere('id', $id);
@@ -140,5 +161,16 @@ class SuratPenawaranController extends Controller
 
         $pdf = Pdf::loadView('pages.surat-penawaran.download', $data);
         return $pdf->download($filename);
+    }
+
+    public function destroy($id)
+    {
+        $delete_penawaran = SuratPenawaran::findOrFail($id);
+        $delete_penawaran->delete();
+        if($delete_penawaran) {
+            return redirect()->route('surat-penawaran.index');
+        } else {
+            return redirect()->back()->withInput();
+        }
     }
 }

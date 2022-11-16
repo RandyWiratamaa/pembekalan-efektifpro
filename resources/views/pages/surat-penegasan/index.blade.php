@@ -111,13 +111,13 @@
                                                     </a>
                                                     @if ($i->is_approved == 0)
                                                     <a class="dropdown-item">
-                                                        Edit
+                                                        <i class='mdi mdi-lead-pencil me-1'></i> Edit
                                                     </a>
                                                     <a class="dropdown-item">
                                                         Another Action
                                                     </a>
                                                     <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item">
+                                                    <a class="dropdown-item bg-soft-success text-center">
                                                         Approve
                                                     </a>
                                                     @endif

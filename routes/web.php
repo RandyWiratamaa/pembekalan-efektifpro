@@ -49,6 +49,8 @@ Route::group(['middleware' => 'auth'], function (){
     Route::post('surat-penawaran', [App\Http\Controllers\SuratPenawaranController::class, 'store'])->name('surat-penawaran.store');
     Route::get('surat-penawaran/view/{id}', [App\Http\Controllers\SuratPenawaranController::class, 'view'])->name('surat-penawaran.view');
     Route::get('surat-penawaran/generate-PDF/{id}', [App\Http\Controllers\SuratPenawaranController::class, 'generatePDF'])->name('surat-penawaran.generate-PDF');
+    Route::match(['put', 'patch'], 'surat-penawaran/{id}', [App\Http\Controllers\SuratPenawaranController::class, 'update'])->name('surat-penawaran.update');
+    Route::delete('surat-penawaran/{id}', [App\Http\Controllers\SuratPenawaranController::class, 'destroy'])->name('surat-penawaran.destroy');
 
     Route::get('surat-penegasan', [App\Http\Controllers\SuratPenegasanController::class, 'index'])->name('surat-penegasan.index');
     Route::get('surat-penegasan/show/{id}', [App\Http\Controllers\SuratPenegasanController::class, 'show'])->name('surat-penegasan.show');
