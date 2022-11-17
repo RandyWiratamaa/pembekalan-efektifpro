@@ -46,4 +46,9 @@ class SuratPenawaran extends Model
     {
         return $this->belongsTo(MateriPembekalan::class, 'materi_id', 'id');
     }
+
+    public function bpo()
+    {
+        return $this->belongsTo(Bpo::class, 'approved_by', 'id');
+    }
 }

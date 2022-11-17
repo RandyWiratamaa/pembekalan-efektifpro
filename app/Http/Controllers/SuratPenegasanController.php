@@ -71,6 +71,7 @@ class SuratPenegasanController extends Controller
         $pembekalan->save();
 
         $surat_penegasan = new SuratPenegasan;
+        $surat_penegasan->no_surat_penawaran = $request->no_surat_penawaran;
         $surat_penegasan->pembekalan_uuid = $uuid;
         $surat_penegasan->no_surat = $request->no_surat;
         $surat_penegasan->tgl_surat = $request->tgl_surat;

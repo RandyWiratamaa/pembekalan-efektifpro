@@ -82,8 +82,8 @@
                                     <tr>
                                         <td>{{ $i->no_surat }}</td>
                                         <td>{{ $i->tgl_surat->isoFormat('dddd, DD MMMM YYYY') }}</td>
-                                        <td>{{ $i->bank->nama }}</td>
-                                        <td>{{ $i->pembekalan->materi_pembekalan->materi }}</td>
+                                        <td>{{ strtoupper($i->bank->nama) }}</td>
+                                        <td>{{ strtoupper($i->pembekalan->materi_pembekalan->materi) }}</td>
                                         <td class="text-center">
                                             @if ($i->is_approved == 1)
                                                 <span class="badge bg-success text-dark">Sudah diapprove</span>
@@ -110,7 +110,7 @@
                                                         <i class='mdi mdi-eye me-1'></i> Review
                                                     </a>
                                                     @if ($i->is_approved == 0)
-                                                    <a class="dropdown-item">
+                                                    <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editSuratPenegasan{{ $i->id }}">
                                                         <i class='mdi mdi-lead-pencil me-1'></i> Edit
                                                     </a>
                                                     <a class="dropdown-item">
@@ -135,6 +135,7 @@
         </div>
     </div>
 </div>
+@include('pages.surat-penegasan.modal')
 
 @endsection
 
@@ -174,69 +175,9 @@
         $(".js-example-basic-multiple").select2();
     </script>
 
-    {{-- <script type="text/javascript">
-        $(function () {
-          var table = $('.client').DataTable({
-              processing: true,
-              serverSide: true,
-              ajax: "{{ route('client.index') }}",
-              columns: [
-                    {data: 'nama', name: 'nama'},
-                    {data: 'alamat', name: 'alamat'},
-                    {data: 'kota', name: 'kota'},
-                    {data: 'kode_pos', name: 'kode_pos'},
-                    {data: 'no_telp', name: 'no_telp'},
-                    {data: 'pic', name: 'pic'},
-                    {data: 'jabatan_pic', name: 'jabatan_pic'},
-                    {data: 'kerjasama', name: 'kerjasama',
-                        "render": function (data, type, row) {
-                            if (row.kerjasama == '1') {
-                                return `<div class="text-center">
-                                            <span class="badge bg-success text-dark p-1">Sudah</span>
-                                        </div>`;
-                            } else {
-                                return `<div class="text-center">
-                                            <span class="badge bg-danger text-dark p-1">Belum</span>
-                                        </div>`;
-                            }
-                        }
-                    },
-                    {data: 'action', name: 'action', orderable: false, searchable: false,
-                        "render": function (data, type, row) {
-                            if (row.kerjasama == '1') {
-                                return `<div class="dropdown text-center">
-                                            <a href="#" class="dropdown-toggle card-drop arrow-none" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="mdi mdi-dots-horizontal m-0 text-muted h3"></i>
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-end">
-                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#edit` + row.id + `"><i class="fas fa-edit"></i> Edit </a>
-                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#delete` + row.id + `"><i class="fas fa-trash"></i> Delete</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#kirimEmail` + row.id + `">Kirim Email</a>
-                                            </div>
-                                        </div>`;
-                            } else {
-                                return `<div class="dropdown text-center">
-                                            <a href="#" class="dropdown-toggle card-drop arrow-none" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="mdi mdi-dots-horizontal m-0 text-muted h3"></i>
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-end">
-                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#edit` + row.id + `"><i class="fas fa-edit"></i> Edit </a>
-                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#delete` + row.id + `"><i class="fas fa-trash"></i> Delete</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#kirimPenawaran` + row.id + `">Kirim Surat Penawaran</a>
-                                            </div>
-                                        </div>`;
-                            }
-                        }
-                    }
-              ]
-          });
-        });
-    </script> --}}
+
     <script>
         jQuery(document).ready(function(){
-        //get Kota berdasarkan provinsi
             jQuery('select[name="bank"]').on('change', function()
             {
                 var bank = jQuery(this).val();
@@ -265,6 +206,9 @@
     <script>
         $(document).ready(function() {
             $('#body').summernote();
+        });
+        $(document).ready(function() {
+            $('.body_penegasan').summernote();
         });
     </script>
     @endpush

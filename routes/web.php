@@ -50,6 +50,7 @@ Route::group(['middleware' => 'auth'], function (){
     Route::get('surat-penawaran/view/{id}', [App\Http\Controllers\SuratPenawaranController::class, 'view'])->name('surat-penawaran.view');
     Route::get('surat-penawaran/generate-PDF/{id}', [App\Http\Controllers\SuratPenawaranController::class, 'generatePDF'])->name('surat-penawaran.generate-PDF');
     Route::match(['put', 'patch'], 'surat-penawaran/{id}', [App\Http\Controllers\SuratPenawaranController::class, 'update'])->name('surat-penawaran.update');
+    Route::match(['put', 'patch'], 'surat-penawaran/approve/{id}', [App\Http\Controllers\SuratPenawaranController::class, 'approve'])->name('surat-penawaran.approve');
     Route::delete('surat-penawaran/{id}', [App\Http\Controllers\SuratPenawaranController::class, 'destroy'])->name('surat-penawaran.destroy');
 
     Route::get('surat-penegasan', [App\Http\Controllers\SuratPenegasanController::class, 'index'])->name('surat-penegasan.index');
@@ -64,4 +65,9 @@ Route::group(['middleware' => 'auth'], function (){
     Route::get('berita-acara', [App\Http\Controllers\BeritaAcaraController::class, 'index'])->name('berita-acara.index');
     Route::post('berita-acara', [App\Http\Controllers\BeritaAcaraController::class, 'store'])->name('berita-acara.store');
     Route::get('berita-acara/view/{id}', [App\Http\Controllers\BeritaAcaraController::class, 'view'])->name('berita-acara.view');
+
+    Route::get('bpo', [App\Http\Controllers\BpoController::class, 'index'])->name('bpo.index');
+    Route::post('bpo', [App\Http\Controllers\BpoController::class, 'store'])->name('bpo.store');
+    // Route::get('bpo/signature', [App\Http\Controllers\BpoController::class, 'signature'])->name('bpo.signature');
+    // Route::post('bpo/signature', [App\Http\Controllers\BpoController::class, 'upload'])->name('signaturepad.upload');
 });

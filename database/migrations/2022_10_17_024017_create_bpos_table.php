@@ -13,9 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('surat_penawaran', function (Blueprint $table) {
-            $table->dropForeign(['level_id']);
-            $table->dropColumn('level_id');
+        Schema::create('bpo', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama');
+            $table->string('email')->nullable();
+            $table->string('jabatan')->nullable();
+            $table->string('signature');
+            $table->string('photo')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -26,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('bpo');
     }
 };

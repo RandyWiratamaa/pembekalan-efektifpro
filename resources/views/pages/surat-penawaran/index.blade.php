@@ -103,8 +103,8 @@
                                     <tr>
                                         <td>{{ $i->no_surat }}</td>
                                         <td>{{ $i->tgl_surat->isoFormat('dddd, DD MMMM YYYY') }}</td>
-                                        <td>{{ $i->bank->nama }}</td>
-                                        <td>{{ $i->materi_pembekalan->kode }} - {{ $i->materi_pembekalan->materi }}</td>
+                                        <td>{{ strtoupper($i->bank->nama) }}</td>
+                                        <td>{{ strtoupper($i->materi_pembekalan->kode) }} - {{ strtoupper($i->materi_pembekalan->materi) }}</td>
                                         <td class="text-center">
                                             @if ($i->is_approved == 1)
                                                 <span class="badge bg-success text-dark">Sudah diapprove</span>
@@ -120,9 +120,19 @@
                                                     <i class='mdi mdi-dots-horizontal font-18'></i>
                                                 </button>
                                                 <div class="dropdown-menu dropdown-menu-end">
+                                                    @php
+                                                    $check_penegasan = DB::table('surat_penegasan')->where('no_surat_penawaran', $i->no_surat)->count() > 0;
+                                                    $surat_penegasan = DB::table('surat_penegasan')->where('no_surat_penawaran', $i->no_surat)->first();
+                                                    @endphp
+                                                    @if ($check_penegasan)
+                                                    <a href="{{ url('surat-penegasan/view/'.$surat_penegasan->id) }}" class="dropdown-item" target="_blank">
+                                                        <i class='mdi mdi-file me-1'></i> Surat Penegasan
+                                                    </a>
+                                                    @else
                                                     <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#addSuratPenegasan{{ $i->id }}">
                                                         <i class='mdi mdi-email-newsletter me-1'></i> Buatkan Surat Penegasan
                                                     </a>
+                                                    @endif
                                                     <a href="{{ url('surat-penawaran/view/'.$i->id) }}" class="dropdown-item" target="_blank">
                                                         <i class='mdi mdi-eye me-1'></i> Review
                                                     </a>

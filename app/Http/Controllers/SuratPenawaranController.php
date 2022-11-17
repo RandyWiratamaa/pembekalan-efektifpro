@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use DataTables;
+use App\Models\Bpo;
 use App\Models\Pic;
 use App\Models\Bank;
 use App\Models\Peserta;
@@ -88,6 +89,9 @@ class SuratPenawaranController extends Controller
                     return $query->with(['materi_pembekalan']);
                 }, 'bank'])->get();
         }
+
+        // $check_penegasan = SuratPenegasan::join('surat_penawaran', 'surat_penawaran.no_surat', '=', 'surat_penegasan.no_surat_penawaran')->get();
+        $bpo = Bpo::all();
         return view('pages.surat-penawaran.index', get_defined_vars());
     }
 
@@ -128,7 +132,8 @@ class SuratPenawaranController extends Controller
 
     public function view($id)
     {
-        $surat_penawaran = SuratPenawaran::with('bank')->firstWhere('id', $id);
+        $surat_penawaran = SuratPenawaran::with('bank', 'bpo')->firstWhere('id', $id);
+
         return view('pages.surat-penawaran.detail', get_defined_vars());
     }
 
@@ -145,6 +150,20 @@ class SuratPenawaranController extends Controller
         $update_penawaran->body = $request->edit_body;
         $update_penawaran->save();
         if($update_penawaran) {
+            return redirect()->route('surat-penawaran.index');
+        } else {
+            return redirect()->back()->withInput();
+        }
+    }
+
+    public function approve(Request $request, $id)
+    {
+        $approved = 1;
+        $approve_penawaran = SuratPenawaran::firstWhere('id', $id);
+        $approve_penawaran->is_approved = $approved;
+        $approve_penawaran->approved_by = $request->approved_by;
+        $approve_penawaran->save();
+        if ($approve_penawaran) {
             return redirect()->route('surat-penawaran.index');
         } else {
             return redirect()->back()->withInput();

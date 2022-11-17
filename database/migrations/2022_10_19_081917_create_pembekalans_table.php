@@ -17,16 +17,21 @@ return new class extends Migration
             $table->id();
             $table->string('uuid');
             $table->unsignedBigInteger('bank_id');
+            $table->unsignedBigInteger('pic_id');
             $table->unsignedBigInteger('materi_id');
-            $table->unsignedBigInteger('level_id');
+            $table->unsignedBigInteger('metode_id');
             $table->string('investasi');
             $table->date('hari_tanggal');
             $table->time('mulai');
             $table->time('selesai');
-            $table->unsignedBigInteger('metode_id');
+            $table->string('link_zoom');
             $table->string('min_peserta');
+            $table->unsignedBigInteger('pengajar_id');
             $table->timestamps();
+
             $table->foreign('bank_id')->references('id')->on('bank')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreign('pic_id')->references('id')->on('pic')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreign('pengajar_id')->references('id')->on('pengajar')->onUpdate('cascade')->onDelete('restrict');
         });
     }
 

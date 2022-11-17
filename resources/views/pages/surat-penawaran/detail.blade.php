@@ -72,7 +72,7 @@
             </tr>
         </thead>
 
-        <tbody>
+        <t  body>
             <tr>
                 <td>
                     <!--*** CONTENT GOES HERE ***-->
@@ -114,6 +114,14 @@
                         <div style="text-align: justify">
                             {!! $surat_penawaran->body !!}
                         </div>
+                        <strong>Hormat Kami,</strong><br>
+                        <strong>PT. Efektifpro Knowledge Source</strong><br>
+                        @if ($surat_penawaran->approved_by != 0)
+                        <img src="{{ asset('assets/signature/'.$surat_penawaran->bpo->signature) }}" style="width:150px" alt="">
+                        <br>
+                        <strong><u>{{ $surat_penawaran->bpo->nama }}</u></strong><br>
+                        <strong><em>{{ $surat_penawaran->bpo->jabatan }}</em></strong>
+                        @endif
                     </div>
                 </td>
             </tr>

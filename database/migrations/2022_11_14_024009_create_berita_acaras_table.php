@@ -20,7 +20,12 @@ return new class extends Migration
             $table->longText('body');
             $table->string('absensi');
             $table->string('dokumentasi');
+            $table->boolean('is_approved')->default(false);
+            $table->boolean('status')->default(false);
+            $table->unsignedBigInteger('approved_by')->nullable();
             $table->timestamps();
+
+            $table->foreign('approved_by')->references('id')->on('bpo')->onUpdate('cascade')->onDelete('restrict');
         });
     }
 

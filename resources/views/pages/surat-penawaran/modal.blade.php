@@ -125,7 +125,6 @@
             </div>
             <form action="{{ route('surat-penegasan.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-
                 <div class="modal-body p-4">
                     <div class="row">
                         <div class="col-md-4">
@@ -140,6 +139,9 @@
                                 <label class="form-label">Tanggal Surat *</label>
                                 <input type="date" class="form-control" name="tgl_surat" id="tgl_surat">
                             </div>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="hidden" class="form-control" name="no_surat_penawaran" id="no_surat_penawaran" value="{{ $i->no_surat }}" readonly>
                         </div>
                     </div>
                     <div class="row">
@@ -382,17 +384,19 @@
                 <h4 class="modal-title">Ubah {{ $page_name }}</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="#" method="POST" enctype="multipart/form-data">
+            <form action="{{ url('surat-penawaran/approve', $i->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @method('PATCH')
                 <div class="modal-body p-4">
                     <div class="row">
                         <h3>Approve Surat Penawaran dengan No. Surat : </h3><br>
                             <h4><span class="text-dark"><strong>{{ $i->no_surat }}</strong></span></h4>
                         <div class="col-12">
                             <label>Surat Penawaran ini diapprove oleh : </label>
-                            <select name="approve_by" id="approve_by" class="form-control">
-                                <option value="Rizky Ahadian">Rizky Ahadian</option>
-                                <option value="Pahrul Rozi">Pahrul Rozi</option>
+                            <select name="approved_by" id="approved_by" class="form-control">
+                                @foreach ($bpo as $j)
+                                <option value="{{ $j->id }}">{{ $j->nama }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>

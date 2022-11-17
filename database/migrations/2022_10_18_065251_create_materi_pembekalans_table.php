@@ -17,10 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('materi');
             $table->string('kode');
-            $table->unsignedBigInteger('level_id');
             $table->timestamps();
-
-            $table->foreign('level_id')->references('id')->on('level_pembekalan')->onUpdate('cascade')->onDelete('restrict');
         });
     }
 

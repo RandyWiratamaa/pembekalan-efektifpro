@@ -93,6 +93,9 @@
                                 <li>
                                     <a href="{{ route('pengajar.index') }}">Pengajar</a>
                                 </li>
+                                <li>
+                                    <a href="{{ route('bpo.index') }}">Business Process Owner (BPO)</a>
+                                </li>
                             </ul>
                         </div>
                     </a>

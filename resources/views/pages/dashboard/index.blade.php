@@ -48,18 +48,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="header-title">Curva Surat Penawaran</h4>
-                    <div class="mt-4 chartjs-chart">
-                        <canvas id="chart-surat-penawaran" height="150" data-colors="#5671f0,#f35d5d"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-body">
@@ -131,6 +119,55 @@
             }
         });
 
+        // Jml kelas per pengajar
+        var label_pengajar = {{ Js::from($label_pengajar) }};
+        var data_pengajar = {{ Js::from($data_pengajar) }};
+        Highcharts.chart('chart-pengajar', {
+            title: {
+                text: 'Jumlah Kelas'
+            },
+            subtitle: {
+                text: 'PT. Efektifpro Knowledge Source'
+            },
+            xAxis: {
+                categories: label_pengajar
+            },
+            yAxis: {
+                title: {
+                    text: 'Jumlah Kelas'
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle'
+            },
+            plotOptions: {
+                series: {
+                    allowPointSelect: true
+                }
+            },
+            series: [{
+                name: 'Pengajar',
+                data: data_pengajar
+            }],
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
+            }
+        });
+
+        //Jml Surat Penawaran
         var label = {{ Js::from($label_surat_penawaran) }};
         var userData = {{ Js::from($data_surat_penawaran) }};
         Highcharts.chart('container', {
@@ -183,28 +220,28 @@
 
     <script type="text/javascript">
         // Surat Penawaran
-        var label_surat_penawaran = {{ Js::from($label_surat_penawaran) }};
-        var surat_penawaran = {{ Js::from($data_surat_penawaran) }};
+        // var label_surat_penawaran = {{ Js::from($label_surat_penawaran) }};
+        // var surat_penawaran = {{ Js::from($data_surat_penawaran) }};
 
-        const data_surat_penawaran = {
-            labels: label_surat_penawaran,
-            datasets: [{
-                label: 'Surat Penawaran',
-                backgroundColor: '#fff',
-                borderColor: '#23b019',
-                data: surat_penawaran,
-            }]
-        };
-        const config_surat_penawaran = {
-            type: 'line',
-            data: data_surat_penawaran,
-            options: {}
-        };
+        // const data_surat_penawaran = {
+        //     labels: label_surat_penawaran,
+        //     datasets: [{
+        //         label: 'Surat Penawaran',
+        //         backgroundColor: '#fff',
+        //         borderColor: '#23b019',
+        //         data: surat_penawaran,
+        //     }]
+        // };
+        // const config_surat_penawaran = {
+        //     type: 'line',
+        //     data: data_surat_penawaran,
+        //     options: {}
+        // };
 
-        const suratPenawaran = new Chart(
-            document.getElementById('chart-surat-penawaran'),
-            config_surat_penawaran
-        );
+        // const suratPenawaran = new Chart(
+        //     document.getElementById('chart-surat-penawaran'),
+        //     config_surat_penawaran
+        // );
 
         // Surat Penegasan
         var label_surat_penegasan = {{ Js::from($label_surat_penegasan) }};
