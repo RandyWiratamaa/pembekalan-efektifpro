@@ -4,21 +4,25 @@
     <style type="text/css">
 
         @page {
-            margin: 100px 25px;
+            margin: 120px;
+            font-size: 12px;
+            font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            margin-left: 114px;
+            margin-right: 114px;
         }
 
         header {
             position: fixed;
-            top: -70px;
+            top: -100px;
             left: 0px;
             right: 0px;
-            height: 50px;
+            height: 80px;
 
             /** Extra personal styles **/
-            background-color: #03a9f4;
-            color: white;
+            /* background-color: #03a9f4;
+            color: white; */
             text-align: center;
-            line-height: 35px;
+            /* line-height: 35px; */
         }
         footer {
             position: fixed;
@@ -28,10 +32,10 @@
             height: 50px;
 
             /** Extra personal styles **/
-            background-color: #03a9f4;
-            color: white;
+            /* background-color: #03a9f4;
+            color: white; */
             text-align: center;
-            line-height: 35px;
+            /* line-height: 35px; */
         }
 
         div.nomor {
@@ -39,7 +43,6 @@
         }
         div.tanggal {
             text-align: right;
-            margin-top: 40px
         }
         table {
             page-break-inside: always;
@@ -75,7 +78,7 @@
         <div class="tanggal">
             Jakarta, {{ $surat_penegasan->tgl_surat->isoFormat('DD MMMM YYYY') }}
         </div>
-        <div class="nomor">
+        <div class="nomor" style="margin-top:-10px">
             Nomor : {{ $surat_penegasan->no_surat }}
         </div>
 

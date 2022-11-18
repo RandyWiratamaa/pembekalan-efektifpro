@@ -110,6 +110,8 @@
     {{-- {{ $data_pembekalan->bank->nama }} --}}
 </p>
 <br>
+<p>Demikian surat penegasan ini, atas perhatian dan kerjasamanya kami ucapkan terima kasih.
+<br>
 <p>
     <b><u>Untuk keterangan lebih lanjut dapat menghubungi contact person kami :</u></b>
 </p>

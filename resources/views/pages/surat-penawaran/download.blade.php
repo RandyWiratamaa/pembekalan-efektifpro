@@ -4,21 +4,25 @@
     <style type="text/css">
 
         @page {
-            margin: 100px 25px;
+            margin: 100px;
+            font-size: 12px;
+            font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            margin-left: 114px;
+            margin-right: 114px;
         }
 
         header {
             position: fixed;
-            top: -70px;
+            top: -100px;
             left: 0px;
             right: 0px;
             height: 50px;
 
             /** Extra personal styles **/
-            background-color: #03a9f4;
-            color: white;
+            /* background-color: #03a9f4;
+            color: white; */
             text-align: center;
-            line-height: 35px;
+            /* line-height: 35px; */
         }
         footer {
             position: fixed;
@@ -28,10 +32,10 @@
             height: 50px;
 
             /** Extra personal styles **/
-            background-color: #03a9f4;
-            color: white;
+            /* background-color: #03a9f4;
+            color: white; */
             text-align: center;
-            line-height: 35px;
+            /* line-height: 35px; */
         }
 
         div.nomor {
@@ -39,7 +43,6 @@
         }
         div.tanggal {
             text-align: right;
-            margin-top: 40px
         }
         table {
             page-break-inside: always;
@@ -75,11 +78,11 @@
         <div class="tanggal">
             Jakarta, 1 Januari 2022
         </div>
-        <div class="nomor">
+        <div class="nomor" style="margin-top:-15px">
             Nomor : 1234567778
         </div>
 
-        <div class="nomor" style="margin-bottom:20px">
+        <div class="nomor" style="margin-bottom:20px;margin-top:20px">
             <p>{{ $surat_penawaran->bank->nama }}<br />{{ $surat_penawaran->bank->alamat }}<br />{{ $surat_penawaran->bank->kota }} - {{ $surat_penawaran->bank->kode_pos }}</p>
         </div>
 
@@ -92,13 +95,12 @@
         <div class="nomor">
             <p>Perihal : {{ $surat_penawaran->perihal }}</p>
         </div>
-        <div class="nomor" style="padding-left:60px; margin-top:-25px">
+        <div class="nomor" style="padding-left:60px; margin-top:-25px; margin-bottom:20px">
             <p>Lembaga Sertifikasi Profesi Perbankan (LSPP)</p>
         </div>
         @php
             $body = $surat_penawaran->body;
             $exp = explode("<br>", $body);
-            // dd($exp);
         @endphp
         <table>
             @foreach ($exp as $key => $i)
@@ -118,6 +120,7 @@
             <tr>{!! $exp[3] !!}</tr>
             <tr>{!! $exp[4] !!}</tr> --}}
         </table>
+        <br>
         <div class="nomor" style="margin-top: 10px">
             <p><strong>Hormat Kami</strong></p>
             <p>PT. Efektifpro Knowledge Source</p>
@@ -132,10 +135,3 @@
 
 </body>
 </html>
-
-{{-- <script>
-    let body = {!! $surat_penawaran->body !!};
-    const myArray = body.split(" ");
-    document.getElementById("body").innerHTML = myArray;
-    // alert(body)
-</script> --}}

@@ -80,6 +80,8 @@
         <li>Terlampir</li>
     </ol>
 </ol>
+<br>
+<p>Demikian surat penawaran ini, atas perhatian dan kerjasamanya kami ucapkan terima kasih.</p>
 {{-- <p>Surat penawaran ini telah kami sesuaikan dengan kebutuhan {{ $data_pembekalan->bank->nama }}</p> --}}
 <br>
 <p>

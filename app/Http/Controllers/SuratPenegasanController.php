@@ -40,7 +40,12 @@ class SuratPenegasanController extends Controller
         $bpo = Bpo::all();
         $pic = Pic::all();
         if($request->get('bank_id')){
-            $surat_penegasan = SuratPenegasan::with(['materi_pembekalan', 'level_pembekalan', 'bank', 'pengajar'])->where('bank_id', $request->get('bank_id'))->get();
+            $surat_penegasan = SuratPenegasan::with([
+                'pembekalan' => function($q) {
+                    return $q->with(['pengajar', 'metode_pembekalan', 'pic']);
+                }
+                , 'materi_pembekalan', 'level_pembekalan', 'bank'
+            ])->where('bank_id', $request->get('bank_id'))->get();
         } else{
             $surat_penegasan = SuratPenegasan::with([
                     'pembekalan' => function($q) {
@@ -177,7 +182,7 @@ class SuratPenegasanController extends Controller
         $body = $surat_penegasan->body;
         $exp = explode("<br>", $body);
         $pdf = Pdf::setOption(['dpi' => 150]);
-        $pdf = Pdf::loadView('pages.surat-penegasan.download', $data);
+        $pdf = Pdf::loadView('pages.surat-penegasan.download', $data)->setPaper('A4', 'potrait');
         $pdf->save($path . '/' . $filename);
         return $pdf->download($filename);
 

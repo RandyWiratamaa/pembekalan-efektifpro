@@ -106,15 +106,19 @@
                                                         <i class='mdi mdi-eye me-1'></i> Review
                                                     </a>
                                                     @if ($i->is_approved == 0)
-                                                    <a class="dropdown-item">
-                                                        Edit
-                                                    </a>
-                                                    <a class="dropdown-item">
-                                                        Another Action
+                                                    <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editBeritaAcara{{ $i->id }}">
+                                                        <i class='mdi mdi-lead-pencil me-1'></i> Edit
                                                     </a>
                                                     <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item">
+                                                    <a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#hapusBeritaAcara{{ $i->id }}">
+                                                        <i class='mdi mdi-trash-can me-1'></i> Delete
+                                                    </a>
+                                                    <a class="dropdown-item text-center text-dark bg-soft-success" href="#"  data-bs-toggle="modal" data-bs-target="#approve{{ $i->id }}">
                                                         Approve
+                                                    </a>
+                                                    @else
+                                                    <a href="{{ url('surat-penegasan/generate-PDF/'.$i->id) }}" class="dropdown-item" target="_blank">
+                                                        <i class='mdi mdi-download me-1'></i> Download Surat Penegasan
                                                     </a>
                                                     @endif
                                                 </div>
@@ -131,7 +135,7 @@
         </div>
     </div>
 </div>
-
+@include('pages.berita-acara.modal')
 @endsection
 
 @once
