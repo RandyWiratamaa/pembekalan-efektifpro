@@ -113,12 +113,16 @@
                                                     <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editSuratPenegasan{{ $i->id }}">
                                                         <i class='mdi mdi-lead-pencil me-1'></i> Edit
                                                     </a>
-                                                    <a class="dropdown-item">
-                                                        Another Action
-                                                    </a>
                                                     <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item bg-soft-success text-center">
+                                                    <a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#hapusSuratPenegasan{{ $i->id }}">
+                                                        <i class='mdi mdi-trash-can me-1'></i> Delete
+                                                    </a>
+                                                    <a class="dropdown-item text-center text-dark bg-soft-success" href="#"  data-bs-toggle="modal" data-bs-target="#approve{{ $i->id }}">
                                                         Approve
+                                                    </a>
+                                                    @else
+                                                    <a href="{{ url('surat-penegasan/generate-PDF/'.$i->id) }}" class="dropdown-item" target="_blank">
+                                                        <i class='mdi mdi-download me-1'></i> Download Surat Penegasan
                                                     </a>
                                                     @endif
                                                 </div>
@@ -178,7 +182,7 @@
 
     <script>
         jQuery(document).ready(function(){
-            jQuery('select[name="bank"]').on('change', function()
+            jQuery('select[name="bank_id"]').on('change', function()
             {
                 var bank = jQuery(this).val();
                 if(bank)

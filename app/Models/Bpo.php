@@ -15,4 +15,9 @@ class Bpo extends Model
     {
         return $this->hasMany(SuratPenawaran::class, 'approved_by', 'id');
     }
+
+    public function surat_penegasan()
+    {
+        return $this->hasMany(SuratPenegasan::class, 'approved_by', 'id');
+    }
 }

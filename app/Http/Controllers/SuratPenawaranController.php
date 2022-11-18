@@ -9,6 +9,7 @@ use App\Models\Bank;
 use App\Models\Peserta;
 use App\Models\Pengajar;
 use App\Models\Pembekalan;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\SuratPenawaran;
 use App\Models\SuratPenegasan;
@@ -133,7 +134,9 @@ class SuratPenawaranController extends Controller
     public function view($id)
     {
         $surat_penawaran = SuratPenawaran::with('bank', 'bpo')->firstWhere('id', $id);
-
+        $body = $surat_penawaran->body;
+        $exp = explode("<br>", $body);
+        // dd($exp);
         return view('pages.surat-penawaran.detail', get_defined_vars());
     }
 
@@ -172,14 +175,26 @@ class SuratPenawaranController extends Controller
 
     public function generatePDF($id)
     {
-        $surat_penawaran = SuratPenawaran::with('bank')->firstWhere('id', $id);
-        $filename = "{$surat_penawaran->bank->nama}.pdf";
+        $surat_penawaran = SuratPenawaran::with('bank', 'bpo')->firstWhere('id', $id);
+        $slug_bank = Str::slug($surat_penawaran->bank->nama);
+        $filename = "{$surat_penawaran->tgl_surat->isoFormat('DDMMYYYY')}-{$slug_bank}.pdf";
+        $path = public_path('assets/surat-penawaran');
         $data = [
             'surat_penawaran' => $surat_penawaran
         ];
-
+        $body = explode(" ", $surat_penawaran->body);
+        $body = $surat_penawaran->body;
+        $exp = explode("<br>", $body);
         $pdf = Pdf::loadView('pages.surat-penawaran.download', $data);
+        $pdf->save($path . '/' . $filename);
         return $pdf->download($filename);
+
+
+        // $pdf = Pdf::setPaper('a4', 'potrait');
+        // $pdf = Pdf::loadHtml($surat_penawaran->body)->setPaper('a4', 'potrait')->setWarnings(false);
+        // $pdf = Pdf::render();
+        // return $pdf->stream();
+        // ->save(public_path('assets/surat-penawaran/'.$surat_penawaran->tgl_surat->isoFormat('DDMMYYYY').$surat_penawaran->bank->nama));
     }
 
     public function destroy($id)

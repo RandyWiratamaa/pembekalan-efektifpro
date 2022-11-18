@@ -51,6 +51,8 @@
             font: 12pt "Tahoma";
         }
     </style>
+
+<script>
 </head>
 
 <body>
@@ -72,7 +74,7 @@
             </tr>
         </thead>
 
-        <t  body>
+        <tbody>
             <tr>
                 <td>
                     <!--*** CONTENT GOES HERE ***-->
@@ -112,7 +114,8 @@
                         </table>
                         <p>&nbsp;</p>
                         <div style="text-align: justify">
-                            {!! $surat_penawaran->body !!}
+                            {{-- {!! $surat_penawaran->body !!} --}}
+                            {!!  $surat_penawaran->body  !!}
                         </div>
                         <strong>Hormat Kami,</strong><br>
                         <strong>PT. Efektifpro Knowledge Source</strong><br>

@@ -235,7 +235,7 @@
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label class="form-label">Body Surat *</label>
-                                <textarea name="body_penegasan" class="form-control" id="body_penegasan">
+                                <textarea name="body_penegasan" class="form-control surat_penegasan" id="penegasan">
                                     @include('pages.surat-penegasan.body_surat_penegasan')
                                 </textarea>
                             </div>

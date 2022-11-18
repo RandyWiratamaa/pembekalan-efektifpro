@@ -6,7 +6,7 @@
                 <h4 class="modal-title">Buat Surat Penegasan</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="#" method="POST" enctype="multipart/form-data">
+            <form action="{{ url('surat-penegasan', $i->pembekalan_uuid) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
                 <div class="modal-body p-4">
@@ -40,7 +40,11 @@
                             <div class="mb-3">
                                 <label class="form-label">PIC *</label><br>
                                 <select name="pic_id" id="pic_id" class="form-control" required>
-                                    {{-- <option value="{{ $i->pic_id }}">{{ $i->pic->nama }}</option> --}}
+                                    @foreach ($pic as $j)
+                                    <option value={{ $j->id }} @if($j->id == $i->pembekalan->pic_id) selected @endif>
+                                        {{ $j->nama }}
+                                    </option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -48,18 +52,18 @@
                             <div class="mb-3">
                                 <label class="form-label">Pengajar *</label>
                                 <select name="pengajar_id" id="pengajar_id" class="form-control">
-                                    {{-- @foreach ($pengajar as $j)
-                                    <option value="{{ $j->id }}">
+                                    @foreach ($pengajar as $j)
+                                    <option value={{ $j->id }} @if($j->id == $i->pembekalan->pengajar_id) selected @endif>
                                         {{ $j->nama }}
                                     </option>
-                                    @endforeach --}}
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="mb-3">
                                 <label class="form-label">Tanggal Pembekalan *</label>
-                                <input type="date" class="form-control" name="hari_tanggal" id="hari_tanggal">
+                                <input type="date" class="form-control" name="hari_tanggal" id="hari_tanggal" value="{{ $i->pembekalan->hari_tanggal->isoFormat('YYYY-MM-DD') }}">
                             </div>
                         </div>
                     </div>
@@ -68,9 +72,11 @@
                             <div class="mb-3">
                                 <label class="form-label">Sertifikasi *</label>
                                 <select name="materi_id" id="materi_id" class="form-control">
-                                    {{-- <option value="{{ $i->materi_id }}">
-                                        {{ $i->materi_pembekalan->materi }}
-                                    </option> --}}
+                                    @foreach ($materi as $j)
+                                    <option value={{ $j->id }} @if($j->id == $i->pembekalan->materi_id) selected @endif>
+                                        {{ $j->materi }}
+                                    </option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -78,28 +84,30 @@
                             <div class="mb-3">
                                 <label class="form-label">Metode *</label>
                                 <select name="metode_id" id="metode_id" class="form-control">
-                                    {{-- <option value="{{ $i->metode_id }}">
-                                        {{ $i->metode_pembekalan->metode }}
-                                    </option> --}}
+                                    @foreach ($metode as $j)
+                                    <option value={{ $j->id }} @if($j->id == $i->pembekalan->metode_id) selected @endif>
+                                        {{ $j->metode }}
+                                    </option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="col md-1">
                             <div class="mb-3">
                                 <label class="form-label">Jam Mulai</label>
-                                <input type="time" name="mulai" id="mulai" class="form-control">
+                                <input type="time" name="mulai" id="mulai" class="form-control" value="{{ $i->pembekalan->mulai->isoFormat('HH:mm') }}">
                             </div>
                         </div>
                         <div class="col md-1">
                             <div class="mb-3">
                                 <label class="form-label">Jam Selesai</label>
-                                <input type="time" name="selesai" id="selesai" class="form-control">
+                                <input type="time" name="selesai" id="selesai" class="form-control" value="{{ $i->pembekalan->selesai->isoFormat('HH:mm') }}">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="col-mb-3">
                                 <label class="form-label">Investasi /Batch</label>
-                                <input type="text" name="investasi" id="investasi" class="form-control">
+                                <input type="text" name="investasi" id="investasi" class="form-control" value="{{ $i->pembekalan->investasi }}">
                             </div>
                         </div>
                     </div>
@@ -130,6 +138,64 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-info waves-effect waves-light">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endforeach
+
+@foreach ($surat_penegasan as $i)
+<div id="approve{{ $i->id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Ubah {{ $page_name }}</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ url('surat-penegasan/approve', $i->id) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PATCH')
+                <div class="modal-body p-4">
+                    <div class="row">
+                        <h3>Approve Surat Penegasan dengan No. Surat : </h3><br>
+                            <h4><span class="text-dark"><strong>{{ $i->no_surat }}</strong></span></h4>
+                        <div class="col-12">
+                            <label>Surat Penegasan ini diapprove oleh : </label>
+                            <select name="approved_by" id="approved_by" class="form-control">
+                                @foreach ($bpo as $j)
+                                <option value="{{ $j->id }}">{{ $j->nama }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-info waves-effect waves-light">Approve</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endforeach
+
+@foreach ($surat_penegasan as $i)
+<div id="hapusSuratPenegasan{{ $i->id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Hapus {{ $page_name }}</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ url('surat-penegasan', $i->id) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('Delete')
+                <div class="modal-body p-4">
+                    <h4>Apakah anda yakin akan menghapus data {{ $i->no_surat }} ini ? </h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-info waves-effect waves-light">Hapus</button>
                 </div>
             </form>
         </div>

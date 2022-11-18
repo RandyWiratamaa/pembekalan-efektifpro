@@ -73,30 +73,30 @@
 
 
         <div class="tanggal">
-            Jakarta, 1 Januari 2022
+            Jakarta, {{ $surat_penegasan->tgl_surat->isoFormat('DD MMMM YYYY') }}
         </div>
         <div class="nomor">
-            Nomor : 1234567778
+            Nomor : {{ $surat_penegasan->no_surat }}
         </div>
 
         <div class="nomor" style="margin-bottom:20px">
-            <p>{{ $surat_penawaran->bank->nama }}<br />{{ $surat_penawaran->bank->alamat }}<br />{{ $surat_penawaran->bank->kota }} - {{ $surat_penawaran->bank->kode_pos }}</p>
+            <p>{{ $surat_penegasan->bank->nama }}<br />{{ $surat_penegasan->bank->alamat }}<br />{{ $surat_penegasan->bank->kota }} - {{ $surat_penegasan->bank->kode_pos }}</p>
         </div>
 
         <div class="nomor">
-            <p>Up. Yth : Ibu. nama PIC</p>
+            <p>Up. Yth : Ibu. {{ $surat_penegasan->pembekalan->pic->nama }}</p>
         </div>
         <div class="nomor" style="padding-left:60px; margin-top:-25px">
-            <p>HR Learning Development</p>
+            <p>{{ $surat_penegasan->pembekalan->pic->jabatan }}</p>
         </div>
         <div class="nomor">
-            <p>Perihal : {{ $surat_penawaran->perihal }}</p>
+            <p>Perihal : {{ $surat_penegasan->perihal }}</p>
         </div>
         <div class="nomor" style="padding-left:60px; margin-top:-25px">
             <p>Lembaga Sertifikasi Profesi Perbankan (LSPP)</p>
         </div>
         @php
-            $body = $surat_penawaran->body;
+            $body = $surat_penegasan->body;
             $exp = explode("<br>", $body);
             // dd($exp);
         @endphp
@@ -121,10 +121,10 @@
         <div class="nomor" style="margin-top: 10px">
             <p><strong>Hormat Kami</strong></p>
             <p>PT. Efektifpro Knowledge Source</p>
-            @if ($surat_penawaran->approved_by != '')
-            <img src="{{ asset('assets/signature/'.$surat_penawaran->bpo->signature) }}" alt="" style="width:100px">
-            <p><u>{{ $surat_penawaran->bpo->nama }}</u></p>
-            <p>{{ $surat_penawaran->bpo->jabatan }}</p>
+            @if ($surat_penegasan->approved_by != '')
+            <img src="{{ asset('assets/signature/'.$surat_penegasan->bpo->signature) }}" alt="" style="width:100px">
+            <p><u>{{ $surat_penegasan->bpo->nama }}</u></p>
+            <p>{{ $surat_penegasan->bpo->jabatan }}</p>
             @endif
         </div>
     </main>

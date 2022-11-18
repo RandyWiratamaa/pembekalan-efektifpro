@@ -376,7 +376,7 @@
 </div>
 @endforeach
 
-{{-- Modal Update Pelatihan --}}
+{{-- Modal Import Peserta Pelatihan --}}
 @foreach ($data_pembekalan as $i)
 <div id="import{{ $i->uuid }}" class="modal fade" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-dialog-centered modal-lg">

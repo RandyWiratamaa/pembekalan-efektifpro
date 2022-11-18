@@ -7,6 +7,9 @@
 @endonce
 
 @section('content')
+{{-- @php
+    die($surat_penegasan)
+@endphp --}}
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
@@ -113,6 +116,28 @@
                                     </div>
                                 </div>
                                 <div class="col ps-0">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#suratPenegasan{{ $surat_penegasan->id }}" class="text-muted fw-bold">Modal Surat Penegasan </a>
+                                </div>
+                                <div class="col-auto">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#suratPenegasan{{ $surat_penegasan->id }}" class="text-muted fw-bold">
+                                        <i class="dripicons-document"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-1 shadow-none border">
+                        <div class="p-2">
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <div class="avatar-sm">
+                                        <span class="avatar-title badge-soft-primary text-primary rounded">
+                                            PNG
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col ps-0">
                                     <a href="{{ url('surat-penegasan/view/'.$surat_penegasan->id) }}" target="_blank" class="text-muted fw-bold">Surat Penegasan</a>
                                 </div>
                                 <div class="col-auto">
@@ -151,6 +176,7 @@
         </div>
     </div>
 </div>
+
 @include('pages.pembekalan.modal')
 @endsection
 

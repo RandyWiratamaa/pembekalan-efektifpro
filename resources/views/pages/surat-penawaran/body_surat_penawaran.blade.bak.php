@@ -4,7 +4,7 @@
     bagi Pengurus dan Pejabat Bank Umum, dengan ini kami - PT. Efektifpro Knowledge Source - menawarkan Pembekalan  Public Class (VC)
     {{-- {{ $data_pembekalan->materi_pembekalan->materi }} ({{ $data_pembekalan->materi_pembekalan->singkatan }}) {{ $data_pembekalan->level_pembekalan->level }}  --}}
     dengan ketentuan dan detail sebagai berikut:</p>
-<table class="table-bordered" style="width:95%; border: 1px solid black; border-collapse: collapse" border="1">
+<table class="table-bordered" style="width:95%; border: 1px solid black; border-collapse: collapse">
     <thead>
       <tr>
         <th colspan="3" class="text-center" style="border: 1px solid black; border-collapse: collapse">In House Class
@@ -13,23 +13,41 @@
       </tr>
     </thead>
     <tbody>
-        <tr>
-            <th colspan="3"></th>
-        </tr>
-        <tr style="text-align: center">
-            <td>Nama Pembekalan</td>
-            <td>Investasi /Batch</td>
+        <tr class="text-center">
+            <td style="width: 25%; text-align:center; border: 1px solid black; border-collapse: collapse">Nama Program Pembekalan
+                {{-- {{ $data_pembekalan->materi_pembekalan->materi }} ({{ $data_pembekalan->materi_pembekalan->singkatan }}) --}}
+            </td>
+            <td style="width: 25%; text-align:center; border: 1px solid black; border-collapse: collapse">Investasi /Batch</td>
             <td>
-                <p>PT. Efektifpro Knowledge Source</p>
-                <p><i>Gandaria 8 Office Tower Lt. 19 Unit B</i></p>
-                <p>Jln. Sultan Iskandar Muda No. 8</p>
+                {{-- <table style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th colspan="3" style="width: 55%;"> --}}
+                <p style="text-align: center">
+                    <b>PT. Efektifpro Knowledge Source</b> <br>
+                    <i>Gandaria 8 Office Tower Lt. 19 Unit B</i><br>
+                    <i>Jln Sultan Iskandar Muda No. 8</i>
+                </p>
+                            {{-- </th>
+                        </tr>
+                    </thead>
+                </table> --}}
             </td>
         </tr>
-        <tr>
-            <td style="text-align: center">Level1</td>
-            <td style="text-align: center">Rp. /Batch</td>
-            <td>
-                <table border="" style="width: 100%;">
+        <tr class="text-center">
+            <td id="level" rowspan="2" style="height:90px; text-align:center; border: 1px solid black; border-collapse: collapse">
+                {{-- {{ $data_pembekalan->level_pembekalan->level }} --}}
+            </td>
+            <td rowspan="2" style="height:90px; text-align:center; border: 1px solid black; border-collapse: collapse">
+                Rp.
+                <p id="investasi"></p>
+                /Batch
+            </td>
+        {{-- </tr> --}}
+        {{-- <tr class="text-center"> --}}
+            <td style="height:50px; text-align:center; border: 1px solid black; border-collapse: collapse">
+                {{-- Min. {{ $data_pembekalan->min_peserta }} Peserta --}}
+                <table style="width: 100%;">
                     <tbody>
                         <tr>
                             <td style="text-align: left">Hari / Tanggal</td>
@@ -74,7 +92,6 @@
         <li>Materi Pembekalan [Soft File]</li>
         <li>Sertifikat Pelatihan</li>
     </ol>
-    <br>
     <li>Fasilitator</li>
     <ol type="a">
         <li>Terlampir</li>

@@ -17,15 +17,6 @@
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css" />
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-        <style>
-            /* .fc-event{
-                width: 150px !important;
-            } */
-            /* .fc-axis {
-                display: none;
-            } */
-        </style>
-        {{-- <link rel="stylesheet" href="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.css" /> --}}
     @endpush
 @endonce
 
@@ -95,9 +86,15 @@
                                                     ({{ $i->mulai->isoFormat('HH:mm') }} - {{ $i->selesai->isoFormat('HH:mm') }} WIB)
                                                 </td>
                                                 <td>{{ $i->pengajar->nama }}</td>
-                                                <td>
+                                                <td class="text-center">
+                                                    @if ($i->link_zoom == '')
+                                                    <button class="btn btn-xs btn-primary" data-bs-toggle="modal" data-bs-target="#update{{ $i->uuid }}">
+                                                        Insert Link Zoom
+                                                    </button>
+                                                    @else
                                                     <a href="{{ $i->link_zoom }}" target="_blank">
                                                     {{ $i->link_zoom }}
+                                                    @endif
                                                 </td>
                                                 <td></td>
                                                 <td>{{ $i->pic->nama }}</td>
@@ -112,15 +109,17 @@
                                                             <a class="dropdown-item" id="dataPeserta" data-id="{{ $i->uuid }}">
                                                                 Peserta Pembekalan
                                                             </a>
+                                                            <a class="dropdown-item">
+                                                                Surat Penawaran
+                                                            </a>
+                                                            <a class="dropdown-item">
+                                                                Sura Penegasan
+                                                            </a>
                                                             <a class="dropdown-item" id="beritaAcara" data-id="{{ $i->uuid }}">
                                                                 Berita Acara
                                                             </a>
-
                                                             <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#beritaAcara{{ $i->uuid }}">
                                                                 Berita Acara2
-                                                            </a>
-                                                            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#update{{ $i->uuid }}">
-                                                                Update Pelatihan
                                                             </a>
                                                             <div class="dropdown-divider"></div>
                                                             <a class="dropdown-item" href="{{ url('pembekalan/detail/'.$i->uuid) }}">

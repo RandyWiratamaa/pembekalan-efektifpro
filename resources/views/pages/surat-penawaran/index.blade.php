@@ -241,7 +241,7 @@
             $('.edit_body').summernote();
         });
         $(document).ready(function() {
-            $('#body_penegasan').summernote();
+            $('.surat_penegasan').summernote();
         });
     </script>
     @endpush
