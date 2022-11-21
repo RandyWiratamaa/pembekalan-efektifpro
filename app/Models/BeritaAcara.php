@@ -16,4 +16,9 @@ class BeritaAcara extends Model
     {
         return $this->belongsTo(Pembekalan::class, 'pembekalan_uuid', 'uuid');
     }
+
+    public function bpo()
+    {
+        return $this->belongsTo(Bpo::class, 'approved_by', 'id');
+    }
 }

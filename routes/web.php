@@ -74,4 +74,7 @@ Route::group(['middleware' => 'auth'], function (){
     Route::post('bpo', [App\Http\Controllers\BpoController::class, 'store'])->name('bpo.store');
     // Route::get('bpo/signature', [App\Http\Controllers\BpoController::class, 'signature'])->name('bpo.signature');
     // Route::post('bpo/signature', [App\Http\Controllers\BpoController::class, 'upload'])->name('signaturepad.upload');
+
+    Route::match(['put', 'patch'], 'berita-acara/approve/{id}', [App\Http\Controllers\BeritaAcaraController::class, 'approve'])->name('berita-acara.approve');
+    Route::get('berita-acara/generate-PDF/{id}', [App\Http\Controllers\BeritaAcaraController::class, 'generatePDF'])->name('berita-acara.generate-PDF');
 });

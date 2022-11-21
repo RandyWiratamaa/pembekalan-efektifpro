@@ -37,7 +37,7 @@ class InvitationMail extends Mailable
     public function build()
     {
         return $this->subject('Mail from PT. Efektifpro Knowledge Source')
-                    ->view('emails.demoMail');
+                    ->view('pages.mail.invitation');
     }
 
     /**

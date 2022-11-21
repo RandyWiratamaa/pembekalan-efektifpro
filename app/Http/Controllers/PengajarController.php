@@ -11,6 +11,8 @@ class PengajarController extends Controller
     public function index(Request $request)
     {
         $page_name = "Pengajar";
+        $data = Pengajar::all();
+
         if ($request->ajax()) {
             $data = Pengajar::orderBy('nama', 'ASC');
             return Datatables::of($data)->addIndexColumn()
@@ -21,7 +23,6 @@ class PengajarController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        $data = Pengajar::all();
         return view('pages.pengajar.index', get_defined_vars());
     }
     public function store(Request $request)
@@ -33,6 +34,7 @@ class PengajarController extends Controller
         $pengajar->jenkel = $request->jenkel;
         $pengajar->photo = $request->photo;
         $pengajar->save();
+
         if($pengajar) {
             return redirect()->route('pengajar.index');
         } else {
@@ -49,6 +51,7 @@ class PengajarController extends Controller
         $pengajar->jenkel = $request->jenkel;
         $pengajar->photo = $request->photo;
         $pengajar->save();
+
         if($pengajar) {
             return redirect()->route('pengajar.index');
         } else {
@@ -60,6 +63,7 @@ class PengajarController extends Controller
     {
         $pengajar = Pengajar::findOrFail($id);
         $pengajar->delete();
+
         if($pengajar) {
             return redirect()->route('pengajar.index');
         } else {

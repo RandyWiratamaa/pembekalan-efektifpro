@@ -43,19 +43,6 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="card-widgets">
-                                <a data-bs-toggle="collapse" title="minimize" href="#calendarJadwal" role="button" aria-expanded="false" aria-controls="calendarJadwal">
-                                    <i class="mdi mdi-minus"></i>
-                                </a>
-                            </div>
-                            <h4>Calendar</h4>
-                            <div id="calendarJadwal" class="collapse show">
-                                <div id="calendar"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-widgets">
                                 <a data-bs-toggle="collapse" href="#tableJadwal" role="button" aria-expanded="false" aria-controls="tableJadwal">
                                     <i class="mdi mdi-minus"></i>
                                 </a>
@@ -106,24 +93,29 @@
                                                             <i class='mdi mdi-dots-horizontal font-18'></i>
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-end">
-                                                            <a class="dropdown-item" id="dataPeserta" data-id="{{ $i->uuid }}">
-                                                                Peserta Pembekalan
+                                                            @php
+                                                                $check_berita_acara = DB::table('berita_acara')->where('pembekalan_uuid', $i->uuid)->count() > 0;
+                                                            @endphp
+                                                            @if (!$check_berita_acara)
+                                                            <a class="dropdown-item" id="beritaAcara" data-id="{{ $i->uuid }}">
+                                                                Buatkan Berita Acara
                                                             </a>
                                                             <a class="dropdown-item">
                                                                 Surat Penawaran
                                                             </a>
                                                             <a class="dropdown-item">
-                                                                Sura Penegasan
+                                                                Surat Penegasan
                                                             </a>
-                                                            <a class="dropdown-item" id="beritaAcara" data-id="{{ $i->uuid }}">
-                                                                Berita Acara
-                                                            </a>
-                                                            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#beritaAcara{{ $i->uuid }}">
+                                                            {{-- <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#beritaAcara{{ $i->uuid }}">
                                                                 Berita Acara2
+                                                            </a> --}}
+                                                            @endif
+                                                            <a class="dropdown-item" id="dataPeserta" data-id="{{ $i->uuid }}">
+                                                                <i class='mdi mdi-account me-1'></i> Peserta Pembekalan
                                                             </a>
-                                                            <div class="dropdown-divider"></div>
+                                                            {{-- <div class="dropdown-divider"></div> --}}
                                                             <a class="dropdown-item" href="{{ url('pembekalan/detail/'.$i->uuid) }}">
-                                                                Detail
+                                                                <i class='mdi mdi-send me-1'></i> Kirim Email Invitation
                                                             </a>
                                                         </div>
                                                     </div>
@@ -133,6 +125,20 @@
                                         </tbody>
                                     </table>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-widgets">
+                                <a data-bs-toggle="collapse" title="minimize" href="#calendarJadwal" role="button" aria-expanded="false" aria-controls="calendarJadwal">
+                                    <i class="mdi mdi-minus"></i>
+                                </a>
+                            </div>
+                            <h4>Calendar</h4>
+                            <div id="calendarJadwal" class="collapse show">
+                                <div id="calendar"></div>
                             </div>
                         </div>
                     </div>
@@ -269,6 +275,62 @@
 
         $(document).ready(function() {
             $('#berita-acara').summernote();
+        });
+
+        $(document).on('change', '.image', function(){
+            var filesCount = $(this)[0].files.length;
+			var textbox = $(this).prev();
+			if (filesCount === 1) {
+                var fileName = $(this).val().split('\\').pop();
+                textbox.text(fileName);
+			} else {
+			    textbox.text(filesCount + ' files selected');
+			}
+            if (typeof (FileReader) != "undefined") {
+                var dvPreview = $("#previewImage");
+                dvPreview.html("");
+                $($(this)[0].files).each(function () {
+                    var file = $(this);
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var img = $("<img />");
+                        img.attr("style", "width: 300px; padding: 5px");
+                        img.attr("src", e.target.result);
+                        dvPreview.append(img);
+                    }
+                    reader.readAsDataURL(file[0]);
+                });
+            } else {
+                alert("This browser does not support HTML5 FileReader.");
+            }
+        });
+
+        $(document).on('change', '.dokumentasi', function(){
+            var filesCount2 = $(this)[0].files.length;
+			var textbox2 = $(this).prev();
+			if (filesCount2 === 1) {
+                var fileName2 = $(this).val().split('\\').pop();
+                textbox2.text(fileName2);
+			} else {
+			    textbox2.text(filesCount2 + ' files selected');
+			}
+            if (typeof (FileReader) != "undefined") {
+                var dvPreview2 = $("#previewDokumentasi");
+                dvPreview2.html("");
+                $($(this)[0].files).each(function () {
+                    var file2 = $(this);
+                    var reader2 = new FileReader();
+                    reader2.onload = function (e) {
+                        var img2 = $("<img />");
+                        img2.attr("style", "width: 300px; padding: 5px");
+                        img2.attr("src", e.target.result);
+                        dvPreview2.append(img2);
+                    }
+                    reader2.readAsDataURL(file2[0]);
+                });
+            } else {
+                alert("This browser does not support HTML5 FileReader.");
+            }
         });
 
         function currency(val){

@@ -71,6 +71,7 @@ class SuratPenawaranController extends Controller
         $metode = MetodePembekalan::all();
         $bank = Bank::all();
         $pic = Pic::all();
+        $bpo = Bpo::all();
 
         if($request->get('bank_id')){
             // Filter data by Nama Bank
@@ -91,8 +92,6 @@ class SuratPenawaranController extends Controller
                 }, 'bank'])->get();
         }
 
-        // $check_penegasan = SuratPenegasan::join('surat_penawaran', 'surat_penawaran.no_surat', '=', 'surat_penegasan.no_surat_penawaran')->get();
-        $bpo = Bpo::all();
         return view('pages.surat-penawaran.index', get_defined_vars());
     }
 
@@ -103,11 +102,6 @@ class SuratPenawaranController extends Controller
         $data_pembekalan = Pembekalan::with(['metode_pembekalan', 'level_pembekalan', 'materi_pembekalan'])->where('uuid', $uuid)->first();
 
         $surat_penawaran = SuratPenawaran::with(['materi_pembekalan', 'level_pembekalan', 'metode_pembekalan', 'bank'])->get();
-        // $surat_penawaran = SuratPenawaran::where('pembekalan_id', $id)->with([
-        //     'pembekalan' => function($query){
-        //         return $query->with(['materi_pembekalan', 'level_pembekalan']);
-        //     }
-        //     , 'bank'])->get();
 
         return view('pages.surat-penawaran.show', get_defined_vars());
     }
@@ -124,6 +118,7 @@ class SuratPenawaranController extends Controller
         $surat_penawaran->perihal = $request->perihal;
         $surat_penawaran->body = $request->body;
         $surat_penawaran->save();
+
         if($surat_penawaran){
             return redirect()->route('surat-penawaran.index');
         } else {
@@ -136,7 +131,7 @@ class SuratPenawaranController extends Controller
         $surat_penawaran = SuratPenawaran::with('bank', 'bpo')->firstWhere('id', $id);
         $body = $surat_penawaran->body;
         $exp = explode("<br>", $body);
-        // dd($exp);
+
         return view('pages.surat-penawaran.detail', get_defined_vars());
     }
 
@@ -152,6 +147,7 @@ class SuratPenawaranController extends Controller
         $update_penawaran->perihal = $request->perihal;
         $update_penawaran->body = $request->edit_body;
         $update_penawaran->save();
+
         if($update_penawaran) {
             return redirect()->route('surat-penawaran.index');
         } else {
@@ -166,6 +162,7 @@ class SuratPenawaranController extends Controller
         $approve_penawaran->is_approved = $approved;
         $approve_penawaran->approved_by = $request->approved_by;
         $approve_penawaran->save();
+
         if ($approve_penawaran) {
             return redirect()->route('surat-penawaran.index');
         } else {
@@ -187,6 +184,7 @@ class SuratPenawaranController extends Controller
         $exp = explode("<br>", $body);
         $pdf = Pdf::loadView('pages.surat-penawaran.download', $data);
         $pdf->save($path . '/' . $filename);
+
         return $pdf->download($filename);
 
 
@@ -201,6 +199,7 @@ class SuratPenawaranController extends Controller
     {
         $delete_penawaran = SuratPenawaran::findOrFail($id);
         $delete_penawaran->delete();
+
         if($delete_penawaran) {
             return redirect()->route('surat-penawaran.index');
         } else {

@@ -14,6 +14,8 @@
     <link href="{{ asset('assets/libs/select2/css/select2.min.css" rel="stylesheet') }}" type="text/css" />
     <link href="{{ asset('assets/libs/selectize/css/selectize.bootstrap3.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css') }}" rel="stylesheet" type="text/css" />
+
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     @endpush
 @endonce
 
@@ -102,10 +104,10 @@
                                                     <i class='mdi mdi-dots-horizontal font-18'></i>
                                                 </button>
                                                 <div class="dropdown-menu dropdown-menu-end">
+                                                    @if ($i->is_approved == 0)
                                                     <a href="{{ url('berita-acara/view/'.$i->id) }}" class="dropdown-item" target="_blank">
                                                         <i class='mdi mdi-eye me-1'></i> Review
                                                     </a>
-                                                    @if ($i->is_approved == 0)
                                                     <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editBeritaAcara{{ $i->id }}">
                                                         <i class='mdi mdi-lead-pencil me-1'></i> Edit
                                                     </a>
@@ -113,12 +115,15 @@
                                                     <a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#hapusBeritaAcara{{ $i->id }}">
                                                         <i class='mdi mdi-trash-can me-1'></i> Delete
                                                     </a>
-                                                    <a class="dropdown-item text-center text-dark bg-soft-success" href="#"  data-bs-toggle="modal" data-bs-target="#approve{{ $i->id }}">
+                                                    <a class="dropdown-item text-center text-dark bg-soft-success" href="#" data-bs-toggle="modal" data-bs-target="#approve{{ $i->id }}">
                                                         Approve
                                                     </a>
                                                     @else
-                                                    <a href="{{ url('surat-penegasan/generate-PDF/'.$i->id) }}" class="dropdown-item" target="_blank">
-                                                        <i class='mdi mdi-download me-1'></i> Download Surat Penegasan
+                                                    <a href="{{ url('berita-acara/generate-PDF/'.$i->id) }}" class="dropdown-item" target="_blank">
+                                                        <i class='mdi mdi-download me-1'></i> Download Berita Acara
+                                                    </a>
+                                                    <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#kirim{{ $i->id }}">
+                                                        <i class='mdi mdi-send me-1'></i> Kirim ke PIC
                                                     </a>
                                                     @endif
                                                 </div>
@@ -146,6 +151,7 @@
     <script src="{{ asset('assets/libs/devbridge-autocomplete/jquery.autocomplete.min.js') }}"></script>
     <script src="{{ asset('assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js') }}"></script>
     <script src="{{ asset('assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
     <script src="{{ asset('assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/libs/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
@@ -160,5 +166,67 @@
     <script src="{{ asset('assets/libs/datatables.net-select/js/dataTables.select.min.js') }}"></script>
     <script src="{{ asset('assets/libs/pdfmake/build/pdfmake.min.js') }}"></script>
     <script src="{{ asset('assets/libs/pdfmake/build/vfs_fonts.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.ubah-berita-acara').summernote();
+        });
+
+        $(document).on('change', '.image', function(){
+            var filesCount = $(this)[0].files.length;
+			var textbox = $(this).prev();
+			if (filesCount === 1) {
+                var fileName = $(this).val().split('\\').pop();
+                textbox.text(fileName);
+			} else {
+			    textbox.text(filesCount + ' files selected');
+			}
+            if (typeof (FileReader) != "undefined") {
+                var dvPreview = $("#previewImage");
+                dvPreview.html("");
+                $($(this)[0].files).each(function () {
+                    var file = $(this);
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var img = $("<img />");
+                        img.attr("style", "width: 300px; padding: 5px");
+                        img.attr("src", e.target.result);
+                        dvPreview.append(img);
+                    }
+                    reader.readAsDataURL(file[0]);
+                });
+            } else {
+                alert("This browser does not support HTML5 FileReader.");
+            }
+        });
+
+        $(document).on('change', '.dokumentasi', function(){
+            var filesCount2 = $(this)[0].files.length;
+			var textbox2 = $(this).prev();
+			if (filesCount2 === 1) {
+                var fileName2 = $(this).val().split('\\').pop();
+                textbox2.text(fileName2);
+			} else {
+			    textbox2.text(filesCount2 + ' files selected');
+			}
+            if (typeof (FileReader) != "undefined") {
+                var dvPreview2 = $("#previewDokumentasi");
+                dvPreview2.html("");
+                $($(this)[0].files).each(function () {
+                    var file2 = $(this);
+                    var reader2 = new FileReader();
+                    reader2.onload = function (e) {
+                        var img2 = $("<img />");
+                        img2.attr("style", "width: 300px; padding: 5px");
+                        img2.attr("src", e.target.result);
+                        dvPreview2.append(img2);
+                    }
+                    reader2.readAsDataURL(file2[0]);
+                });
+            } else {
+                alert("This browser does not support HTML5 FileReader.");
+            }
+        });
+    </script>
     @endpush
 @endonce

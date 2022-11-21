@@ -15,6 +15,8 @@ class MateriPembekalanController extends Controller
         $page_name = "Program Pembekalan";
         $jenis = JenisPembekalan::all();
         $level = LevelPembekalan::all();
+        $data = MateriPembekalan::all();
+
         if ($request->ajax()) {
             $data = MateriPembekalan::orderBy('kode', 'ASC');
             return Datatables::of($data)->addIndexColumn()
@@ -25,7 +27,6 @@ class MateriPembekalanController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        $data = MateriPembekalan::all();
         return view('pages.materi.index', get_defined_vars());
     }
 
@@ -49,6 +50,7 @@ class MateriPembekalanController extends Controller
         $materi->kode = $request->kode;
         $materi->materi = $request->nama;
         $materi->save();
+
         if($materi) {
             return redirect()->route('materi_pembekalan.index');
         } else {
@@ -59,7 +61,8 @@ class MateriPembekalanController extends Controller
     public function destroy($id)
     {
         $delete_materi = MateriPembekalan::findOrFail($id);
-        $delete_materi->delete();
+       $delete_materi->delete();
+
         if($delete_materi) {
             return redirect()->route('materi_pembekalan.index');
         } else {

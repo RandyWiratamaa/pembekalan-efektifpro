@@ -13,6 +13,8 @@ class BankController extends Controller
     {
         $page_name = "Bank";
         $jenis_bank = JenisBank::all();
+        $data = Bank::all();
+
         if ($request->ajax()) {
             $data = Bank::with('jenis_bank');
             return Datatables::of($data)->addIndexColumn()
@@ -26,7 +28,6 @@ class BankController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        $data = Bank::all();
         return view('pages.bank.index', get_defined_vars());
     }
 
@@ -60,6 +61,7 @@ class BankController extends Controller
         $update_bank->kota = $request->kota;
         $update_bank->kode_pos = $request->kode_pos;
         $update_bank->save();
+
         if($update_bank) {
             return redirect()->route('bank.index');
         } else {
@@ -71,6 +73,7 @@ class BankController extends Controller
     {
         $delete_bank = Bank::findOrFail($id);
         $delete_bank->delete();
+
         if($delete_bank) {
             return redirect()->route('bank.index');
         } else {

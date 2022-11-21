@@ -84,6 +84,7 @@ class PembekalanController extends Controller
         $pembekalan->metode_id = $request->metode_id;
         $pembekalan->min_peserta = $request->min_peserta;
         $pembekalan->save();
+
         if ($pembekalan) {
             return redirect()->route('pembekalan.index');
         } else {
@@ -96,6 +97,7 @@ class PembekalanController extends Controller
         $pembekalan = Pembekalan::firstWhere('uuid', $uuid);
         $pembekalan->link_zoom = $request->zoom;
         $pembekalan->save();
+
         if ($pembekalan) {
             return redirect()->route('pembekalan.index');
         } else {
@@ -114,7 +116,7 @@ class PembekalanController extends Controller
         $peserta = Peserta::with('pembekalan')->where('pembekalan_uuid', $uuid)->orderBy('nama', 'ASC')->get();
         $data_pembekalan = Pembekalan::with(['metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic'])->orderBy('hari_tanggal', 'ASC')->get(); $data_peserta = Peserta::with('pembekalan')->where('pembekalan_uuid', $uuid)->get();
         $slug_bank = Str::slug($surat_penegasan->bank->nama);
-        // die($surat_penegasan);
+
         return view('pages.pembekalan.detail', get_defined_vars());
     }
 

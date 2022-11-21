@@ -46,7 +46,10 @@
                     </h3>
                     <div class="badge bg-secondary text-light mb-3">Ongoing</div>
 
-                    <h5>Data Peserta</h5>
+                    <h5 class="text-center">Data Peserta</h5>
+                    <button class="btn btn-sm btn-soft-success waves-effect waves-light float-right mb-2">
+                        >> Kirim ke Semua <<
+                    </button>
                     <table class="table table-bordered table-centered mb-0" style="width:100%">
                         <thead>
                             <tr class="text-center">

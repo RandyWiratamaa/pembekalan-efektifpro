@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Surat Penawaran</title>
+    <title>Surat Penegasan</title>
     <style type="text/css">
 
         @page {

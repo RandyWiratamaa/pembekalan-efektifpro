@@ -11,8 +11,10 @@ class PicController extends Controller
 {
     public function index(Request $request)
     {
+        $page_name = "PIC";
         $bank = Bank::all();
         $pic = Pic::with('bank')->get();
+
         if ($request->ajax()) {
             $data = Pic::with('bank')->orderBy('bank_id', 'ASC');
             return Datatables::of($data)->addIndexColumn()
@@ -32,7 +34,6 @@ class PicController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        $page_name = "PIC";
         return view('pages.pic.index', get_defined_vars());
     }
 
@@ -68,6 +69,7 @@ class PicController extends Controller
     {
         $delete_pic = Pic::findOrFail($id);
         $delete_pic->delete();
+
         if($delete_pic) {
             return redirect()->route('pic.index');
         } else {

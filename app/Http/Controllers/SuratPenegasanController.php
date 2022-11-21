@@ -18,27 +18,30 @@ class SuratPenegasanController extends Controller
 {
     private $n = 3;
 
+    //Fungsi untuk generate UUID
     public function uuid($n)
     {
         $string = '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $random = '';
+
         for($i = 0; $i < $n; $i++) {
             $index = rand(0, strlen($string) - 1);
             $random .= $string[$index];
         }
+
         return $random;
     }
 
     public function index(Request $request)
     {
         $page_name = "Surat Penegasan";
-
         $materi = MateriPembekalan::all();
         $metode = MetodePembekalan::all();
         $pengajar = Pengajar::all();
         $bank = Bank::all();
         $bpo = Bpo::all();
         $pic = Pic::all();
+
         if($request->get('bank_id')){
             $surat_penegasan = SuratPenegasan::with([
                 'pembekalan' => function($q) {

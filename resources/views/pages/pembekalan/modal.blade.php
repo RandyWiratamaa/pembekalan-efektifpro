@@ -145,13 +145,15 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Absensi</label>
-                                <input type="file" name="absensi" class="form-control" id="absensi">
+                                <div id="previewImage"></div>
+                                <input type="file" name="absensi" class="form-control image" id="absensi">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Dokumentasi</label>
-                                <input type="file" name="dokumentasi" class="form-control" id="dokumentasi">
+                                <div id="previewDokumentasi"></div>
+                                <input type="file" name="dokumentasi" class="form-control dokumentasi" id="dokumentasi">
                             </div>
                         </div>
                     </div>
