@@ -7,12 +7,14 @@ use App\Models\Bank;
 use App\Models\Peserta;
 use App\Models\Pembekalan;
 use Illuminate\Support\Str;
+use App\Mail\InvitationMail;
 use Illuminate\Http\Request;
 use App\Models\SuratPenawaran;
 use App\Models\SuratPenegasan;
 use App\Models\LevelPembekalan;
 use App\Models\MateriPembekalan;
 use App\Models\MetodePembekalan;
+use Illuminate\Support\Facades\Mail;
 
 class PembekalanController extends Controller
 {
@@ -124,5 +126,34 @@ class PembekalanController extends Controller
     {
         $detail_pembekalan = Pembekalan::with(['metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic'])->orderBy('hari_tanggal', 'ASC')->where('uuid',$uuid)->first();
         return response()->json($detail_pembekalan, 200);
+    }
+
+    public function mailInvitation(Request $request, $uuid)
+    {
+        $email = $request->email_kantor;
+        $pembekalan = Pembekalan::with(['metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic'])->orderBy('hari_tanggal', 'ASC')->where('uuid',$uuid)->first();
+        $files = [
+            public_path('assets/surat-penawaran/10082022-pt-taspen-pesero.pdf'),
+            public_path('upload/6375a7ba2e87e.png'),
+        ];
+        // dd($pembekalan);
+        // Mail::to($request->email_kantor)->send(new InvitationMail($pembekalan))->attach($files);
+        // Mail::to($email)->send(new InvitationMail($pembekalan), [],function($message) use ($email, $files){
+        //     $message->addAttachment($files);
+        // });
+
+        Mail::to($email)->send(new InvitationMail($pembekalan), $pembekalan, function($message) use ($email, $files){
+            foreach($files as $file){
+                $message->attach($file);
+            }
+        });
+
+        if(Mail::flushMacros()){
+            return response()->with([
+                alert()->warning('Gagal', 'Pesanan Gagal')
+            ]);
+        } else {
+            return redirect()->route('pembekalan.index');
+        }
     }
 }

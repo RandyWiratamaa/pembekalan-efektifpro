@@ -153,7 +153,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="mb-3">
                                 <label class="form-label">PIC *</label><br>
                                 <select name="pic_id" id="pic_id" class="form-control" required>
@@ -173,12 +173,18 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="mb-3">
-                                <label class="form-label">Tanggal Pembekalan *</label>
+                                <label class="form-label">Tanggal Mulai *</label>
                                 <input type="date" class="form-control" name="hari_tanggal" id="hari_tanggal">
                             </div>
                         </div>
+                        {{-- <div class="col-md-2">
+                            <div class="mb-3">
+                                <label class="form-label">Tanggal Selesai *</label>
+                                <input type="date" class="form-control" name="hari_tanggal" id="hari_tanggal">
+                            </div>
+                        </div> --}}
                     </div>
                     <div class="row">
                         <div class="col-md-3">

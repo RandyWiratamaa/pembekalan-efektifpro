@@ -3,62 +3,49 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Attachment;
 use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class InvitationMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
-    public function __construct($mailData)
+    public $pembekalan;
+
+    public function __construct($pembekalan)
     {
-        $this->mailData = $mailData;
+        $this->pembekalan = $pembekalan;
     }
 
-    /**
-     * Get the message envelope.
-     *
-     * @return \Illuminate\Mail\Mailables\Envelope
-     */
+    public function build()
+    {
+        return $this->subject('Materi dan Link Zoom '. $this->pembekalan->materi_pembekalan->materi)
+                    ->view('pages.mail.invitation');
+    }
+
+    public function attachments()
+    {
+        // return [
+        //     Attachment::fromPath(public_path('assets/surat-penawaran/10082022-pt-taspen-pesero.pdf'))
+        // ];
+        return [];
+    }
+
     // public function envelope()
     // {
     //     return new Envelope(
     //         subject: 'Invitation Mail',
     //     );
     // }
-    public function build()
-    {
-        return $this->subject('Mail from PT. Efektifpro Knowledge Source')
-                    ->view('pages.mail.invitation');
-    }
 
-    /**
-     * Get the message content definition.
-     *
-     * @return \Illuminate\Mail\Mailables\Content
-     */
-    public function content()
-    {
-        return new Content(
-            view: 'view.name',
-        );
-    }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array
-     */
-    public function attachments()
-    {
-        return [];
-    }
+    // public function content()
+    // {
+    //     return new Content(
+    //         view: 'view.name',
+    //     );
+    // }
 }

@@ -476,7 +476,7 @@
                 </h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="#" method="POST" enctype="multipart/form-data">
+            <form action="{{ url('pembekalan/invitation/'.$i->pembekalan->uuid) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body p-4">
                     <div class="row">
@@ -493,14 +493,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label class="form-label">Link Zoom</label>
                                 <input type="text" name="email_kantor" id="email_kantor" class="form-control text-primary" value="{{ $i->pembekalan->link_zoom }}" readonly>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
