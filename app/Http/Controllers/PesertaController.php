@@ -29,6 +29,24 @@ class PesertaController extends Controller
         }
     }
 
+    public function update(Request $request, $id)
+    {
+        $peserta = Peserta::firstWhere('id', $id);
+        $peserta->nama = $request->nama;
+        $peserta->nik = $request->nik;
+        $peserta->jabatan = $request->jabatan;
+        $peserta->nohp = $request->nohp;
+        $peserta->jenkel = $request->jenkel;
+        $peserta->email_kantor = $request->email_kantor;
+        $peserta->email_pribadi = $request->email_pribadi;
+        $peserta->alamat = $request->alamat;
+        $peserta->save();
+
+        if ($peserta) {
+            return redirect()->route('pembekalan.index');
+        }
+    }
+
     public function import_excel(Request $request)
     {
         // $this->validate($request, [
@@ -40,10 +58,23 @@ class PesertaController extends Controller
 
         // $file->move('peserta', $nama_file);
         // Excell::import(new SiswaImport, public_path('/peserta/'.$nama_file));
+
         $uuid = $request->uuid;
 
         Excel::import(new PesertaImport($uuid),
             $request->file('file')->store('files'));
         return redirect()->route('pembekalan.index');
+    }
+
+    public function destroy($id)
+    {
+        $delete_peserta = Peserta::findOrFail($id);
+        $delete_peserta->delete();
+
+        if($delete_peserta) {
+            return redirect()->route('pembekalan.index');
+        } else {
+            return redirect()->back()->withInput();
+        }
     }
 }

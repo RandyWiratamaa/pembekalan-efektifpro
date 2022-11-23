@@ -157,7 +157,15 @@
                             <div class="mb-3">
                                 <label class="form-label">PIC *</label><br>
                                 <select name="pic_id" id="pic_id" class="form-control" required>
-                                    <option value="{{ $i->pic_id }}">{{ $i->pic->nama }}</option>
+                                    @if ($i->pic->midle_name == null)
+                                    <option value="{{ $i->pic_id }}">{{ $i->pic->first_name }}  {{ $i->pic->last_name }}</option>
+                                    @elseif ($i->pic->last_name == null)
+                                    <option value="{{ $i->pic_id }}">{{ $i->pic->first_name }}  {{ $i->pic->midle_name }}</option>
+                                    @elseif ($i->pic->midle_name && $i->pic->last_name == null)
+                                    <option value="{{ $i->pic_id }}">{{ $i->pic->first_name }}</option>
+                                    @else
+                                    <option value="{{ $i->pic_id }}">{{ $i->pic->first_name }}  {{ $i->pic->midle_name }}  {{ $i->pic->last_name }}</option>
+                                    @endif
                                 </select>
                             </div>
                         </div>
@@ -176,15 +184,15 @@
                         <div class="col-md-2">
                             <div class="mb-3">
                                 <label class="form-label">Tanggal Mulai *</label>
-                                <input type="date" class="form-control" name="hari_tanggal" id="hari_tanggal">
+                                <input type="date" class="form-control" name="tanggal_mulai" id="tanggal_mulai">
                             </div>
                         </div>
-                        {{-- <div class="col-md-2">
+                        <div class="col-md-2">
                             <div class="mb-3">
                                 <label class="form-label">Tanggal Selesai *</label>
-                                <input type="date" class="form-control" name="hari_tanggal" id="hari_tanggal">
+                                <input type="date" class="form-control" name="tanggal_selesai" id="tanggal_selesai">
                             </div>
-                        </div> --}}
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-3">

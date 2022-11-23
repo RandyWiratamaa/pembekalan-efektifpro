@@ -21,7 +21,8 @@ return new class extends Migration
             $table->unsignedBigInteger('materi_id');
             $table->unsignedBigInteger('metode_id');
             $table->string('investasi');
-            $table->date('hari_tanggal');
+            $table->date('tanggal_mulai');
+            $table->date('tanggal_selesai');
             $table->time('mulai');
             $table->time('selesai');
             $table->string('link_zoom');

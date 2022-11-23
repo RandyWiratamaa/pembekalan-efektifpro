@@ -69,8 +69,17 @@
                                                 <td>{{ $i->bank->nama }}</td>
                                                 <td>{{ $i->materi_pembekalan->materi }} ({{ $i->materi_pembekalan->kode }})</td>
                                                 <td>
-                                                    {{ $i->hari_tanggal->isoFormat('dddd, DD MMMM Y') }}
+                                                    @if ($i->tanggal_mulai == $i->tanggal_selesai)
+                                                    {{ $i->tanggal_mulai->isoFormat('dddd, DD MMMM Y') }} <br>
                                                     ({{ $i->mulai->isoFormat('HH:mm') }} - {{ $i->selesai->isoFormat('HH:mm') }} WIB)
+                                                    @elseif ($i->tanggal_mulai->isoFormat('MMMM') == $i->tanggal_selesai->isoFormat('MMMM'))
+                                                    {{ $i->tanggal_mulai->isoFormat('dddd') }} ,{{ $i->tanggal_selesai->isoFormat('dddd') }} <br>
+                                                    {{ $i->tanggal_mulai->isoFormat('D') }} & {{ $i->tanggal_selesai->isoFormat('D MMMM YYYY') }} <br>
+                                                    ({{ $i->mulai->isoFormat('HH:mm') }} - {{ $i->selesai->isoFormat('HH:mm') }} WIB)
+                                                    @else
+                                                    {{ $i->tanggal_mulai->isoFormat('dddd, DD MMMM Y') }} & {{ $i->tanggal_selesai->isoFormat('dddd, DD MMMM Y') }}
+                                                    ({{ $i->mulai->isoFormat('HH:mm') }} - {{ $i->selesai->isoFormat('HH:mm') }} WIB)
+                                                    @endif
                                                 </td>
                                                 <td>{{ $i->pengajar->nama }}</td>
                                                 <td class="text-center">
@@ -201,13 +210,21 @@
                 method:'get',
                 success:function(res){
                     $('#jml_peserta'+idx).text(res.length)
-                    console.log(res)
+                    // console.log(res)
                     $.each(res, function(idk,val){
                     //     sub_total = parseInt(val.menu.harga * val.qty)
+                        // console.log(val.id)
                         data_peserta.append(`
                             <tr>
                                 <td>${val.nama}</td>
-                                <td></td>
+                                <td class="text-center">
+                                    <a class="btn btn-sm btn-soft-info text-dark" data-bs-toggle="modal" data-bs-target="#editPeserta${val.id}">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </a>
+                                    <a class="btn btn-sm btn-soft-danger text-dark" data-bs-toggle="modal" data-bs-target="#hapusPeserta${val.id}">
+                                        <i class="fas fa-trash"></i> Hapus
+                                    </a>
+                                </td>
                             </tr>
                         `)
                     })
@@ -232,7 +249,7 @@
                     $('#nama_program1').text(res.metode_pembekalan.metode + ' ' + res.materi_pembekalan.materi + ' - ' + res.materi_pembekalan.kode)
                     $('#nama_program2').text(res.metode_pembekalan.metode + ' ' + res.materi_pembekalan.materi + ' - ' + res.materi_pembekalan.kode)
                     $('#pengajar').text(res.pengajar.nama)
-                    $('#tgl_pembekalan').text(res.hari_tanggal)
+                    $('#tgl_pembekalan').text(res.tanggal_mulai)
                     $('#lokasi').text(res.metode_pembekalan.metode)
                     $('#investasi1').text(res.investasi)
                     $('#investasi2').text(res.investasi)

@@ -24,7 +24,7 @@ class PembekalanController extends Controller
         $materi = MateriPembekalan::all();
         $metode = MetodePembekalan::all();
         $bank = Bank::all();
-        $data_pembekalan = Pembekalan::with(['metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic', 'peserta'])->orderBy('hari_tanggal', 'ASC')->get();
+        $data_pembekalan = Pembekalan::with(['metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic', 'peserta'])->orderBy('tanggal_mulai', 'ASC')->get();
         $pembekalan = Pembekalan::all();
         $surat_penegasan = SuratPenegasan::with([
             'pembekalan' => function($query){
@@ -34,8 +34,8 @@ class PembekalanController extends Controller
 
         $events = [];
         foreach($data_pembekalan as $values) {
-            $mulai = $values->hari_tanggal;
-            $selesai = $values->hari_tanggal;
+            $mulai = $values->tanggal_mulai;
+            $selesai = $values->tanggal_mulai;
             $title = $values->materi_pembekalan->kode.' - '.$values->bank->nama;
             $events[] = [
                 'title' => $title,
@@ -52,6 +52,7 @@ class PembekalanController extends Controller
                             ->where('peserta.pembekalan_uuid', $values->uuid)
                             ->count();
         }
+        $data_peserta = Peserta::all();
         return view('pages.pembekalan.index', get_defined_vars());
     }
 
@@ -65,7 +66,10 @@ class PembekalanController extends Controller
 
     public function getPic($id)
     {
-        $pic = Pic::where('bank_id', $id)->pluck("nama", "id");
+        $all = Pic::all();
+        // dd($all);
+        // $fullname = $all->first_name . ' ' . $all->midle_name . ' ' . $all->last_name;
+        $pic = Pic::where('bank_id', $id)->get();
         return json_encode($pic);
     }
 
@@ -80,7 +84,8 @@ class PembekalanController extends Controller
         $pembekalan->materi_id = $request->materi_id;
         $pembekalan->level_id = $request->level_id;
         $pembekalan->investasi = $request->investasi;
-        $pembekalan->hari_tanggal = $request->hari_tanggal;
+        $pembekalan->tanggal_mulai = $request->tanggal_mulai;
+        $pembekalan->tanggal_selesai = $request->tanggal_selesai;
         $pembekalan->mulai = $request->mulai;
         $pembekalan->selesai = $request->selesai;
         $pembekalan->metode_id = $request->metode_id;
@@ -113,10 +118,10 @@ class PembekalanController extends Controller
         $materi = MateriPembekalan::all();
         $metode = MetodePembekalan::all();
         $bank = Bank::all();
-        $detail_pembekalan = Pembekalan::with(['metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic'])->orderBy('hari_tanggal', 'ASC')->where('uuid',$uuid)->first();
+        $detail_pembekalan = Pembekalan::with(['metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic'])->orderBy('tanggal_mulai', 'ASC')->where('uuid',$uuid)->first();
         $surat_penegasan = SuratPenegasan::where('pembekalan_uuid', $uuid)->with('bank')->first();
         $peserta = Peserta::with('pembekalan')->where('pembekalan_uuid', $uuid)->orderBy('nama', 'ASC')->get();
-        $data_pembekalan = Pembekalan::with(['metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic'])->orderBy('hari_tanggal', 'ASC')->get(); $data_peserta = Peserta::with('pembekalan')->where('pembekalan_uuid', $uuid)->get();
+        $data_pembekalan = Pembekalan::with(['metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic'])->orderBy('tanggal_mulai', 'ASC')->get(); $data_peserta = Peserta::with('pembekalan')->where('pembekalan_uuid', $uuid)->get();
         $slug_bank = Str::slug($surat_penegasan->bank->nama);
 
         return view('pages.pembekalan.detail', get_defined_vars());
@@ -124,20 +129,20 @@ class PembekalanController extends Controller
 
     public function getDetail($uuid)
     {
-        $detail_pembekalan = Pembekalan::with(['metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic'])->orderBy('hari_tanggal', 'ASC')->where('uuid',$uuid)->first();
+        $detail_pembekalan = Pembekalan::with(['metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic'])->orderBy('tanggal_mulai', 'ASC')->where('uuid',$uuid)->first();
         return response()->json($detail_pembekalan, 200);
     }
 
     public function mailInvitation(Request $request, $uuid)
     {
         $email = $request->email_kantor;
-        $pembekalan = Pembekalan::with(['metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic'])->orderBy('hari_tanggal', 'ASC')->where('uuid',$uuid)->first();
+        $pembekalan = Pembekalan::with(['metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic'])->orderBy('tanggal_mulai', 'ASC')->where('uuid',$uuid)->first();
         $files = [
             public_path('assets/surat-penawaran/10082022-pt-taspen-pesero.pdf'),
             public_path('upload/6375a7ba2e87e.png'),
         ];
         // dd($pembekalan);
-        // Mail::to($request->email_kantor)->send(new InvitationMail($pembekalan))->attach($files);
+        // Mail::to($request->email_kantor)->send(new InvitationMail($pembekalan));
         // Mail::to($email)->send(new InvitationMail($pembekalan), [],function($message) use ($email, $files){
         //     $message->addAttachment($files);
         // });

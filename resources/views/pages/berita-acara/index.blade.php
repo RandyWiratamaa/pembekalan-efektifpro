@@ -131,7 +131,7 @@
                                                     </a>
                                                     @else
                                                     <a href="{{ url('berita-acara/generate-PDF/'.$i->id) }}" class="dropdown-item" target="_blank">
-                                                        <i class='mdi mdi-download me-1'></i> Download Berita Acara
+                                                        <i class='mdi mdi-download me-1'></i> Simpan Berita Acara
                                                     </a>
                                                     <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#kirim{{ $i->id }}">
                                                         <i class='mdi mdi-send me-1'></i> Kirim ke PIC

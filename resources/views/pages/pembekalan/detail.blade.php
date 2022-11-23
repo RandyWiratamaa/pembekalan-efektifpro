@@ -89,7 +89,15 @@
                         <div class="col-md-8">
                             <div class="mb-4">
                                 <h5>Tanggal</h5>
-                                <p>{{ $detail_pembekalan->hari_tanggal->isoFormat('dddd, DD MMMM YYYY') }}
+                                <p>
+                                    @if ($detail_pembekalan->tanggal_mulai == $detail_pembekalan->tanggal_selesai)
+                                    {{ $detail_pembekalan->tanggal_mulai->isoFormat('dddd, DD MMMM Y') }} <br>
+                                    @elseif ($detail_pembekalan->tanggal_mulai->isoFormat('MMMM') == $detail_pembekalan->tanggal_selesai->isoFormat('MMMM'))
+                                    {{ $detail_pembekalan->tanggal_mulai->isoFormat('dddd') }} ,{{ $detail_pembekalan->tanggal_selesai->isoFormat('dddd') }} <br>
+                                    {{ $detail_pembekalan->tanggal_mulai->isoFormat('D') }} & {{ $detail_pembekalan->tanggal_selesai->isoFormat('D MMMM YYYY') }} <br>
+                                    @else
+                                    {{ $detail_pembekalan->tanggal_mulai->isoFormat('dddd, DD MMMM Y') }} & {{ $detail_pembekalan->tanggal_selesai->isoFormat('dddd, DD MMMM Y') }}
+                                    @endif
                                     <small class="text-muted">{{ $detail_pembekalan->mulai->isoFormat('HH:mm') }} - {{ $detail_pembekalan->selesai->isoFormat('HH:mm') }} WIB
                                     </small>
                                 </p>

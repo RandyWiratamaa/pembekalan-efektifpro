@@ -82,6 +82,9 @@ class BeritaAcaraController extends Controller
             }, 'bpo'])->firstWhere('id', $id);
         $slug_bank = Str::slug($berita_acara->pembekalan->bank->nama);
         $filename = "BA-{$berita_acara->tanggal->isoFormat('DDMMYYYY')}-{$slug_bank}.pdf";
+        $berita_acara->dokumen = $filename;
+        $berita_acara->save();
+
         $path = public_path('assets/berita-acara');
         $data = [
             'berita_acara' => $berita_acara
@@ -92,7 +95,9 @@ class BeritaAcaraController extends Controller
         $pdf = Pdf::setOption(['dpi' => 150]);
         $pdf = Pdf::loadView('pages.berita-acara.download', $data)->setPaper('A4', 'potrait');
         $pdf->save($path . '/' . $filename);
-        return $pdf->download($filename);
+        if($berita_acara) {
+            return $pdf->download($filename);
+        }
 
         // $pdf = Pdf::setPaper('a4', 'potrait');
         // $pdf = Pdf::loadHtml($surat_penawaran->body)->setPaper('a4', 'potrait')->setWarnings(false);

@@ -100,6 +100,12 @@
                         </div>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('filemanager.index') }}">
+                        <i data-feather="folder-plus"></i>
+                        <span> File Manager </span>
+                    </a>
+                </li>
             </ul>
         </div>
         <div class="clearfix"></div>

@@ -39,9 +39,10 @@ class PicController extends Controller
 
     public function store(Request $request)
     {
-        $fullname = $request->nama_depan." ".$request->nama_tengah." ".$request->nama_belakang;
         $pic = new Pic;
-        $pic->nama = $fullname;
+        $pic->first_name = $request->nama_depan;
+        $pic->midle_name = $request->nama_tengah;
+        $pic->last_name = $request->nama_belakang;
         $pic->tgl_lahir = $request->tgl_lahir;
         $pic->jenkel = $request->jenkel;
         $pic->no_hp = $request->no_hp;
@@ -62,7 +63,27 @@ class PicController extends Controller
 
     public function update(Request $request, $id)
     {
-        $update_pic = Pic::firstWhere('id', $id);
+        $pic = Pic::firstWhere('id', $id);
+        // die($request->nama_depan);
+        $pic->first_name = $request->nama_depan;
+        $pic->midle_name = $request->nama_tengah;
+        $pic->last_name = $request->nama_belakang;
+        $pic->tgl_lahir = $request->tgl_lahir;
+        $pic->jenkel = $request->jenkel;
+        $pic->no_hp = $request->no_hp;
+        $pic->bank_id = $request->bank_id;
+        $pic->alamat_rumah = $request->alamat_rumah;
+        $pic->email_pribadi = $request->email_pribadi;
+        $pic->email_kantor = $request->email_kantor;
+        $pic->jabatan = $request->jabatan;
+        $pic->photo = $request->photo;
+        $pic->save();
+
+        if ($pic) {
+            return redirect()->route('pic.index');
+        } else {
+            return redirect()->back()->withInput();
+        }
     }
 
     public function destroy($id)

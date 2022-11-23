@@ -15,7 +15,9 @@ return new class extends Migration
     {
         Schema::create('pic', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
+            $table->string('first_name');
+            $table->string('midle_name')->nullable();
+            $table->string('last_name')->nullable();
             $table->date('tgl_lahir')->nullable();
             $table->string('jenkel');
             $table->string('no_hp');

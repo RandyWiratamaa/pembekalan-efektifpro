@@ -27,16 +27,16 @@ class DashboardController extends Controller
         $label_surat_penegasan = $surat_penegasan->keys();
         $data_surat_penegasan = $surat_penegasan->values();
 
-        $pembekalan = Pembekalan::select(DB::raw("COUNT(*) as count"), DB::raw("MONTHNAME(hari_tanggal) as month_name"))
-                        ->whereYear('hari_tanggal', date('Y'))
-                        ->groupBy(DB::raw("Month(hari_tanggal)"))
+        $pembekalan = Pembekalan::select(DB::raw("COUNT(*) as count"), DB::raw("MONTHNAME(tanggal_mulai) as month_name"))
+                        ->whereYear('tanggal_mulai', date('Y'))
+                        ->groupBy(DB::raw("Month(tanggal_mulai)"))
                         ->pluck('count', 'month_name');
         $label_pembekalan = $pembekalan->keys();
         $data_pembekalan = $pembekalan->values();
 
         $jml_kelas_per_pengajar = Pembekalan::select(DB::raw("COUNT(*) as count"), DB::raw("pengajar.nama as nama"))
                         ->join('pengajar', 'pembekalan.pengajar_id', '=', 'pengajar.id')
-                        ->whereYear('hari_tanggal', date('Y'))
+                        ->whereYear('tanggal_mulai', date('Y'))
                         ->groupBy(DB::raw("pengajar_id"))
                         ->pluck('count', 'nama');
         $label_pengajar = $jml_kelas_per_pengajar->keys();

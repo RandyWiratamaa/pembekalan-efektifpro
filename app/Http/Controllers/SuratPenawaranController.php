@@ -170,11 +170,14 @@ class SuratPenawaranController extends Controller
         }
     }
 
-    public function generatePDF($id)
+    public function generatePDF(Request $request, $id)
     {
         $surat_penawaran = SuratPenawaran::with('bank', 'bpo')->firstWhere('id', $id);
         $slug_bank = Str::slug($surat_penawaran->bank->nama);
         $filename = "{$surat_penawaran->tgl_surat->isoFormat('DDMMYYYY')}-{$slug_bank}.pdf";
+        $surat_penawaran->dokumen = $filename;
+        $surat_penawaran->save();
+
         $path = public_path('assets/surat-penawaran');
         $data = [
             'surat_penawaran' => $surat_penawaran
@@ -184,8 +187,9 @@ class SuratPenawaranController extends Controller
         $exp = explode("<br>", $body);
         $pdf = Pdf::loadView('pages.surat-penawaran.download', $data);
         $pdf->save($path . '/' . $filename);
-
-        return $pdf->download($filename);
+        if($surat_penawaran) {
+            return $pdf->download($filename);
+        }
 
 
         // $pdf = Pdf::setPaper('a4', 'potrait');

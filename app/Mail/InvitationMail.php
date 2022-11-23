@@ -32,7 +32,12 @@ class InvitationMail extends Mailable
         // return [
         //     Attachment::fromPath(public_path('assets/surat-penawaran/10082022-pt-taspen-pesero.pdf'))
         // ];
-        return [];
+        /**
+         * Attachment untuk Materi
+         */
+        return [
+            Attachment::fromPath(public_path('assets/materi-pembekalan/'.$this->pembekalan->materi_pembekalan->file_materi))
+        ];
     }
 
     // public function envelope()

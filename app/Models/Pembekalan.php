@@ -13,7 +13,7 @@ class Pembekalan extends Model
 {
     use HasFactory;
     protected $table = 'pembekalan';
-    protected $dates = ['hari_tanggal', 'created_at', 'mulai', 'selesai'];
+    protected $dates = ['tanggal_mulai', 'tanggal_selesai', 'created_at', 'mulai', 'selesai'];
     protected $fillable = [
         'uuid', 'investasi', 'materi_id', 'level_id', 'mulai', 'selesai', 'metode_id', 'min_peserta'
     ];

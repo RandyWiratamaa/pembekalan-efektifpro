@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('materi');
             $table->string('kode');
+            $table->string('file_materi')->nullable();
             $table->timestamps();
         });
     }

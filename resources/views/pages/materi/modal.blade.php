@@ -23,6 +23,14 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label class="form-label">File Materi</label>
+                                <input type="file" class="form-control" name="file_materi" id="file_materi">
+                            </div>
+                        </div>
+                    </div>
                     <div class="pull-left">
                         <em class="text-danger">* harus diisi</em>
                     </div>
@@ -59,6 +67,14 @@
                             <div class="mb-3">
                                 <label class="form-label">Program Pelatihan *</label>
                                 <input type="text" name="nama" class="form-control" id="nama" placeholder="Program Pelatihan" value="{{ $i->materi }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label class="form-label">File Materi</label>
+                                <input type="file" class="form-control" name="file_materi" id="file_materi">
                             </div>
                         </div>
                     </div>

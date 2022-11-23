@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use DataTables;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\JenisPembekalan;
 use App\Models\LevelPembekalan;
@@ -32,9 +33,18 @@ class MateriPembekalanController extends Controller
 
     public function store(Request $request)
     {
+        $file_materi = $request->file('file_materi');
+        $slug_nama = Str::slug($request->nama);
+        $slug_kode = Str::slug($request->kode);
+        $name = $slug_nama.'-'.$slug_kode;
+        $ext = $file_materi->getClientOriginalExtension();
+        $nameWithExt = $name . '.' . $ext;
+        $path = $file_materi->move('assets/materi-pembekalan',$nameWithExt);
+
         $materi = new MateriPembekalan;
         $materi->materi = $request->nama;
         $materi->kode = $request->kode;
+        $materi->file_materi = $nameWithExt;
         $materi->save();
 
         if($materi){
@@ -46,9 +56,18 @@ class MateriPembekalanController extends Controller
 
     public function update(Request $request, $id)
     {
+        $file_materi = $request->file('file_materi');
+        $slug_nama = Str::slug($request->nama);
+        $slug_kode = Str::slug($request->kode);
+        $name = $slug_nama.'-'.$slug_kode;
+        $ext = $file_materi->getClientOriginalExtension();
+        $nameWithExt = $name . '.' . $ext;
+        $path = $file_materi->move('assets/materi-pembekalan',$nameWithExt);
+
         $materi = MateriPembekalan::firstWhere('id', $id);
         $materi->kode = $request->kode;
         $materi->materi = $request->nama;
+        $materi->file_materi = $nameWithExt;
         $materi->save();
 
         if($materi) {

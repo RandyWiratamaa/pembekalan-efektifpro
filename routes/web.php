@@ -30,6 +30,7 @@ Route::group(['middleware' => 'auth'], function (){
 
     Route::get('pic', [App\Http\Controllers\PicController::class, 'index'])->name('pic.index');
     Route::post('pic', [App\Http\Controllers\PicController::class, 'store'])->name('pic.store');
+    Route::match(['put', 'patch'], 'pic/{id}', [App\Http\Controllers\PicController::class, 'update'])->name('pic.update');
     Route::delete('pic/{id}', [App\Http\Controllers\PicController::class, 'destroy'])->name('pic.destroy');
 
     Route::get('pengajar', [App\Http\Controllers\PengajarController::class, 'index'])->name('pengajar.index');
@@ -66,6 +67,8 @@ Route::group(['middleware' => 'auth'], function (){
     Route::post('peserta', [App\Http\Controllers\PesertaController::class, 'store'])->name('peserta.store');
     Route::get('peserta/{uuid}', [App\Http\Controllers\PembekalanController::class, 'getPeserta'])->name('peserta.getPeserta');
     Route::post('peserta/import', [App\Http\Controllers\PesertaController::class, 'import_excel'])->name('peserta.import');
+    Route::match(['put', 'patch'], 'peserta/{id}', [App\Http\Controllers\PesertaController::class, 'update'])->name('peserta.update');
+    Route::delete('peserta/{id}', [App\Http\Controllers\PesertaController::class, 'destroy'])->name('peserta.destroy');
 
     Route::get('berita-acara', [App\Http\Controllers\BeritaAcaraController::class, 'index'])->name('berita-acara.index');
     Route::post('berita-acara', [App\Http\Controllers\BeritaAcaraController::class, 'store'])->name('berita-acara.store');
@@ -78,4 +81,6 @@ Route::group(['middleware' => 'auth'], function (){
 
     Route::match(['put', 'patch'], 'berita-acara/approve/{id}', [App\Http\Controllers\BeritaAcaraController::class, 'approve'])->name('berita-acara.approve');
     Route::get('berita-acara/generate-PDF/{id}', [App\Http\Controllers\BeritaAcaraController::class, 'generatePDF'])->name('berita-acara.generate-PDF');
+
+    Route::get('filemanagaer', [App\Http\Controllers\FileManagerController::class, 'index'])->name('filemanager.index');
 });

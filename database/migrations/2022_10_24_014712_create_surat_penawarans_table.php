@@ -26,6 +26,7 @@ return new class extends Migration
             $table->boolean('is_approved')->default(false);
             $table->boolean('status')->default(false);
             $table->unsignedBigInteger('approved_by')->nullable();
+            $table->string('dokumen')->nullable();
             $table->timestamps();
 
             $table->foreign('bank_id')->references('id')->on('bank')->onUpdate('cascade')->onDelete('restrict');

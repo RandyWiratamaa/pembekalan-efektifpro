@@ -42,13 +42,22 @@
                                 <select name="pic_id" id="pic_id" class="form-control" required>
                                     @foreach ($pic as $j)
                                     <option value={{ $j->id }} @if($j->id == $i->pembekalan->pic_id) selected @endif>
-                                        {{ $j->nama }}
+                                        {{-- {{ $j->nama }} --}}
+                                        @if ($j->midle_name == null)
+                                        {{ $j->first_name }}  {{ $j->last_name }}
+                                        @elseif ($j->last_name == null)
+                                        {{ $j->first_name }}  {{ $j->midle_name }}
+                                        @elseif ($j->midle_name && $j->last_name == null)
+                                        {{ $j->first_name }}
+                                        @else
+                                        {{ $i->pic->first_name }}  {{ $i->pic->midle_name }}  {{ $i->pic->last_name }}
+                                        @endif
                                     </option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="mb-3">
                                 <label class="form-label">Pengajar *</label>
                                 <select name="pengajar_id" id="pengajar_id" class="form-control">
@@ -60,10 +69,16 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="mb-3">
-                                <label class="form-label">Tanggal Pembekalan *</label>
-                                <input type="date" class="form-control" name="hari_tanggal" id="hari_tanggal" value="{{ $i->pembekalan->hari_tanggal->isoFormat('YYYY-MM-DD') }}">
+                                <label class="form-label">Tanggal Mulai *</label>
+                                <input type="date" class="form-control" name="tanggal_mulai" id="tanggal_mulai" value="{{ $i->pembekalan->tanggal_mulai->isoFormat('YYYY-MM-DD') }}">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label class="form-label">Tanggal Selesai *</label>
+                                <input type="date" class="form-control" name="tanggal_selesai" id="tanggal_selesai" value="{{ $i->pembekalan->tanggal_selesai->isoFormat('YYYY-MM-DD') }}">
                             </div>
                         </div>
                     </div>

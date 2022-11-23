@@ -91,7 +91,19 @@
               serverSide: true,
               ajax: "{{ route('pic.index') }}",
               columns: [
-                    {data: 'nama', name: 'nama'},
+                    {data: 'first_name', name: 'first_name',
+                        "render": function (data, type, row) {
+                            if(row.midle_name == null) {
+                                return row.first_name + ' ' + row.last_name
+                            } else if(row.last_name == null) {
+                                return row.first_name + ' ' + row.midle_name
+                            } else if (row.midle_name && row.last_name == null) {
+                                return row.first_name
+                            } else {
+                                return row.first_name + ' ' + row.midle_name + ' ' + row.last_name
+                            }
+                        }
+                    },
                     {data: 'nama_bank', name: 'bank.nama'},
                     {data: 'no_hp', name: 'no_hp'},
                     {data: 'alamat_bank', name: 'bank.alamat'},

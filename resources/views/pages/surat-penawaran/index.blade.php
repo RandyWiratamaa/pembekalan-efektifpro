@@ -149,9 +149,11 @@
                                                     <a href="{{ url('surat-penawaran/view/'.$i->id) }}" class="dropdown-item" target="_blank">
                                                         <i class='mdi mdi-eye me-1'></i> Review
                                                     </a>
+                                                    @if ($i->is_approved == 1)
                                                     <a href="{{ url('surat-penawaran/generate-PDF/'.$i->id) }}" class="dropdown-item" target="_blank">
-                                                        <i class='mdi mdi-download me-1'></i> Download Surat Penawaran
+                                                        <i class='mdi mdi-download me-1'></i> Simpan Surat Penawaran
                                                     </a>
+                                                    @endif
                                                     @if ($i->is_approved == 0)
                                                     <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editSuratPenawaran{{ $i->id }}">
                                                         <i class='mdi mdi-lead-pencil me-1'></i> Edit
@@ -234,7 +236,16 @@
                         {
                             jQuery('select[name="pic_id"]').empty();
                             jQuery.each(data, function(key, value){
-                                $('select[name="pic_id"]').append('<option value="'+ key +'">'+ value + '</option>');
+                                console.log(value.id)
+                                if(value.midle_name == null) {
+                                    $('select[name="pic_id"]').append('<option value="'+ value.id +'">'+ value.first_name + ' ' + value.last_name + '</option>');
+                                } else if(value.last_name == null) {
+                                    $('select[name="pic_id"]').append('<option value="'+ value.id +'">'+ value.first_name + ' ' + value.midle_name + '</option>');
+                                } else if(value.midle_name && value.last_name == null) {
+                                    $('select[name="pic_id"]').append('<option value="'+ value.id +'">'+ value.first_name + '</option>');
+                                } else {
+                                    $('select[name="pic_id"]').append('<option value="'+ value.id +'">'+ value.first_name + ' ' + value.midle_name + ' ' + value.last_name + '</option>');
+                                }
                             });
                         }
                     });

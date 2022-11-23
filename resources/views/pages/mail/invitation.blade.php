@@ -17,7 +17,18 @@
 
     <p>Sehubungan akan dilaksanakan <b>{{ $pembekalan->materi_pembekalan->materi }}</b> pada :</p><br>
 
-    <p class="bg-color">Hari/Tanggal  :  {{ $pembekalan->hari_tanggal->isoFormat('dddd, DD MMMM YYYY') }}</p><br>
+    <p class="bg-color">Hari/Tanggal  :
+        @if ($pembekalan->tanggal_mulai == $pembekalan->tanggal_selesai)
+        {{ $pembekalan->tanggal_mulai->isoFormat('dddd, DD MMMM Y') }} <br>
+        @elseif ($pembekalan->tanggal_mulai->isoFormat('MMMM') == $pembekalan->tanggal_selesai->isoFormat('MMMM'))
+        {{ $pembekalan->tanggal_mulai->isoFormat('dddd') }} ,{{ $pembekalan->tanggal_selesai->isoFormat('dddd') }} <br>
+        {{ $pembekalan->tanggal_mulai->isoFormat('D') }} & {{ $pembekalan->tanggal_selesai->isoFormat('D MMMM YYYY') }} <br>
+        @else
+        {{ $pembekalan->tanggal_mulai->isoFormat('dddd, DD MMMM Y') }} & {{ $pembekalan->tanggal_selesai->isoFormat('dddd, DD MMMM Y') }}
+        @endif
+        {{-- {{ $pembekalan->tanggal_mulai->isoFormat('dddd, DD MMMM YYYY') }} --}}
+    </p>
+    <br>
 
     <p><b>Terlampir Materi dan link Zoom yang digunakan untuk {{ $pembekalan->materi_pembekalan->materi }}</b></p><br>
 

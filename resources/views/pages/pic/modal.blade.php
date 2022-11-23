@@ -137,7 +137,7 @@
                 <h4 class="modal-title">Tambah Data {{ $page_name }}</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="#" method="POST" enctype="multipart/form-data">
+            <form action="{{ url('pic', $i->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
                 <div class="modal-body p-4">
@@ -145,19 +145,19 @@
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label class="form-label">Nama Depan PIC *</label>
-                                <input type="text" name="nama_depan" class="form-control" id="nama" placeholder="Nama Depan PIC">
+                                <input type="text" name="nama_depan" class="form-control" id="nama_depan" value="{{ $i->first_name }}">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="mb-3 ml-1">
                                 <label class="form-label">Nama Tengah PIC</label>
-                                <input type="text" name="nama_tengah" class="form-control" id="nama" placeholder="Nama Tengah PIC">
+                                <input type="text" name="nama_tengah" class="form-control" id="nama" value="{{ $i->midle_name }}">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label class="form-label">Nama Belakang PIC</label>
-                                <input type="text" name="nama_belakang" class="form-control" id="nama" placeholder="Nama Belakang PIC">
+                                <input type="text" name="nama_belakang" class="form-control" id="nama" value="{{ $i->last_name }}">
                             </div>
                         </div>
                     </div>
@@ -165,13 +165,13 @@
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label class="form-label">No. Hp / Whatsapp *</label>
-                                <input type="text" name="no_hp" id="no_hp" class="form-control" placeholder="No. Handphone / Whatsapp">
+                                <input type="text" name="no_hp" id="no_hp" class="form-control" value="{{ $i->no_hp }}">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label class="form-label">Tanggal Lahir</label>
-                                <input type="date" name="tgl_lahir" id="basic-datepicker" class="form-control" placeholder="Basic datepicker">
+                                <input type="date" name="tgl_lahir" id="basic-datepicker" class="form-control" @if($i->tgl_lahir != null)  value="{{ $i->tgl_lahir->isoFormat('YYYY-MM-DD') }}" @endif>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -192,7 +192,7 @@
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label class="form-label">Jabatan *</label>
-                                <input type="text" name="jabatan" class="form-control" id="jabatan" placeholder="Jabatan">
+                                <input type="text" name="jabatan" class="form-control" id="jabatan" value="{{ $i->jabatan }}">
                             </div>
                         </div>
                     </div>
@@ -201,8 +201,8 @@
                             <div class="mb-3">
                                 <label class="form-label">Bank *</label>
                                 <select name="bank_id" id="selectize-select" class="form-control">
-                                    @foreach ($bank as $i)
-                                    <option value="{{ $i->id }}">{{ $i->nama }}</option>
+                                    @foreach ($bank as $j)
+                                    <option value={{ $j->id }} @if($j->id == $i->bank_id) selected @endif>{{ $j->nama }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -211,16 +211,10 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="mb-3">
-                                <label class="form-label">Alamat Kantor</label>
-                                <textarea class="form-control" name="alamat_kantor" id="alamat_kantor" placeholder="Alamat Kantor"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="mb-3">
                                 <label class="form-label">Alamat Rumah</label>
-                                <textarea class="form-control" name="alamat_rumah" id="alamat_rumah" placeholder="Alamat Rumah"></textarea>
+                                <textarea class="form-control" name="alamat_rumah" id="alamat_rumah" placeholder="Alamat Rumah">
+                                    {{ $i->alamat_rumah }}
+                                </textarea>
                             </div>
                         </div>
                     </div>
@@ -228,13 +222,13 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Email Pribadi *</label>
-                                <input type="email" name="email_pribadi" class="form-control" id="email_pribadi" placeholder="Email Pribadi">
+                                <input type="email" name="email_pribadi" class="form-control" id="email_pribadi" value="{{ $i->email_pribadi }}">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Email Kantor *</label>
-                                <input type="email" name="email_kantor" class="form-control" id="email_kantor" placeholder="Email Kantor">
+                                <input type="email" name="email_kantor" class="form-control" id="email_kantor" value="{{ $i->email_kantor }}">
                             </div>
                         </div>
                     </div>

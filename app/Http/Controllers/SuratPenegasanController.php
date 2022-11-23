@@ -86,7 +86,8 @@ class SuratPenegasanController extends Controller
         $pembekalan->materi_id = $request->materi_id;
         $pembekalan->investasi = $request->investasi;
         $pembekalan->pengajar_id = $request->pengajar_id;
-        $pembekalan->hari_tanggal = $request->hari_tanggal;
+        $pembekalan->tanggal_mulai = $request->tanggal_mulai;
+        $pembekalan->tanggal_selesai = $request->tanggal_selesai;
         $pembekalan->mulai = $request->mulai;
         $pembekalan->selesai = $request->selesai;
         $pembekalan->metode_id = $request->metode_id;
@@ -119,7 +120,8 @@ class SuratPenegasanController extends Controller
         $update_pembekalan->materi_id = $request->materi_id;
         $update_pembekalan->investasi = $request->investasi;
         $update_pembekalan->pengajar_id = $request->pengajar_id;
-        $update_pembekalan->hari_tanggal = $request->hari_tanggal;
+        $update_pembekalan->tanggal_mulai = $request->tanggal_mulai;
+        $update_pembekalan->tanggal_selesai = $request->tanggal_selesai;
         $update_pembekalan->mulai = $request->mulai;
         $update_pembekalan->selesai = $request->selesai;
         $update_pembekalan->metode_id = $request->metode_id;
@@ -177,6 +179,8 @@ class SuratPenegasanController extends Controller
             , 'bank', 'bpo'])->firstWhere('id', $id);
         $slug_bank = Str::slug($surat_penegasan->bank->nama);
         $filename = "{$surat_penegasan->tgl_surat->isoFormat('DDMMYYYY')}-{$slug_bank}.pdf";
+        $surat_penegasan->dokumen = $filename;
+        $surat_penegasan->save();
         $path = public_path('assets/surat-penegasan');
         $data = [
             'surat_penegasan' => $surat_penegasan
@@ -187,7 +191,9 @@ class SuratPenegasanController extends Controller
         $pdf = Pdf::setOption(['dpi' => 150]);
         $pdf = Pdf::loadView('pages.surat-penegasan.download', $data)->setPaper('A4', 'potrait');
         $pdf->save($path . '/' . $filename);
-        return $pdf->download($filename);
+        if($surat_penegasan){
+            return $pdf->download($filename);
+        }
 
         // $pdf = Pdf::setPaper('a4', 'potrait');
         // $pdf = Pdf::loadHtml($surat_penawaran->body)->setPaper('a4', 'potrait')->setWarnings(false);

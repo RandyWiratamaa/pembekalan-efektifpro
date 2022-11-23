@@ -122,7 +122,7 @@
                                                     </a>
                                                     @if ($i->is_approved == 0)
                                                     <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editSuratPenegasan{{ $i->id }}">
-                                                        <i class='mdi mdi-lead-pencil me-1'></i> Edit
+                                                        <i class='mdi mdi-lead-pencil me-1'></i> Update Jadwal
                                                     </a>
                                                     <div class="dropdown-divider"></div>
                                                     <a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#hapusSuratPenegasan{{ $i->id }}">
@@ -133,7 +133,7 @@
                                                     </a>
                                                     @else
                                                     <a href="{{ url('surat-penegasan/generate-PDF/'.$i->id) }}" class="dropdown-item" target="_blank">
-                                                        <i class='mdi mdi-download me-1'></i> Download Surat Penegasan
+                                                        <i class='mdi mdi-download me-1'></i> Simpan Surat Penegasan
                                                     </a>
                                                     @endif
                                                 </div>
