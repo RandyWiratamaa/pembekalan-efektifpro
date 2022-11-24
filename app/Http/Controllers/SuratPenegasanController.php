@@ -6,6 +6,7 @@ use App\Models\Bpo;
 use App\Models\Pic;
 use App\Models\Bank;
 use App\Models\Pengajar;
+use App\Models\Schedule;
 use App\Models\Pembekalan;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -13,6 +14,7 @@ use App\Models\SuratPenegasan;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\MateriPembekalan;
 use App\Models\MetodePembekalan;
+use Illuminate\Support\Facades\DB;
 
 class SuratPenegasanController extends Controller
 {
@@ -94,6 +96,18 @@ class SuratPenegasanController extends Controller
         $pembekalan->min_peserta = $request->min_peserta;
         $pembekalan->save();
 
+        $data = [
+            ['pembekalan_uuid'=>$uuid, 'tanggal'=>$request->tanggal_mulai],
+            ['pembekalan_uuid'=>$uuid, 'tanggal'=>$request->tanggal_selesai],
+        ];
+        Schedule::insert($data);
+
+        // DB:table('schedule')->insert($data);
+        // $schedule = new Schedule;
+        // $schedule->pembekalan_uuid = $uuid;
+        // $schedule->tanggal = $request->tanggal_mulai,$request->tanggal_selesai;
+        // $schedule->save();
+
         $surat_penegasan = new SuratPenegasan;
         $surat_penegasan->no_surat_penawaran = $request->no_surat_penawaran;
         $surat_penegasan->pembekalan_uuid = $uuid;
@@ -127,6 +141,23 @@ class SuratPenegasanController extends Controller
         $update_pembekalan->metode_id = $request->metode_id;
         $update_pembekalan->min_peserta = $request->min_peserta;
         $update_pembekalan->save();
+
+        $data = [
+            ['pembekalan_uuid'=>$uuid, 'tanggal'=>$request->tanggal_mulai],
+            ['pembekalan_uuid'=>$uuid, 'tanggal'=>$request->tanggal_selesai],
+        ];
+        Schedule::where([
+                ['pembekalan_uuid', $uuid],
+                ['ket', 'mulai']
+            ])->update(['tanggal' => $request->tanggal_mulai]);
+
+        Schedule::where([
+                ['pembekalan_uuid', $uuid],
+                ['ket', 'selesai']
+            ])->update(['tanggal' => $request->tanggal_selesai]);
+
+        // Schedule::update($data)->where('pembekalan_uuid', $uuid);
+        // DB::table('schedule')->where('pembekalan_uuid', $uuid)->update($data);
 
         $update_penegasan = SuratPenegasan::firstWhere('pembekalan_uuid', $uuid);
         $update_penegasan->no_surat = $request->no_surat;

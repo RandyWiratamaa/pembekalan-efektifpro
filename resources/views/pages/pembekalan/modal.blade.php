@@ -465,166 +465,160 @@
 @endforeach
 
 
-{{-- Modal Invitation Link --}}
-@foreach ($data_peserta as $i)
-<div id="invite{{ $i->id }}" class="modal fade" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">
-                    Kirim Invitation Link
-                </h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="{{ url('pembekalan/invitation/'.$i->pembekalan->uuid) }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="modal-body p-4">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">Email Kantor</label>
-                                <input type="text" name="email_kantor" id="email_kantor" class="form-control" value="{{ $i->email_kantor }}" readonly>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">Email Pribadi</label>
-                                <input type="text" name="email_pribadi" id="email_pribadi" class="form-control" value="{{ $i->email_pribadi }}" readonly>
-                            </div>
-                        </div>
-                    </div>
-                    {{-- <div class="row">
-                        <div class="col-md-12">
-                            <div class="mb-3">
-                                <label class="form-label">Link Zoom</label>
-                                <input type="text" name="email_kantor" id="email_kantor" class="form-control text-primary" value="{{ $i->pembekalan->link_zoom }}" readonly>
-                            </div>
-                        </div>
-                    </div> --}}
+@if ($count_peserta)
+    {{-- Modal Invitation Link --}}
+    @foreach ($data_peserta as $i)
+    <div id="invite{{ $i->id }}" class="modal fade" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        Kirim Invitation Link
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-info waves-effect waves-light">Kirim</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-@endforeach
-
-
-@foreach ($data_peserta as $i)
-<div id="editPeserta{{ $i->id }}" class="modal fade" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">
-                    Ubah data peserta
-                </h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="{{ url('peserta/'.$i->id) }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                @method('PATCH')
-                <div class="modal-body p-4">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">Nama *</label>
-                                <input type="text" name="nama" id="nama" class="form-control" value="{{ $i->nama }}">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">NIK</label>
-                                <input type="text" name="nik" id="nik" class="form-control" value="{{ $i->nik }}">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="mb-3">
-                                <label class="form-label">Jabatan</label>
-                                <input type="text" name="jabatan" id="jabatan" class="form-control" value="{{ $i->jabatan }}" placeholder="Jabatan Peserta">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="mb-3">
-                                <label class="form-label">No. HP *</label>
-                                <input type="text" name="nohp" id="nohp" class="form-control" value="{{ $i->nohp }}" placeholder="No. Handphone / Whatsapp">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="mb-3">
-                                <label class="form-label">Jenis Kelamin</label>
-                                <div class="form-check">
-                                    <input type="radio" id="customRadio1" name="jenkel" class="form-check-input" value="laki-laki">
-                                    <label class="form-check-label" for="customRadio1">Laki-laki</label>
+                <form action="{{ url('pembekalan/invitation/'.$i->pembekalan->uuid) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body p-4">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Email Kantor</label>
+                                    <input type="text" name="email_kantor" id="email_kantor" class="form-control" value="{{ $i->email_kantor }}" readonly>
                                 </div>
-                                <div class="form-check">
-                                    <input type="radio" id="customRadio2" name="jenkel" class="form-check-input" value="perempuan">
-                                    <label class="form-check-label" for="customRadio2">Perempuan</label>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Email Pribadi</label>
+                                    <input type="text" name="email_pribadi" id="email_pribadi" class="form-control" value="{{ $i->email_pribadi }}" readonly>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">Email Kantor</label>
-                                <input type="text" name="email_kantor" id="email_kantor" class="form-control" value="{{ $i->email_kantor }}" placeholder="Email Kantor">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">Email Pribadi</label>
-                                <input type="text" name="email_pribadi" id="email_pribadi" class="form-control" value="{{ $i->email_pribadi }}" placeholder="Email Pribadi">
-                            </div>
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-info waves-effect waves-light">Kirim</button>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="mb-3">
-                                <label class="form-label">Alamat</label>
-                                <input type="text" name="alamat" id="alamat" class="form-control" value="{{ $i->alamat }}" placeholder="Alamat Peserta">
-                            </div>
-                        </div>
-                    </div>
-                    <input type="hidden" name="uuid" id="uuid" class="form-control" value="{{ $i->uuid }}">
-                    <div class="pull-left">
-                        <em class="text-danger">* harus diisi</em>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-info waves-effect waves-light">Ubah</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-@endforeach
-
-@foreach ($data_peserta as $i)
-<div id="hapusPeserta{{ $i->id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog modal-dialog-centered modal-md">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Hapus {{ $page_name }}</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </form>
             </div>
-            <form action="{{ url('peserta', $i->id) }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                @method('Delete')
-                <div class="modal-body p-4">
-                    <h4>Apakah anda yakin akan menghapus data {{ $i->nama }} ini ? </h4>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Tutup</button>
-                    <button type="submit" class="btn btn-info waves-effect waves-light">Hapus</button>
-                </div>
-            </form>
         </div>
     </div>
-</div>
-@endforeach
+    @endforeach
+
+
+    @foreach ($data_peserta as $i)
+    <div id="editPeserta{{ $i->id }}" class="modal fade" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        Ubah data peserta
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ url('peserta/'.$i->id) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PATCH')
+                    <div class="modal-body p-4">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Nama *</label>
+                                    <input type="text" name="nama" id="nama" class="form-control" value="{{ $i->nama }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">NIK</label>
+                                    <input type="text" name="nik" id="nik" class="form-control" value="{{ $i->nik }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Jabatan</label>
+                                    <input type="text" name="jabatan" id="jabatan" class="form-control" value="{{ $i->jabatan }}" placeholder="Jabatan Peserta">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">No. HP *</label>
+                                    <input type="text" name="nohp" id="nohp" class="form-control" value="{{ $i->nohp }}" placeholder="No. Handphone / Whatsapp">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Jenis Kelamin</label>
+                                    <div class="form-check">
+                                        <input type="radio" id="customRadio1" name="jenkel" class="form-check-input" value="laki-laki">
+                                        <label class="form-check-label" for="customRadio1">Laki-laki</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="radio" id="customRadio2" name="jenkel" class="form-check-input" value="perempuan">
+                                        <label class="form-check-label" for="customRadio2">Perempuan</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Email Kantor</label>
+                                    <input type="text" name="email_kantor" id="email_kantor" class="form-control" value="{{ $i->email_kantor }}" placeholder="Email Kantor">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Email Pribadi</label>
+                                    <input type="text" name="email_pribadi" id="email_pribadi" class="form-control" value="{{ $i->email_pribadi }}" placeholder="Email Pribadi">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="mb-3">
+                                    <label class="form-label">Alamat</label>
+                                    <input type="text" name="alamat" id="alamat" class="form-control" value="{{ $i->alamat }}" placeholder="Alamat Peserta">
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="uuid" id="uuid" class="form-control" value="{{ $i->uuid }}">
+                        <div class="pull-left">
+                            <em class="text-danger">* harus diisi</em>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-info waves-effect waves-light">Ubah</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    @endforeach
+
+    @foreach ($data_peserta as $i)
+    <div id="hapusPeserta{{ $i->id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Hapus {{ $page_name }}</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ url('peserta', $i->id) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('Delete')
+                    <div class="modal-body p-4">
+                        <h4>Apakah anda yakin akan menghapus data {{ $i->nama }} ini ? </h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-info waves-effect waves-light">Hapus</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    @endforeach
+@endif

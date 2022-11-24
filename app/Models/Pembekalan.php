@@ -67,4 +67,9 @@ class Pembekalan extends Model
     {
         return $this->hasMany(BeritaAcara::class, 'pembekalan_uuid', 'uuid');
     }
+
+    public function schedule()
+    {
+        return $this->hasMany(Schedule::class, 'pembekalan_uuid', 'uuid');
+    }
 }

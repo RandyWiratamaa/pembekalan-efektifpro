@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pic;
 use App\Models\Bank;
 use App\Models\Peserta;
+use App\Models\Schedule;
 use App\Models\Pembekalan;
 use Illuminate\Support\Str;
 use App\Mail\InvitationMail;
@@ -18,41 +19,57 @@ use Illuminate\Support\Facades\Mail;
 
 class PembekalanController extends Controller
 {
+    public function rand_color()
+    {
+        return '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
+    }
+
     public function index(Request $request)
     {
         $page_name = "Pembekalan";
         $materi = MateriPembekalan::all();
         $metode = MetodePembekalan::all();
         $bank = Bank::all();
-        $data_pembekalan = Pembekalan::with(['metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic', 'peserta'])->orderBy('tanggal_mulai', 'ASC')->get();
+        $data_pembekalan = Pembekalan::with([
+            'metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic', 'peserta', 'schedule'
+            ])->orderBy('tanggal_mulai', 'ASC')->get();
         $pembekalan = Pembekalan::all();
         $surat_penegasan = SuratPenegasan::with([
             'pembekalan' => function($query){
                 return $query->with(['materi_pembekalan', 'level_pembekalan', 'pic']);
             }
             , 'bank', 'bpo'])->get();
-
         $events = [];
-        foreach($data_pembekalan as $values) {
-            $mulai = $values->tanggal_mulai;
-            $selesai = $values->tanggal_mulai;
-            $title = $values->materi_pembekalan->kode.' - '.$values->bank->nama;
+        $schedule = Schedule::with([
+            'pembekalan' => function($query){
+                return $query->with(['materi_pembekalan', 'metode_pembekalan','level_pembekalan', 'pic']);
+            }])->get();
+
+        foreach($schedule as $data) {
+            $mulai = $data->tanggal;
+            $selesai = $data->tanggal;
+            $title = $data->pembekalan->materi_pembekalan->kode.' - '.$data->pembekalan->bank->nama;
             $events[] = [
                 'title' => $title,
                 'start' => $mulai,
                 'end' => $selesai,
                 'borderColor' => 'black',
-                'display' => 'background'
+                'description' => $title,
+                'color' => 'blue',
+                'display' => 'background',
             ];
 
             $peserta = Peserta::join('pembekalan', 'pembekalan.uuid', '=', 'peserta.pembekalan_uuid')
-                            ->where('peserta.pembekalan_uuid', $values->uuid)
+                            ->where('peserta.pembekalan_uuid', $data->pembekalan->uuid)
                             ->get();
             $jml_peserta = Peserta::join('pembekalan', 'pembekalan.uuid', '=', 'peserta.pembekalan_uuid')
-                            ->where('peserta.pembekalan_uuid', $values->uuid)
+                            ->where('peserta.pembekalan_uuid', $data->pembekalan->uuid)
                             ->count();
         }
         $data_peserta = Peserta::all();
+        $count_peserta = Peserta::join('pembekalan', 'pembekalan.uuid', '=', 'peserta.pembekalan_uuid')
+                        ->where('peserta.pembekalan_uuid', $data->pembekalan->uuid)
+                        ->count() > 0;
         return view('pages.pembekalan.index', get_defined_vars());
     }
 
@@ -67,8 +84,6 @@ class PembekalanController extends Controller
     public function getPic($id)
     {
         $all = Pic::all();
-        // dd($all);
-        // $fullname = $all->first_name . ' ' . $all->midle_name . ' ' . $all->last_name;
         $pic = Pic::where('bank_id', $id)->get();
         return json_encode($pic);
     }

@@ -64,7 +64,6 @@ class PicController extends Controller
     public function update(Request $request, $id)
     {
         $pic = Pic::firstWhere('id', $id);
-        // die($request->nama_depan);
         $pic->first_name = $request->nama_depan;
         $pic->midle_name = $request->nama_tengah;
         $pic->last_name = $request->nama_belakang;

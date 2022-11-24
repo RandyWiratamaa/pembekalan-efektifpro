@@ -169,23 +169,18 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
-            var pembekalan = @json($events)
+            var pembekalan = @json($events);
 
             var calendar = $('#calendar').fullCalendar({
                 editable: false,
-                selectable: true,
-                default: true,
-                eventBackgroundColor: '#ff291095',
+                selectable: false,
+                default: false,
                 defaultView: "month",
                 header:{
                     left:'prev,next today',
                     center:'title',
                     right:'month,agendaWeek,agendaDay'
                 },
-                eventLimit: true,
-                events: pembekalan,
-                textColor: 'black',
-                displayEventTime: false,
                 eventRender: function (event, view, info) {
                     if (event.allDay === 'true') {
                         event.allDay = true;
@@ -193,6 +188,10 @@
                         event.allDay = true;
                     }
                 },
+                eventLimit: true,
+                events: pembekalan,
+                displayEventTime: true,
+
             });
         });
 
@@ -202,7 +201,7 @@
         $(document).on('click', '#dataPeserta', function() {
             var idx = $(this).attr('data-id')
             $('#peserta'+idx).modal('show');
-        // console.log(idx);
+            // console.log(idx);
             var data_peserta = $('#data-peserta'+idx)
             data_peserta.html('')
             $.ajax({

@@ -98,10 +98,5 @@ class BeritaAcaraController extends Controller
         if($berita_acara) {
             return $pdf->download($filename);
         }
-
-        // $pdf = Pdf::setPaper('a4', 'potrait');
-        // $pdf = Pdf::loadHtml($surat_penawaran->body)->setPaper('a4', 'potrait')->setWarnings(false);
-        // $pdf = Pdf::render();
-        // return $pdf->stream();
     }
 }

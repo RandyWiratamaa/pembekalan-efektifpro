@@ -49,16 +49,6 @@ class PesertaController extends Controller
 
     public function import_excel(Request $request)
     {
-        // $this->validate($request, [
-		// 	'file' => 'required|mimes:csv,xls,xlsx'
-		// ]);
-
-        // $file = $request->file('file');
-        // $nama_file = rand().getClientOriginalName();
-
-        // $file->move('peserta', $nama_file);
-        // Excell::import(new SiswaImport, public_path('/peserta/'.$nama_file));
-
         $uuid = $request->uuid;
 
         Excel::import(new PesertaImport($uuid),
