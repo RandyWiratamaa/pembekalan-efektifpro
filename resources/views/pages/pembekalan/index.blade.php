@@ -92,8 +92,18 @@
                                                     {{ $i->link_zoom }}
                                                     @endif
                                                 </td>
-                                                <td></td>
-                                                <td>{{ $i->pic->nama }}</td>
+                                                <td class="text-center">
+                                                    @if ($i->is_done == '0')
+                                                    <button class="btn btn-xs btn-primary" data-bs-toggle="modal" data-bs-target="#done{{ $i->uuid }}">
+                                                        Done
+                                                    </button>
+                                                    @else
+                                                    <button class="btn btn-xs btn-success" disabled data-bs-toggle="modal" data-bs-target="#update{{ $i->uuid }}">
+                                                        Telah Selesai
+                                                    </button>
+                                                    @endif
+                                                </td>
+                                                <td>{{ $i->pic->first_name }}</td>
                                                 <td>
                                                     <div class="dropdown d-inline-block">
                                                         <button class="btn btn-light dropdown-toggle" type="button"
@@ -126,6 +136,11 @@
                                                             <a class="dropdown-item" href="{{ url('pembekalan/detail/'.$i->uuid) }}">
                                                                 <i class='mdi mdi-send me-1'></i> Kirim Email Invitation
                                                             </a>
+                                                            @if ($i->is_done == true)
+                                                            <a class="dropdown-item" id="invoice" data-id="{{ $i->uuid }}">
+                                                                <i class='mdi mdi-file me-1'></i> Terbitkan Invoice
+                                                            </a>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </td>
@@ -238,7 +253,7 @@
         $(document).on('click', '#beritaAcara', function() {
             var idx = $(this).attr('data-id')
             $('#beritaAcara'+idx).modal('show');
-            console.log(idx);
+            // console.log(idx);
             var berita_acara = $('#beritaAcara'+idx)
             // berita_acara.html('')
             $.ajax({
@@ -261,6 +276,11 @@
                 }
             })
         });
+
+        $(document).on('click', '#invoice', function(){
+            var idx = $(this).attr('data-id')
+            $('#invoice'+idx).modal('show');
+        })
 
         jQuery(document).ready(function(){
             jQuery('select[name="bank_id"]').on('change', function()
@@ -291,6 +311,10 @@
 
         $(document).ready(function() {
             $('#berita-acara').summernote();
+        });
+
+        $(document).ready(function() {
+            $('.invoice').summernote();
         });
 
         $(document).on('change', '.image', function(){

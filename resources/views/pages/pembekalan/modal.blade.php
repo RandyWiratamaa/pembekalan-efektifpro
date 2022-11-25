@@ -287,7 +287,6 @@
 </div>
 @endforeach
 
-
 {{-- Modal Tambah Peserta Pembekalan --}}
 @foreach ($data_pembekalan as $i)
 <div id="tambahPeserta{{ $i->uuid }}" class="modal fade" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
@@ -622,3 +621,90 @@
     </div>
     @endforeach
 @endif
+
+@foreach ($data_pembekalan as $i)
+<div id="done{{ $i->uuid }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ $i->bank->nama }}</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ url('pembekalan/done', $i->uuid) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PATCH')
+                <div class="modal-body p-4">
+                    <h4>Apakah Pembekalan {{ $i->materi_pembekalan->materi }} ({{ $i->materi_pembekalan->kode }}) sudah selesai ?? </h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Tidak</button>
+                    <button type="submit" class="btn btn-info waves-effect waves-light">Ya</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endforeach
+
+{{-- Modal Berita Acara --}}
+@foreach ($data_pembekalan as $i)
+<div id="invoice{{ $i->uuid }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Invoice</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="#" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body p-4">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label class="form-label">No. Invoice *</label>
+                                <input type="text" class="form-control" name="no_invoice" id="no_invoice">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label class="form-label">Tanggal *</label>
+                                <input type="date" class="form-control" name="tanggal" id="tanggal">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label class="form-label">Bank *</label>
+                                <select name="bank_id" id="bank_id" class="form-control">
+                                    <option value="{{ $i->bank->id }}">{{ $i->bank->nama }}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <input type="hidden" class="form-control" name="uuid" id="uuid" value="{{ $i->uuid }}">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label class="form-label">Perihal</label>
+                                <input type="text" name="perihal" id="perihal" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label class="form-label">Body Surat *</label>
+                                <textarea name="invoice" class="form-control invoice" id="invoice">
+                                    @include('pages.invoice.body')
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-info waves-effect waves-light">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endforeach

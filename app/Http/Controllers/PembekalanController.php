@@ -127,6 +127,19 @@ class PembekalanController extends Controller
         }
     }
 
+    public function done($uuid)
+    {
+        $pembekalan = Pembekalan::firstWhere('uuid', $uuid);
+        $pembekalan->is_done = true;
+        $pembekalan->save();
+
+        if ($pembekalan) {
+            return redirect()->route('pembekalan.index');
+        } else {
+            return redirect()->back()->withInput();
+        }
+    }
+
     public function detail($uuid)
     {
         $page_name = "Data Pembekalan";

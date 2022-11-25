@@ -8,7 +8,6 @@ Route::group(['middleware' => 'auth'], function (){
     Route::get('/', function () {
         return view('auth.login');
     });
-
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
     Route::get('client', [App\Http\Controllers\ClientController::class, 'index'])->name('client.index');
@@ -45,6 +44,7 @@ Route::group(['middleware' => 'auth'], function (){
     Route::match(['put', 'patch'], 'pembekalan/{uuid}', [App\Http\Controllers\PembekalanController::class, 'update'])->name('pembekalan.update');
     Route::get('pembekalan/detail/{uuid}', [App\Http\Controllers\PembekalanController::class, 'detail'])->name('pembekalan.detail');
     Route::post('pembekalan/invitation/{uuid}', [App\Http\Controllers\PembekalanController::class, 'mailInvitation'])->name('pembekalan.invitation');
+    Route::match(['put', 'patch'], 'pembekalan/done/{uuid}', [App\Http\Controllers\PembekalanController::class, 'done'])->name('pembekalan.done');
 
     Route::get('surat-penawaran', [App\Http\Controllers\SuratPenawaranController::class, 'index'])->name('surat-penawaran.index');
     Route::get('surat-penawaran/show/{id}', [App\Http\Controllers\SuratPenawaranController::class, 'show'])->name('surat-penawaran.show');

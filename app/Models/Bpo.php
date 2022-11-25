@@ -23,6 +23,11 @@ class Bpo extends Model
 
     public function berita_acara()
     {
-        return $this->hasMany(SuratPenegasan::class, 'approved_by', 'id');
+        return $this->hasMany(BeritaAcara::class, 'approved_by', 'id');
+    }
+
+    public function invoice()
+    {
+        return $this->hasMany(Invoice::class, 'approved_by', 'id');
     }
 }
