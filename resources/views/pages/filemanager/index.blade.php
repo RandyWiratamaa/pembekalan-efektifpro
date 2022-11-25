@@ -76,7 +76,11 @@
                                                     </div>
                                                 </div>
                                                 <div class="col">
+                                                    @if ($i->dokumen == '')
+                                                    <a href="{{ route('surat-penegasan.index') }}" class="fw-normal" style="color:red">Dokumen belum disimpan</a>
+                                                    @else
                                                     <a href="{{ asset('assets/surat-penegasan/'.$i->dokumen) }}" target="_blank" class="fw-normal" style="color:blue">{{ $i->no_surat }}</a>
+                                                    @endif
                                                     <p class="mb-0 font-13"> {{ strtoupper($i->pembekalan->materi_pembekalan->kode) }} - {{ $i->bank->nama }}</p>
                                                     <span>
                                                         <small class="float-end text-muted">{{ $i->tgl_surat->isoFormat('dddd, DD MMMM YYYY') }}</small>

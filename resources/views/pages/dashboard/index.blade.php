@@ -21,23 +21,12 @@
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="header-title">Curva Sertifikasi</h4>
-                    <div class="mt-4 chartjs-chart">
-                        <canvas id="chart-pembekalan" height="150" data-colors="#5671f0,#f35d5d" class="morris-chart mt-3"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-body">
-                    {{-- <div class="mt-4 chartjs-chart"> --}}
-                        <div id="container" style="height: 150"></div>
-                    {{-- </div> --}}
+                    <div id="chart-schedule" style="height:150"></div>
                 </div>
             </div>
         </div>
@@ -51,10 +40,14 @@
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="header-title">Curva Surat Penegasan</h4>
-                    <div class="mt-4 chartjs-chart">
-                        <canvas id="chart-surat-penegasan" height="150" data-colors="#5671f0,#f35d5d" class="morris-chart mt-3"></canvas>
-                    </div>
+                    <div id="chart-surat-penawaran" style="height: 150"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <div id="chart-surat-penegasan" style="height: 150"></div>
                 </div>
             </div>
         </div>
@@ -71,7 +64,55 @@
     <script src="{{ asset('assets/js/pages/chartjs.init.js') }}"></script>
 
     <script type="text/javascript">
-        // Jml kelas per pengajar
+        // CHART SCHEDULE
+        var label_schedule = {{ Js::from($label_schedule) }}
+        var data_schedule = {{ Js::from($data_schedule) }}
+        Highcharts.chart('chart-schedule', {
+            title: {
+                text: 'Grafik Schedule'
+            },
+            subtitle: {
+                text: 'PT. Efektifpro Knowledge Source'
+            },
+            xAxis: {
+                categories: label_schedule
+            },
+            yAxis: {
+                title: {
+                    text: 'Jumlah'
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle'
+            },
+            plotOptions: {
+                series: {
+                    allowPointSelect: true
+                }
+            },
+            series: [{
+                name: 'Schedule',
+                data: data_schedule
+            }],
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
+            }
+        })
+
+        // JML KELAS PENGAJAR
         var label_pengajar = {{ Js::from($label_pengajar) }};
         var data_pengajar = {{ Js::from($data_pengajar) }};
         Highcharts.chart('chart-pengajar', {
@@ -119,58 +160,10 @@
             }
         });
 
-        // Jml kelas per pengajar
-        var label_pengajar = {{ Js::from($label_pengajar) }};
-        var data_pengajar = {{ Js::from($data_pengajar) }};
-        Highcharts.chart('chart-pengajar', {
-            title: {
-                text: 'Jumlah Kelas'
-            },
-            subtitle: {
-                text: 'PT. Efektifpro Knowledge Source'
-            },
-            xAxis: {
-                categories: label_pengajar
-            },
-            yAxis: {
-                title: {
-                    text: 'Jumlah Kelas'
-                }
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'middle'
-            },
-            plotOptions: {
-                series: {
-                    allowPointSelect: true
-                }
-            },
-            series: [{
-                name: 'Pengajar',
-                data: data_pengajar
-            }],
-            responsive: {
-                rules: [{
-                    condition: {
-                        maxWidth: 500
-                    },
-                    chartOptions: {
-                        legend: {
-                            layout: 'horizontal',
-                            align: 'center',
-                            verticalAlign: 'bottom'
-                        }
-                    }
-                }]
-            }
-        });
-
-        //Jml Surat Penawaran
-        var label = {{ Js::from($label_surat_penawaran) }};
-        var userData = {{ Js::from($data_surat_penawaran) }};
-        Highcharts.chart('container', {
+        //SURAT PENAWARAN
+        var label_penawaran = {{ Js::from($label_surat_penawaran) }};
+        var data_penawaran = {{ Js::from($data_surat_penawaran) }};
+        Highcharts.chart('chart-surat-penawaran', {
             title: {
                 text: 'Surat Penawaran'
             },
@@ -178,7 +171,7 @@
                 text: 'PT. Efektifpro Knowledge Source'
             },
             xAxis: {
-                categories: label
+                categories: label_penawaran
             },
             yAxis: {
                 title: {
@@ -197,7 +190,7 @@
             },
             series: [{
                 name: 'Surat Penawaran',
-                data: userData
+                data: data_penawaran
             }],
             responsive: {
                 rules: [{
@@ -215,81 +208,53 @@
             }
         });
 
-
-    </script>
-
-    <script type="text/javascript">
-        // Surat Penawaran
-        // var label_surat_penawaran = {{ Js::from($label_surat_penawaran) }};
-        // var surat_penawaran = {{ Js::from($data_surat_penawaran) }};
-
-        // const data_surat_penawaran = {
-        //     labels: label_surat_penawaran,
-        //     datasets: [{
-        //         label: 'Surat Penawaran',
-        //         backgroundColor: '#fff',
-        //         borderColor: '#23b019',
-        //         data: surat_penawaran,
-        //     }]
-        // };
-        // const config_surat_penawaran = {
-        //     type: 'line',
-        //     data: data_surat_penawaran,
-        //     options: {}
-        // };
-
-        // const suratPenawaran = new Chart(
-        //     document.getElementById('chart-surat-penawaran'),
-        //     config_surat_penawaran
-        // );
-
-        // Surat Penegasan
-        var label_surat_penegasan = {{ Js::from($label_surat_penegasan) }};
-        var surat_penegasan = {{ Js::from($data_surat_penegasan) }};
-
-        const data_surat_penegasan = {
-            labels: label_surat_penegasan,
-            datasets: [{
-                label: 'Surat Penegasan',
-                backgroundColor: '#fff',
-                borderColor: '#192bb0',
-                data: surat_penegasan,
-            }]
-        };
-        const config_surat_penegasan = {
-            type: 'line',
-            data: data_surat_penegasan,
-            options: {}
-        };
-
-        const suratPenegasan = new Chart(
-            document.getElementById('chart-surat-penegasan'),
-            config_surat_penegasan
-        );
-
-        // Sertifikasi Pembekalan
-        var label_pembekalan = {{ Js::from($label_pembekalan) }};
-        var pembekalan = {{ Js::from($data_pembekalan) }};
-
-        const data_pembekalan = {
-            labels: label_pembekalan,
-            datasets: [{
-                label: 'Sertifikasi',
-                backgroundColor: '#fff',
-                borderColor: '#c77a28',
-                data: pembekalan,
-            }]
-        };
-        const config_pembekalan = {
-            type: 'line',
-            data: data_pembekalan,
-            options: {}
-        };
-
-        const listPembekalan = new Chart(
-            document.getElementById('chart-pembekalan').getContext('2d'),
-            config_pembekalan
-        );
+        // SURAT PENEGASAN
+        var label_penegasan = {{ Js::from($label_surat_penegasan) }};
+        var data_penegasan = {{ Js::from($data_surat_penegasan) }};
+        Highcharts.chart('chart-surat-penegasan', {
+            title: {
+                text: 'Surat Penegasan'
+            },
+            subtitle: {
+                text: 'PT. Efektifpro Knowledge Source'
+            },
+            xAxis: {
+                categories: label_penegasan
+            },
+            yAxis: {
+                title: {
+                    text: 'Jumlah Surat Penegasan'
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle'
+            },
+            plotOptions: {
+                series: {
+                    allowPointSelect: true
+                }
+            },
+            series: [{
+                name: 'Surat Penegasan',
+                data: data_penegasan
+            }],
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
+            }
+        });
     </script>
     @endpush
 @endonce

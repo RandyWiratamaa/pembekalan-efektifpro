@@ -3,8 +3,8 @@
     <title>Surat Penegasan</title>
     <style type="text/css">
 
-        @page {
-            margin: 120px;
+@page {
+            margin: 100px;
             font-size: 12px;
             font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
             margin-left: 114px;
@@ -16,7 +16,7 @@
             top: -100px;
             left: 0px;
             right: 0px;
-            height: 80px;
+            height: 50px;
 
             /** Extra personal styles **/
             /* background-color: #03a9f4;
@@ -103,7 +103,7 @@
             $exp = explode("<br>", $body);
             // dd($exp);
         @endphp
-        <table>
+        <table id="penegasan">
             @foreach ($exp as $key => $i)
                 <tr>{!! $i !!}</tr>
             @endforeach

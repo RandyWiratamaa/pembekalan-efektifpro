@@ -47,8 +47,10 @@ class BeritaAcaraController extends Controller
         $berita_acara->save();
 
         if ($berita_acara) {
+            toastr()->success('Berita Acara berhasil dibuat');
             return redirect()->route('pembekalan.index');
         } else {
+            toastr()->error('Gagal membuat berita acara');
             return redirect()->back()->withInput();
         }
     }
@@ -59,6 +61,9 @@ class BeritaAcaraController extends Controller
         return view('pages.berita-acara.detail', get_defined_vars());
     }
 
+    /**
+     * Persetujuan Berita Acara
+     */
     public function approve(Request $request, $id)
     {
         $approved = 1;
@@ -68,6 +73,7 @@ class BeritaAcaraController extends Controller
         $approve->save();
 
         if ($approve) {
+            toastr()->success('Berita Acara berhasil dibuat');
             return redirect()->route('berita-acara.index');
         } else {
             return redirect()->back()->withInput();
@@ -96,6 +102,7 @@ class BeritaAcaraController extends Controller
         $pdf = Pdf::loadView('pages.berita-acara.download', $data)->setPaper('A4', 'potrait');
         $pdf->save($path . '/' . $filename);
         if($berita_acara) {
+            toastr()->success('Berita Acara berhasil diapprove');
             return $pdf->download($filename);
         }
     }

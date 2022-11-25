@@ -97,8 +97,8 @@ class SuratPenegasanController extends Controller
         $pembekalan->save();
 
         $data = [
-            ['pembekalan_uuid'=>$uuid, 'tanggal'=>$request->tanggal_mulai],
-            ['pembekalan_uuid'=>$uuid, 'tanggal'=>$request->tanggal_selesai],
+            ['pembekalan_uuid'=>$uuid, 'tanggal'=>$request->tanggal_mulai, 'pengajar_id'=>$request->pengajar_id],
+            ['pembekalan_uuid'=>$uuid, 'tanggal'=>$request->tanggal_selesai, 'pengajar_id'=>$request->pengajar_id],
         ];
         Schedule::insert($data);
 
@@ -120,6 +120,7 @@ class SuratPenegasanController extends Controller
         $surat_penegasan->save();
 
         if($surat_penegasan && $pembekalan){
+            toastr()->success('Surat Penegasan dan Jadwal berhasil dibuat');
             return redirect()->route('surat-penegasan.index');
         } else {
             return redirect()->back()->withInput();
@@ -169,6 +170,7 @@ class SuratPenegasanController extends Controller
         $update_penegasan->save();
 
         if($update_pembekalan && $update_penegasan){
+            toastr()->success('Surat Penegasan dan Jadwal berhasil diubah');
             return redirect()->route('surat-penegasan.index');
         } else {
             return redirect()->back()->withInput();
@@ -195,6 +197,7 @@ class SuratPenegasanController extends Controller
         $approve_penegasan->approved_by = $request->approved_by;
         $approve_penegasan->save();
         if ($approve_penegasan) {
+            toastr()->success('Surat Penegasan berhasil diapprove');
             return redirect()->route('surat-penegasan.index');
         } else {
             return redirect()->back()->withInput();
@@ -212,6 +215,7 @@ class SuratPenegasanController extends Controller
         $filename = "{$surat_penegasan->tgl_surat->isoFormat('DDMMYYYY')}-{$slug_bank}.pdf";
         $surat_penegasan->dokumen = $filename;
         $surat_penegasan->save();
+
         $path = public_path('assets/surat-penegasan');
         $data = [
             'surat_penegasan' => $surat_penegasan
@@ -219,17 +223,12 @@ class SuratPenegasanController extends Controller
         $body = explode(" ", $surat_penegasan->body);
         $body = $surat_penegasan->body;
         $exp = explode("<br>", $body);
-        $pdf = Pdf::setOption(['dpi' => 150]);
-        $pdf = Pdf::loadView('pages.surat-penegasan.download', $data)->setPaper('A4', 'potrait');
+        $pdf = Pdf::loadView('pages.surat-penegasan.download', $data);
         $pdf->save($path . '/' . $filename);
         if($surat_penegasan){
+            toastr()->success('Surat Penegasan berhasil disimpan');
             return $pdf->download($filename);
         }
-
-        // $pdf = Pdf::setPaper('a4', 'potrait');
-        // $pdf = Pdf::loadHtml($surat_penawaran->body)->setPaper('a4', 'potrait')->setWarnings(false);
-        // $pdf = Pdf::render();
-        // return $pdf->stream();
     }
 
     public function destroy($id)
@@ -237,6 +236,7 @@ class SuratPenegasanController extends Controller
         $delete_penegasan = SuratPenegasan::findOrFail($id);
         $delete_penegasan->delete();
         if($delete_penegasan) {
+            toastr()->success('Surat Penegasan berhasil dihapus');
             return redirect()->route('surat-penegasan.index');
         } else {
             return redirect()->back()->withInput();

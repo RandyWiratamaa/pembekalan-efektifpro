@@ -34,6 +34,7 @@ class BpoController extends Controller
         $bpo->save();
         if($bpo){
             file_put_contents($file, $image_base64);
+            toastr()->success('Data BPO berhasil ditambahkan');
             return redirect()->route('bpo.index');
         } else {
             return redirect()->back()->withInput();

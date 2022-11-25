@@ -120,6 +120,7 @@ class SuratPenawaranController extends Controller
         $surat_penawaran->save();
 
         if($surat_penawaran){
+            toastr()->success('Surat Penawaran berhasil dibuat');
             return redirect()->route('surat-penawaran.index');
         } else {
             return redirect()->back()->withInput();
@@ -149,6 +150,7 @@ class SuratPenawaranController extends Controller
         $update_penawaran->save();
 
         if($update_penawaran) {
+            toastr()->success('Surat Penawaran berhasil diubah');
             return redirect()->route('surat-penawaran.index');
         } else {
             return redirect()->back()->withInput();
@@ -164,6 +166,7 @@ class SuratPenawaranController extends Controller
         $approve_penawaran->save();
 
         if ($approve_penawaran) {
+            toastr()->success('Surat Penawaran berhasil diapprove');
             return redirect()->route('surat-penawaran.index');
         } else {
             return redirect()->back()->withInput();
@@ -188,15 +191,9 @@ class SuratPenawaranController extends Controller
         $pdf = Pdf::loadView('pages.surat-penawaran.download', $data);
         $pdf->save($path . '/' . $filename);
         if($surat_penawaran) {
+            toastr()->success('Surat Penawaran berhasil disimpan');
             return $pdf->download($filename);
         }
-
-
-        // $pdf = Pdf::setPaper('a4', 'potrait');
-        // $pdf = Pdf::loadHtml($surat_penawaran->body)->setPaper('a4', 'potrait')->setWarnings(false);
-        // $pdf = Pdf::render();
-        // return $pdf->stream();
-        // ->save(public_path('assets/surat-penawaran/'.$surat_penawaran->tgl_surat->isoFormat('DDMMYYYY').$surat_penawaran->bank->nama));
     }
 
     public function destroy($id)
@@ -205,6 +202,7 @@ class SuratPenawaranController extends Controller
         $delete_penawaran->delete();
 
         if($delete_penawaran) {
+            toastr()->success('Surat Penawaran berhasil dihapus');
             return redirect()->route('surat-penawaran.index');
         } else {
             return redirect()->back()->withInput();

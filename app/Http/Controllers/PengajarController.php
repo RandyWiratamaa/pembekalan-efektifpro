@@ -36,6 +36,7 @@ class PengajarController extends Controller
         $pengajar->save();
 
         if($pengajar) {
+            toastr()->success('Data berhasil ditambahkan');
             return redirect()->route('pengajar.index');
         } else {
             return redirect()->back()->withInput();
@@ -53,6 +54,7 @@ class PengajarController extends Controller
         $pengajar->save();
 
         if($pengajar) {
+            toastr()->success('Data berhasil diubah');
             return redirect()->route('pengajar.index');
         } else {
             return redirect()->back()->withInput();
@@ -65,6 +67,7 @@ class PengajarController extends Controller
         $pengajar->delete();
 
         if($pengajar) {
+            toastr()->success('Data berhasil dihapus');
             return redirect()->route('pengajar.index');
         } else {
             return redirect()->back()->withInput();

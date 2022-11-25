@@ -55,6 +55,7 @@ class PicController extends Controller
         $pic->save();
 
         if ($pic) {
+            toastr()->success('Data PIC berhasil ditambahkan');
             return redirect()->route('pic.index');
         } else {
             return redirect()->back()->withInput();
@@ -79,6 +80,7 @@ class PicController extends Controller
         $pic->save();
 
         if ($pic) {
+            toastr()->success('Data PIC berhasil diubah');
             return redirect()->route('pic.index');
         } else {
             return redirect()->back()->withInput();
@@ -91,6 +93,7 @@ class PicController extends Controller
         $delete_pic->delete();
 
         if($delete_pic) {
+            toastr()->success('Data PIC berhasil ditambahkan');
             return redirect()->route('pic.index');
         } else {
             return redirect()->back()->withInput();

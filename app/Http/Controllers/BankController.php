@@ -44,8 +44,10 @@ class BankController extends Controller
         $bank->save();
 
         if ($bank) {
+            toastr()->success('Data berhasil ditambahkan');
             return redirect()->route('bank.index');
         } else {
+            toastr()->error('Gagal menambahkan data');
             return redirect()->back()->withInput();
         }
     }
@@ -63,8 +65,10 @@ class BankController extends Controller
         $update_bank->save();
 
         if($update_bank) {
+            toastr()->success('Data berhasil diubah');
             return redirect()->route('bank.index');
         } else {
+            toastr()->error('Gagal mengubah data');
             return redirect()->back()->withInput();
         }
     }
@@ -75,8 +79,10 @@ class BankController extends Controller
         $delete_bank->delete();
 
         if($delete_bank) {
+            toastr()->success('Data berhasil dihapus');
             return redirect()->route('bank.index');
         } else {
+            toastr()->success('Gagal menghapus data');
             return redirect()->back()->withInput();
         }
     }

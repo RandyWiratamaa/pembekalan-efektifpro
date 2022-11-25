@@ -25,6 +25,7 @@ class PesertaController extends Controller
         $peserta->save();
 
         if ($peserta) {
+            toastr()->success('Data peserta berhasil ditambahkan');
             return redirect()->route('pembekalan.index');
         }
     }
@@ -43,6 +44,7 @@ class PesertaController extends Controller
         $peserta->save();
 
         if ($peserta) {
+            toastr()->success('Data peserta berhasil diubah');
             return redirect()->route('pembekalan.index');
         }
     }
@@ -53,6 +55,7 @@ class PesertaController extends Controller
 
         Excel::import(new PesertaImport($uuid),
             $request->file('file')->store('files'));
+        toastr()->success('Data peserta berhasil diimport');
         return redirect()->route('pembekalan.index');
     }
 
@@ -62,6 +65,7 @@ class PesertaController extends Controller
         $delete_peserta->delete();
 
         if($delete_peserta) {
+            toastr()->success('Data peserta berhasil dihapus');
             return redirect()->route('pembekalan.index');
         } else {
             return redirect()->back()->withInput();

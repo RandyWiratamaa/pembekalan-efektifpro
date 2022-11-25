@@ -253,7 +253,7 @@
         $(document).on('click', '#beritaAcara', function() {
             var idx = $(this).attr('data-id')
             $('#beritaAcara'+idx).modal('show');
-            // console.log(idx);
+            console.log(idx);
             var berita_acara = $('#beritaAcara'+idx)
             // berita_acara.html('')
             $.ajax({
@@ -310,12 +310,12 @@
 
 
         $(document).ready(function() {
-            $('#berita-acara').summernote();
+            $('.sn-berita-acara').summernote();
         });
 
-        $(document).ready(function() {
-            $('.invoice').summernote();
-        });
+        // $(document).ready(function() {
+        //     $('.invoice').summernote();
+        // });
 
         $(document).on('change', '.image', function(){
             var filesCount = $(this)[0].files.length;

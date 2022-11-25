@@ -48,6 +48,7 @@ class MateriPembekalanController extends Controller
         $materi->save();
 
         if($materi){
+            toastr()->success('Data berhasil ditambahkan');
             return redirect()->route('materi_pembekalan.index');
         } else {
             return redirect()->back()->withInput();
@@ -71,6 +72,7 @@ class MateriPembekalanController extends Controller
         $materi->save();
 
         if($materi) {
+            toastr()->success('Data berhasil diubah');
             return redirect()->route('materi_pembekalan.index');
         } else {
             return redirect()->back()->withInput();
@@ -83,6 +85,7 @@ class MateriPembekalanController extends Controller
        $delete_materi->delete();
 
         if($delete_materi) {
+            toastr()->success('Data berhasil dihapus');
             return redirect()->route('materi_pembekalan.index');
         } else {
             return redirect()->back()->withInput();

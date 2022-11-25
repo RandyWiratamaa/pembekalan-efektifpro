@@ -135,7 +135,7 @@
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label class="form-label">Body Surat *</label>
-                                <textarea name="body" class="form-control" id="berita-acara">
+                                <textarea name="body" class="form-control sn-berita-acara" id="berita-acara">
                                     @include('pages.berita-acara.body')
                                 </textarea>
                             </div>
@@ -646,8 +646,8 @@
 </div>
 @endforeach
 
-{{-- Modal Berita Acara --}}
-@foreach ($data_pembekalan as $i)
+{{-- Modal Invoice --}}
+{{-- @foreach ($data_pembekalan as $i)
 <div id="invoice{{ $i->uuid }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
@@ -707,4 +707,4 @@
         </div>
     </div>
 </div>
-@endforeach
+@endforeach --}}

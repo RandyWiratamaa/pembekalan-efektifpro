@@ -108,6 +108,7 @@ class PembekalanController extends Controller
         $pembekalan->save();
 
         if ($pembekalan) {
+            toastr()->success('Data berhasil ditambahkan');
             return redirect()->route('pembekalan.index');
         } else {
             return redirect()->back()->withInput();
