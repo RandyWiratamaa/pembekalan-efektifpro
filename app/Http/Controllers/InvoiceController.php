@@ -2,11 +2,43 @@
 
 namespace App\Http\Controllers;
 
+use DataTables;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
 
 class InvoiceController extends Controller
 {
+    public function index(Request $request)
+    {
+        $page_name = 'Invoice';
+        if($request->ajax()){
+            $data = Invoice::with([
+                'pembekalan' => function($query) {
+                    return $query->with('metode_pembekalan', 'materi_pembekalan', 'bank', 'pic');
+                }])->get();
+            return Datatables::of($data)->addIndexColumn()
+                ->addColumn('bank', function (Invoice $invoice){
+                    return $invoice->pembekalan->bank->nama;
+                })
+                ->addColumn('tanggal', function($row){
+                    $tgl = $row['tanggal']->isoFormat('dddd, DD MMMM YYYY');
+                    return $tgl;
+                })
+                ->addColumn('action', function($row){
+                    $btn = '<a href="javascript:void(0)" class="btn btn-soft-primary btn-sm">View</a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        $data = Invoice::with([
+            'pembekalan' => function($query) {
+                return $query->with('metode_pembekalan', 'materi_pembekalan', 'bank', 'pic');
+            }])->get();
+
+        return view('pages.invoice.index', get_defined_vars());
+    }
+
     public function store(Request $request)
     {
         $invoice = new Invoice;

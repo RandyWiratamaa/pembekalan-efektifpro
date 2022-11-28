@@ -74,7 +74,7 @@
                                     <a href="{{ route('berita-acara.index') }}">Berita Acara</a>
                                 </li>
                                 <li>
-                                    <a href="#">Invoice</a>
+                                    <a href="{{ route('invoice.index') }}">Invoice</a>
                                 </li>
                             </ul>
                         </div>

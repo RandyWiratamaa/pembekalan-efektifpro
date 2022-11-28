@@ -9,7 +9,7 @@ class Invoice extends Model
 {
     use HasFactory;
     protected $table = 'invoice';
-    protected $date = 'tanggal';
+    protected $dates = ['tanggal'];
     protected $fillable = [
         'pembekalan_uuid', 'no_invoice', 'perihal', 'body',
     ];
@@ -22,5 +22,10 @@ class Invoice extends Model
     public function bank()
     {
         return $this->belongsTo(Bank::class, 'bank_id', 'id');
+    }
+
+    public function pembekalan()
+    {
+        return $this->belongsTo(Pembekalan::class, 'pembekalan_uuid', 'uuid');
     }
 }

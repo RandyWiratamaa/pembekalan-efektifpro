@@ -72,4 +72,9 @@ class Pembekalan extends Model
     {
         return $this->hasMany(Schedule::class, 'pembekalan_uuid', 'uuid');
     }
+
+    public function invoice()
+    {
+        return $this->hasOne(Invoice::class, 'pembekalan_uuid', 'uuid');
+    }
 }

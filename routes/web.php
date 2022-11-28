@@ -84,5 +84,6 @@ Route::group(['middleware' => 'auth'], function (){
 
     Route::get('filemanagaer', [App\Http\Controllers\FileManagerController::class, 'index'])->name('filemanager.index');
 
+    Route::get('invoice', [App\Http\Controllers\InvoiceController::class, 'index'])->name('invoice.index');
     Route::post('invoice', [App\Http\Controllers\InvoiceController::class, 'store'])->name('invoice.store');
 });
