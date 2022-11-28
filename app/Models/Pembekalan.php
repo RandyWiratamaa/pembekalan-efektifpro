@@ -40,12 +40,12 @@ class Pembekalan extends Model
 
     public function surat_penawaran()
     {
-        return $this->hasMany(SuratPenawaran::class, 'pembekalan_id', 'id');
+        return $this->hasOne(SuratPenawaran::class, 'pembekalan_id', 'id');
     }
 
     public function surat_penegasan()
     {
-        return $this->hasMany(SuratPenegasan::class, 'pembekalan_uuid', 'uuid');
+        return $this->hasOne(SuratPenegasan::class, 'pembekalan_uuid', 'uuid');
     }
 
     public function bank()

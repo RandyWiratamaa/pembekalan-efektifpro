@@ -73,8 +73,6 @@
     </footer>
 
     <main>
-
-
         <div class="tanggal">
             Jakarta, {{ $surat_penegasan->tgl_surat->isoFormat('DD MMMM YYYY') }}
         </div>
@@ -103,23 +101,10 @@
             $exp = explode("<br>", $body);
             // dd($exp);
         @endphp
-        <table id="penegasan">
+        <table>
             @foreach ($exp as $key => $i)
                 <tr>{!! $i !!}</tr>
             @endforeach
-            {{-- {!! $surat_penawaran->body !!} --}}
-            {{-- {{ $body }} --}}
-            {{-- <tr>
-                {!! $exp[0] !!}
-            </tr>
-            <tr>
-                {!! $exp[1] !!}
-            </tr>
-            <tr>
-                {!! $exp[2] !!}
-            </tr>
-            <tr>{!! $exp[3] !!}</tr>
-            <tr>{!! $exp[4] !!}</tr> --}}
         </table>
         <div class="nomor" style="margin-top: 10px">
             <p><strong>Hormat Kami</strong></p>
@@ -131,14 +116,6 @@
             @endif
         </div>
     </main>
-    {{-- <div class="page-footer-space"></div> --}}
 
 </body>
 </html>
-
-{{-- <script>
-    let body = {!! $surat_penawaran->body !!};
-    const myArray = body.split(" ");
-    document.getElementById("body").innerHTML = myArray;
-    // alert(body)
-</script> --}}

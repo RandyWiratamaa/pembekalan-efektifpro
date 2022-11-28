@@ -647,7 +647,7 @@
 @endforeach
 
 {{-- Modal Invoice --}}
-{{-- @foreach ($data_pembekalan as $i)
+@foreach ($data_pembekalan as $i)
 <div id="invoice{{ $i->uuid }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
@@ -655,20 +655,23 @@
                 <h4 class="modal-title">Invoice</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="#" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('invoice.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body p-4">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label class="form-label">No. Invoice *</label>
-                                <input type="text" class="form-control" name="no_invoice" id="no_invoice">
+                                <input type="text" class="form-control" name="no_invoice" id="no_invoice"
+                                value="{{ $no_urut }}/{{ $kd_surat }}/{{ $bulan }}/{{ now()->year }}">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label class="form-label">Tanggal *</label>
-                                <input type="date" class="form-control" name="tanggal" id="tanggal">
+                                <input type="date" class="form-control" name="tanggal" id="tanggal"
+                                min="{{ $i->tanggal_mulai->isoFormat('YYYY-MM-DD') }}"
+                                max="{{ $i->tanggal_selesai->addDays(30)->isoFormat('YYYY-MM-DD') }}">
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -685,7 +688,7 @@
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label class="form-label">Perihal</label>
-                                <input type="text" name="perihal" id="perihal" class="form-control">
+                                <input type="text" name="perihal" id="perihal{{ $i->uuid }}" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -693,18 +696,41 @@
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label class="form-label">Body Surat *</label>
-                                <textarea name="invoice" class="form-control invoice" id="invoice">
+                                <textarea name="invoice" class="form-control sn-invoice" id="invoice">
                                     @include('pages.invoice.body')
                                 </textarea>
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Upload Invoice</label>
+                                <input type="file" name="up_invoice" id="up_invoice" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">E-Faktur</label>
+                                <input type="file" name="faktur_pajak" id="faktur_pajak" class="form-control">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-info waves-effect waves-light">Simpan</button>
+                <div class="modal-footer float-start">
+                    @php
+                            $adaBA = DB::table('berita_acara')->where('pembekalan_uuid', $i->uuid)->count() > 0;
+                        @endphp
+                        @if ($adaBA)
+                            <button type="submit" class="btn btn-info waves-effect waves-light">Simpan</button>
+                        @else
+                            <small class="text-danger">Berita Acara tidak tersedia, <br>
+                                Terbitkan Berita Acara terlebih dahulu.
+                            </small>
+                        @endif
                 </div>
             </form>
         </div>
     </div>
 </div>
-@endforeach --}}
+@endforeach

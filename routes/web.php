@@ -83,4 +83,6 @@ Route::group(['middleware' => 'auth'], function (){
     Route::get('berita-acara/generate-PDF/{id}', [App\Http\Controllers\BeritaAcaraController::class, 'generatePDF'])->name('berita-acara.generate-PDF');
 
     Route::get('filemanagaer', [App\Http\Controllers\FileManagerController::class, 'index'])->name('filemanager.index');
+
+    Route::post('invoice', [App\Http\Controllers\InvoiceController::class, 'store'])->name('invoice.store');
 });

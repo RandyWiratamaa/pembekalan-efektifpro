@@ -37,7 +37,56 @@
     </div>
 
     <div class="row">
-        <div class="col-xl-12">
+        <div class="col-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-widgets">
+                        <a data-bs-toggle="collapse" href="#search" role="button" aria-expanded="false" aria-controls="search"><i class="mdi mdi-minus"></i></a>
+                    </div>
+                    <h5 class="header-title mb-2">Filter Data</h5>
+                    <div id="search" class="collapse show">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <form class="search-bar form-inline" method="get" action="#" >
+                                    @csrf
+                                    <label class="form-label">Daftar Nama Bank</label>
+                                    <div class="input-group">
+                                        <select class="form-select" name="bank_id" id="bank_id" type="text" placeholder="Cari berdasarkan nama Bank">
+                                            <option value="">-- Cari berdasarkan nama Bank --</option>
+                                            @foreach ($bank as $i)
+                                            <option value="{{ $i->id }}">{{ $i->nama }}</option>
+                                            @endforeach
+                                        </select>
+                                        <button type="submit" class="btn waves-effect waves-light btn-primary">
+                                            <i class="mdi mdi-magnify"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-sm-12">
+                                <form class="search-bar form-inline" method="get" action="#" >
+                                    @csrf
+                                    <label class="form-label">Status</label>
+                                    <div class="input-group">
+                                        <select class="form-select" name="is_done" id="is_done" type="text" placeholder="Cari berdasarkan nama Bank">
+                                            <option value="">-- ALL --</option>
+                                            <option value="0">BELUM SELESAI</option>
+                                            <option value="1">TELAH SELESAI</option>
+                                        </select>
+                                        <button type="submit" class="btn waves-effect waves-light btn-primary">
+                                            <i class="mdi mdi-magnify"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-9">
             <div class="row">
                 <div class="col">
                     <div class="card">
@@ -49,25 +98,28 @@
                             </div>
                             <h4>Schedule Pembekalan</h4>
                             <div id="tableJadwal" class="collapse show">
-                                <div class="table-responsive pt-3" style="height: 600px">
-                                    <table class="table table-bordered table-centered mb-0 client" style="width:100%" id="btn-editable">
+                                <div class="table-responsive pt-3">
+                                    <table id="scroll-horizontal-datatable" class="table w-100 nowrap">
                                         <thead class="table-light">
-                                            <tr class="text-center">
-                                                <th>Bank</th>
-                                                <th>Sertifikasi</th>
-                                                <th>Tanggal</th>
-                                                <th>Pengajar</th>
-                                                <th>Link Zoom</th>
-                                                <th>Durasi Pelatihan</th>
-                                                <th>PIC</th>
-                                                <th>Action</th>
+                                            <tr>
+                                                <th class="text-center">Bank</th>
+                                                <th class="text-center">Sertifikasi</th>
+                                                <th class="text-center">Tanggal</th>
+                                                <th class="text-center">Pengajar</th>
+                                                <th class="text-center">Link Zoom</th>
+                                                <th class="text-center">Status</th>
+                                                <th class="text-center">PIC</th>
+                                                <th class="text-center">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach ($data_pembekalan as $i)
                                             <tr>
                                                 <td>{{ $i->bank->nama }}</td>
-                                                <td>{{ $i->materi_pembekalan->materi }} ({{ $i->materi_pembekalan->kode }})</td>
+                                                <td>
+                                                    {{ $i->materi_pembekalan->materi }} <br>
+                                                    ({{ $i->materi_pembekalan->kode }})
+                                                </td>
                                                 <td>
                                                     @if ($i->tanggal_mulai == $i->tanggal_selesai)
                                                     {{ $i->tanggal_mulai->isoFormat('dddd, DD MMMM Y') }} <br>
@@ -82,7 +134,7 @@
                                                     @endif
                                                 </td>
                                                 <td>{{ $i->pengajar->nama }}</td>
-                                                <td class="text-center">
+                                                <td>
                                                     @if ($i->link_zoom == '')
                                                     <button class="btn btn-xs btn-primary" data-bs-toggle="modal" data-bs-target="#update{{ $i->uuid }}">
                                                         Insert Link Zoom
@@ -103,7 +155,17 @@
                                                     </button>
                                                     @endif
                                                 </td>
-                                                <td>{{ $i->pic->first_name }}</td>
+                                                <td>
+                                                    @if ($i->midle_name == '')
+                                                        {{ $i->pic->first_name }} {{ $i->pic->last_name }}
+                                                    @elseif ($i->last_name == '')
+                                                        {{ $i->pic->first_name }} {{ $i->pic->midle_name }}
+                                                    @elseif ($i->last_name == '' && $i->midle_name == '')
+                                                        {{ $i->pic->first_name }}
+                                                    @else
+                                                        {{ $i->pic->first_name }} {{ $i->pic->midle_name }} {{ $i->pic->last_name }}
+                                                    @endif
+                                                </td>
                                                 <td>
                                                     <div class="dropdown d-inline-block">
                                                         <button class="btn btn-light dropdown-toggle" type="button"
@@ -125,14 +187,10 @@
                                                             <a class="dropdown-item">
                                                                 Surat Penegasan
                                                             </a>
-                                                            {{-- <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#beritaAcara{{ $i->uuid }}">
-                                                                Berita Acara2
-                                                            </a> --}}
                                                             @endif
                                                             <a class="dropdown-item" id="dataPeserta" data-id="{{ $i->uuid }}">
                                                                 <i class='mdi mdi-account me-1'></i> Peserta Pembekalan
                                                             </a>
-                                                            {{-- <div class="dropdown-divider"></div> --}}
                                                             <a class="dropdown-item" href="{{ url('pembekalan/detail/'.$i->uuid) }}">
                                                                 <i class='mdi mdi-send me-1'></i> Kirim Email Invitation
                                                             </a>
@@ -152,19 +210,22 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-widgets">
-                                <a data-bs-toggle="collapse" title="minimize" href="#calendarJadwal" role="button" aria-expanded="false" aria-controls="calendarJadwal">
-                                    <i class="mdi mdi-minus"></i>
-                                </a>
-                            </div>
-                            <h4>Calendar</h4>
-                            <div id="calendarJadwal" class="collapse show">
-                                <div id="calendar"></div>
-                            </div>
-                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-widgets">
+                        <a data-bs-toggle="collapse" title="minimize" href="#calendarJadwal" role="button" aria-expanded="false" aria-controls="calendarJadwal">
+                            <i class="mdi mdi-minus"></i>
+                        </a>
+                    </div>
+                    <h4>Calendar</h4>
+                    <div id="calendarJadwal" class="collapse show">
+                        <div id="calendar"></div>
                     </div>
                 </div>
             </div>
@@ -176,11 +237,28 @@
 
 @once
     @push('javascript')
-    <script src="{{ asset('assets/js/moment.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
+    <script src="assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="assets/libs/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="assets/libs/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
+    <script src="assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="assets/libs/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
+    <script src="assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="assets/libs/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+    <script src="assets/libs/pdfmake/build/pdfmake.min.js"></script>
+    <script src="assets/libs/pdfmake/build/vfs_fonts.js"></script>
+    <script src="{{ asset('assets/js/moment.js') }}"></script>
+
+    <script src="assets/js/pages/datatables.init.js"></script>
+    <script src="assets/js/app.min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -213,6 +291,85 @@
     </script>
 
     <script>
+        // var check = $check_berita_acara
+        // $(function () {
+        //     var table = $('#tb-schedule').DataTable({
+        //       processing: true,
+        //       serverSide: true,
+        //       ajax: "{{ route('pembekalan.index') }}",
+        //       columns: [
+        //             {data: 'bank', name: 'bank.nama'},
+        //             {data: 'materi_pembekalan', name: 'materi_pembekalan.materi'},
+        //             {data: 'tanggal_mulai', name: 'tanggal_mulai'},
+        //             {data: 'pengajar', name: 'pengajar.nama'},
+        //             {data: 'link_zoom', name: 'link_zoom',
+        //                 "render": function(data, type, row){
+        //                     if(row.link_zoom == null){
+        //                         return `<button class="btn btn-xs btn-primary" data-bs-toggle="modal" data-bs-target="#update` + row.uuid+ `">
+        //                                     Insert Link Zoom
+        //                                 </button>`;
+        //                     } else {
+        //                         return `<a href="` + row.link_zoom + `" target="_blank">` + row.link_zoom + `</a>`;
+        //                     }
+        //                 }
+        //             },
+        //             {data: 'pic', name: 'pic.first_name'},
+        //             {data: 'action', name: 'action',
+        //                 "render": function (data, type, row) {
+
+        //                     if (row.is_done == '1'){
+        //                         return `
+        //                             <div class="dropdown d-inline-block">
+        //                                 <button class="btn btn-light dropdown-toggle" type="button"
+        //                                     data-bs-toggle="dropdown" aria-haspopup="true"
+        //                                     aria-expanded="false">
+        //                                     <i class='mdi mdi-dots-horizontal font-18'></i>
+        //                                 </button>
+        //                                 <div class="dropdown-menu dropdown-menu-end">
+        //                                     <a class="dropdown-item" id="dataPeserta" data-id="` + row.uuid + `">
+        //                                         <i class='mdi mdi-account me-1'></i> Peserta Pembekalan
+        //                                     </a>
+        //                                     <a class="dropdown-item" href="{{ url('pembekalan/detail/'.` + row.uuid + `) }}">
+        //                                         <i class='mdi mdi-send me-1'></i> Kirim Email Invitation
+        //                                     </a>
+        //                                     <a class="dropdown-item" id="invoice" data-id="` + row.uuid + `">
+        //                                         <i class='mdi mdi-file me-1'></i> Terbitkan Invoice
+        //                                     </a>
+        //                                 </div>
+        //                             </div>`;
+        //                     } else {
+        //                         return `
+        //                             <div class="dropdown d-inline-block">
+        //                                 <button class="btn btn-light dropdown-toggle" type="button"
+        //                                     data-bs-toggle="dropdown" aria-haspopup="true"
+        //                                     aria-expanded="false">
+        //                                     <i class='mdi mdi-dots-horizontal font-18'></i>
+        //                                 </button>
+        //                                 <div class="dropdown-menu dropdown-menu-end">
+        //                                     <a class="dropdown-item" id="beritaAcara" data-id="` + row.uuid + `">
+        //                                         Buatkan Berita Acara
+        //                                     </a>
+        //                                     <a class="dropdown-item">
+        //                                         Surat Penawaran
+        //                                     </a>
+        //                                     <a class="dropdown-item">
+        //                                         Surat Penegasan
+        //                                     </a>
+        //                                     <a class="dropdown-item" id="dataPeserta" data-id="` + row.uuid + `">
+        //                                         <i class='mdi mdi-account me-1'></i> Peserta Pembekalan
+        //                                     </a>
+        //                                     <a class="dropdown-item" href="{{ url('pembekalan/detail/'.` + row.uuid + `) }}">
+        //                                         <i class='mdi mdi-send me-1'></i> Kirim Email Invitation
+        //                                     </a>`
+        //                                 `</div>
+        //                             </div>`;
+        //                     }
+        //                 }
+        //             }
+        //       ]
+        //     });
+        // });
+
         $(document).on('click', '#dataPeserta', function() {
             var idx = $(this).attr('data-id')
             $('#peserta'+idx).modal('show');
@@ -253,7 +410,7 @@
         $(document).on('click', '#beritaAcara', function() {
             var idx = $(this).attr('data-id')
             $('#beritaAcara'+idx).modal('show');
-            console.log(idx);
+
             var berita_acara = $('#beritaAcara'+idx)
             // berita_acara.html('')
             $.ajax({
@@ -280,7 +437,24 @@
         $(document).on('click', '#invoice', function(){
             var idx = $(this).attr('data-id')
             $('#invoice'+idx).modal('show');
-        })
+            console.log(idx);
+            var  invoice = $('#invoice'+idx)
+            $.ajax({
+                url:"{{ url('pembekalan/getDetail') }}/"+idx,
+                method:'get',
+                success:function(res){
+                    console.log(moment().format('LLLL'))
+                    $('#perihal'+idx).val('Invoice' + ' - ' + '(' + res.metode_pembekalan.metode + ')' + ' Pembekalan ' + res.materi_pembekalan.kode)
+                    $('#val-bank'+idx).text(res.bank.nama)
+                    $('#val-program'+idx).text(res.metode_pembekalan.metode + ' ' + res.materi_pembekalan.materi)
+                    $('#val-tanggal'+idx).text(moment(res.tanggal_mulai).format('DD MMMM YYYY') + ' & ' + moment(res.tanggal_selesai).format('DD MMMM YYYY'))
+                    $('#val-nomor'+idx).text(res.surat_penegasan.no_surat)
+                },
+                error: function(xhr, status, error) {
+                    alert(xhr.responseText)
+                }
+            })
+        });
 
         jQuery(document).ready(function(){
             jQuery('select[name="bank_id"]').on('change', function()
@@ -313,9 +487,9 @@
             $('.sn-berita-acara').summernote();
         });
 
-        // $(document).ready(function() {
-        //     $('.invoice').summernote();
-        // });
+        $(document).ready(function() {
+            $('.sn-invoice').summernote();
+        });
 
         $(document).on('change', '.image', function(){
             var filesCount = $(this)[0].files.length;
@@ -386,5 +560,6 @@
             return "Rp. "+rupiah
         }
     </script>
+
     @endpush
 @endonce

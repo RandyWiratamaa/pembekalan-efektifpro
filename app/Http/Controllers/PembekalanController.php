@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use DataTables;
 use App\Models\Pic;
 use App\Models\Bank;
+use App\Models\Invoice;
 use App\Models\Peserta;
 use App\Models\Schedule;
 use App\Models\Pembekalan;
+use App\Models\BeritaAcara;
 use Illuminate\Support\Str;
 use App\Mail\InvitationMail;
 use Illuminate\Http\Request;
@@ -15,6 +18,7 @@ use App\Models\SuratPenegasan;
 use App\Models\LevelPembekalan;
 use App\Models\MateriPembekalan;
 use App\Models\MetodePembekalan;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class PembekalanController extends Controller
@@ -24,16 +28,91 @@ class PembekalanController extends Controller
         return '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
     }
 
+    function numberToRoman($num)
+    {
+        // Be sure to convert the given parameter into an integer
+        $n = intval($num);
+        $result = '';
+
+        // Declare a lookup array that we will use to traverse the number:
+        $lookup = array(
+            'M' => 1000, 'CM' => 900, 'D' => 500, 'CD' => 400,
+            'C' => 100, 'XC' => 90, 'L' => 50, 'XL' => 40,
+            'X' => 10, 'IX' => 9, 'V' => 5, 'IV' => 4, 'I' => 1
+        );
+
+        foreach ($lookup as $roman => $value)
+        {
+            // Look for number of matches
+            $matches = intval($n / $value);
+
+            // Concatenate characters
+            $result .= str_repeat($roman, $matches);
+
+            // Substract that from the number
+            $n = $n % $value;
+        }
+
+        return $result;
+    }
+
     public function index(Request $request)
     {
         $page_name = "Pembekalan";
+
+        $no_akhir = Invoice::max('id');
+        $no_urut = sprintf("%03s", abs($no_akhir+1));
+        $kd_surat = "Fin-EKS/Tag";
+        $bln = now()->month;
+        $bulan = $this->numberToRoman($bln);
+
         $materi = MateriPembekalan::all();
         $metode = MetodePembekalan::all();
         $bank = Bank::all();
+
         $data_pembekalan = Pembekalan::with([
-            'metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic', 'peserta', 'schedule'
-            ])->orderBy('tanggal_mulai', 'ASC')->get();
-        $pembekalan = Pembekalan::all();
+            'surat_penegasan' => function($query) {
+                return $query->orderBy('tgl_surat', 'ASC');
+            }, 'metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic', 'peserta', 'schedule'])->get();
+
+        // if($request->ajax()){
+        //     $data = Pembekalan::with([
+        //         'bank', 'metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic', 'peserta', 'schedule'
+        //         ]);
+        //     return Datatables::of($data)->addIndexColumn()
+        //         ->addColumn('bank', function (Pembekalan $pembekalan){
+        //             return $pembekalan->bank->nama;
+        //         })
+        //         ->addColumn('materi_pembekalan', function (Pembekalan $pembekalan){
+        //             return $pembekalan->materi_pembekalan->materi;
+        //         })
+        //         ->addColumn('pengajar', function (Pembekalan $pembekalan){
+        //             return $pembekalan->pengajar->nama;
+        //         })
+        //         ->addColumn('pic', function (Pembekalan $pembekalan){
+        //             if($pembekalan->pic->midle_name == null){
+        //                 return $pembekalan->pic->first_name . ' ' .$pembekalan->pic->last_name;
+        //             } elseif($pembekalan->pic->last_name == null){
+        //                 return $pembekalan->pic->first_name . ' ' .$pembekalan->pic->midle_name;
+        //             } elseif($pembekalan->pic->last_name && $pembekalan->pic->last_name == null){
+        //                 return $pembekalan->pic->first_name;
+        //             } else {
+        //                 return $pembekalan->pic->first_name . ' ' .$pembekalan->pic->midle_name . ' ' . $pembekalan->pic->last_name;
+        //             }
+        //         })
+        //         ->addColumn('tanggal_mulai', function($row){
+        //             $tgl = $row['tanggal_mulai']->isoFormat('dddd, DD MMMM YYYY');
+        //             return $tgl;
+        //         })
+        //         ->addColumn('action', function($row){
+        //             $btn = '<a href="javascript:void(0)" class="btn btn-soft-primary btn-sm">View</a>';
+        //             return $btn;
+        //         })
+        //         ->rawColumns(['action'])
+        //         ->make(true);
+        // }
+
+        // $pembekalan = Pembekalan::all();
         $surat_penegasan = SuratPenegasan::with([
             'pembekalan' => function($query){
                 return $query->with(['materi_pembekalan', 'level_pembekalan', 'pic']);
@@ -158,7 +237,8 @@ class PembekalanController extends Controller
 
     public function getDetail($uuid)
     {
-        $detail_pembekalan = Pembekalan::with(['metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic'])->orderBy('tanggal_mulai', 'ASC')->where('uuid',$uuid)->first();
+        $detail_pembekalan = Pembekalan::with(['bank', 'metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic', 'surat_penegasan'])->orderBy('tanggal_mulai', 'ASC')->where('uuid',$uuid)->first();
+        // dd($detail_pembekalan);
         return response()->json($detail_pembekalan, 200);
     }
 
