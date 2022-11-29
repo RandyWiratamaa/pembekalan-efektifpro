@@ -28,9 +28,9 @@
                         <tr>
                             <td style="text-align: left">Hari / Tanggal</td>
                             <td style="text-align: left">:</td>
-                            <td>
+                            {{-- <td> --}}
                                 {{-- {{ $data_pembekalan->hari_tanggal->isoFormat('dddd, DD-MM-YYYY') }} --}}
-                            </td>
+                            {{-- </td> --}}
                         </tr>
                         <tr>
                             <td style="text-align: left">Tempat</td>
@@ -50,8 +50,8 @@
         </tr>
         <tr class="text-center">
             <td colspan="2"></td>
-            <td style="height:50px; text-align:center; border: 1px solid black; border-collapse: collapse">Min.
-                Peserta
+            <td style="height:50px; text-align:center; border: 1px solid black; border-collapse: collapse">
+                Min. Peserta
                 {{-- {{ $data_pembekalan->min_peserta }}  --}}
             </td>
         </tr>
