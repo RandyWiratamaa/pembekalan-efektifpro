@@ -1,81 +1,60 @@
 <p>Dengan hormat,</p>
-<p>Pertama-tama kami menyampaikan terimakasih dan penghargaan yang tinggi atas kepercayaan yang diberikan kepada kami. Dengan ini kami - PT. Efektifpro Knowledge Source - menegaskan program pembekalan
+<p style="text-align: justify">Pertama-tama kami menyampaikan terimakasih dan penghargaan yang tinggi atas kepercayaan yang diberikan kepada kami. Dengan ini kami - PT. Efektifpro Knowledge Source - menegaskan program pembekalan
     {{-- {{ $data_pembekalan->materi_pembekalan->materi }} ({{ $data_pembekalan->materi_pembekalan->singkatan }}) {{ $data_pembekalan->level_pembekalan->level }} --}}
     - LSPP sebagai berikut :
 </p>
-<table class="table-bordered" style="width:95%; border: 1px solid black; border-collapse: collapse">
+<table class="table-bordered" style="width:100%; border: 1px solid black; border-collapse: collapse" border="1">
     <thead>
       <tr>
-        <th colspan="3" class="text-center" style="border: 1px solid black; border-collapse: collapse">In House Class
-            {{-- ({{ $data_pembekalan->metode_pembekalan->metode }}) --}}
-        </th>
+        <th colspan="3" class="text-center" style="border: 1px solid black; border-collapse: collapse">In House Class</th>
       </tr>
     </thead>
     <tbody>
-      <tr class="text-center">
-        <td style="width: 25%; text-align:center; border: 1px solid black; border-collapse: collapse">Pembekalan
-            {{-- {{ $data_pembekalan->materi_pembekalan->materi }} ({{ $data_pembekalan->materi_pembekalan->singkatan }}) --}}
-        </td>
-        <td style="width: 25%; text-align:center; border: 1px solid black; border-collapse: collapse">Investasi /Batch</td>
-        <td>
-            <table style="width: 100%;">
-                <thead>
-                    <tr>
-                        <th colspan="3" style="width: 55%;">
-                            <p>
-                                <b>PT. Efektifpro Knowledge Source</b> <br>
-                                <i>Gandaria 8 Office Tower Lt. 19 Unit B</i><br>
-                                <i>Jln Sultan Iskandar Muda No. 8</i>
-                            </p>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody style="text-align: left">
-                    <tr>
-                        <td>Hari / Tanggal</td>
-                        <td>:</td>
-                        <td>
-                            {{-- {{ $data_pembekalan->hari_tanggal->isoFormat('dddd, DD-MM-YYYY') }} --}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Tempat</td>
-                        <td>:</td>
-                        <td>
-                            {{-- {{ $data_pembekalan->metode_pembekalan->metode }} --}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Waktu</td>
-                        <td>:</td>
-                        <td>
-                            {{-- {{ $data_pembekalan->mulai->format('H:i') }} - {{ $data_pembekalan->selesai->format('H:i') }} --}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Room</td>
-                        <td>:</td>
-                        <td>
-                            {{-- {{ $data_pembekalan->metode_pembekalan->metode }} --}}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </td>
-      </tr>
-      <tr class="text-center">
-        <td rowspan="2" style="height:90px; text-align:center; border: 1px solid black; border-collapse: collapse">
-            {{-- {{ $data_pembekalan->level_pembekalan->level }} --}}
-        </td>
-        <td rowspan="2" style="height:90px; text-align:center; border: 1px solid black; border-collapse: collapse">Rp.
-            {{-- {{ $data_pembekalan->investasi }} --}}
-            /Batch</td>
-      </tr>
-      <tr class="text-center">
-        <td style="height:50px; text-align:center; border: 1px solid black; border-collapse: collapse">Min.
-            {{-- {{ $data_pembekalan->min_peserta }}  --}}
-            Peserta</td>
-      </tr>
+        <tr style="text-align: center">
+            <td>Pembekalan</td>
+            <td>Investasi /Batch</td>
+            <td>
+                <p><b>PT. Efektifpro Knowledge Source</b></p>
+                <p><i>Gandaria 8 Office Tower Lt. 19 Unit B</i></p>
+                <p><i>Jln Sultan Iskandar Muda No. 8</i></p>
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: center">Level1</td>
+            <td style="text-align: center">Rp. /Batch</td>
+            <td>
+                <table style="width: 100%;"border="0">
+                    <tbody>
+                        <tr>
+                            <td style="text-align: left">Hari / Tanggal</td>
+                            <td style="text-align: left">:</td>
+                            <td>
+                                {{-- {{ $data_pembekalan->hari_tanggal->isoFormat('dddd, DD-MM-YYYY') }} --}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left">Tempat</td>
+                            <td style="text-align: left">:</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left">Waktu</td>
+                            <td style="text-align: left">:</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left">Room</td>
+                            <td style="text-align: left">:</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr class="text-center">
+            <td colspan="2"></td>
+            <td style="height:50px; text-align:center; border: 1px solid black; border-collapse: collapse">Min.
+                Peserta
+                {{-- {{ $data_pembekalan->min_peserta }}  --}}
+            </td>
+        </tr>
     </tbody>
 </table>
 <br>

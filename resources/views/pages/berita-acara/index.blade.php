@@ -76,7 +76,7 @@
                     <h4 class="header-title mb-0">Data {{ $page_name }}</h4>
                     <div id="cardCollpase4" class="collapse show">
                         <div class="table-responsive pt-3" style="height: 600px">
-                            <table class="table table-bordered table-centered mb-0 client" style="width:100%" id="btn-editable">
+                            <table class="table table-bordered table-centered mb-0 client" style="width:100%" id="tb_beritaAcara">
                                 <thead class="table-light">
                                     <tr>
                                         <th class="text-center">Tanggal</th>
@@ -88,7 +88,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($berita_acara as $i)
+                                    {{-- @foreach ($berita_acara as $i)
                                     <tr>
                                         <td>{{ $i->tanggal->isoFormat('dddd, DD MMMM YYYY') }}</td>
                                         <td>{{ $i->pembekalan->bank->nama }}</td>
@@ -141,7 +141,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    @endforeach
+                                    @endforeach --}}
                                 </tbody>
                             </table>
                         </div>
@@ -182,6 +182,83 @@
         $(document).ready(function() {
             $('.ubah-berita-acara').summernote();
         });
+
+        $(function () {
+            var table = $('#tb_beritaAcara').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('berita-acara.index') }}",
+                columns: [
+                    {data: 'tanggal', name: 'tanggal'},
+                    {data: 'bank', name: 'pembekalan.bank.nama'},
+                    {data: 'materi_pembekalan', name: 'pembekalan.materi_pembekalan.materi'},
+                    {data: 'is_approved', name: 'is_approved',
+                        "render": function (data, type, row) {
+                            if(row.is_approved == '1') {
+                                return `<span class="badge bg-success">Sudah diapproved</span>`;
+                            } else {
+                                return `<span class="badge bg-danger text-dark">Belum diapproved</span>`;
+                            }
+                        }
+                    },
+                    {data: 'status', name: 'status',
+                        "render": function(data, type, row){
+                            if(row.status == '1') {
+                                return `<span class="badge bg-success">Sudah dikirim</span>`;
+                            } else {
+                                return `<span class="badge bg-danger text-dark">Belum dikirim</span>`;
+                            }
+                        }
+                    },
+                    {data: 'action', name: 'action', orderable: false, searchable: false,
+                        "render": function(data, type, row){
+                            if(row.is_approved == '1') {
+                                return `
+                                    <div class="dropdown d-inline-block">
+                                        <button class="btn btn-light dropdown-toggle" type="button"
+                                            data-bs-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            <i class='mdi mdi-dots-horizontal font-18'></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <a href="{{ url('berita-acara/generate-PDF/` + row.id + `') }}" class="dropdown-item" target="_blank">
+                                                <i class='mdi mdi-download me-1'></i> Simpan Berita Acara
+                                            </a>
+                                            <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#kirim` + row.id + `">
+                                                <i class='mdi mdi-send me-1'></i> Kirim ke PIC
+                                            </a>
+                                        </div>
+                                    </div>`;
+                            } else {
+                                return `
+                                    <div class="dropdown d-inline-block">
+                                        <button class="btn btn-light dropdown-toggle" type="button"
+                                            data-bs-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            <i class='mdi mdi-dots-horizontal font-18'></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <a href="{{ url('berita-acara/view/` + row.id + `') }}" class="dropdown-item" target="_blank">
+                                                <i class='mdi mdi-eye me-1'></i> Review
+                                            </a>
+                                            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editBeritaAcara` + row.id + `">
+                                                <i class='mdi mdi-lead-pencil me-1'></i> Edit
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#hapusBeritaAcara` + row.id + `">
+                                                <i class='mdi mdi-trash-can me-1'></i> Delete
+                                            </a>
+                                            <a class="dropdown-item text-center text-dark bg-soft-success" href="#" data-bs-toggle="modal" data-bs-target="#approve` + row.id + `">
+                                                Approve
+                                            </a>
+                                        </div>
+                                    </div>`;
+                            }
+                        }
+                    }
+                ]
+            })
+        })
 
         $(document).on('change', '.image', function(){
             var filesCount = $(this)[0].files.length;

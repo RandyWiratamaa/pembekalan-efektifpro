@@ -9,6 +9,13 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class PesertaController extends Controller
 {
+    public function index()
+    {
+        $pege_name = "Peserta";
+        $data = Peserta::all();
+        return view('pages.peserta.index');
+    }
+
     public function store(Request $request)
     {
         $peserta = new Peserta;
@@ -26,7 +33,7 @@ class PesertaController extends Controller
 
         if ($peserta) {
             toastr()->success('Data peserta berhasil ditambahkan');
-            return redirect()->route('pembekalan.index');
+            return redirect()->route('pembekalan.index')->refresh();
         }
     }
 

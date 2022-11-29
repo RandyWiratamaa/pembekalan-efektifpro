@@ -223,14 +223,51 @@ class PembekalanController extends Controller
     public function detail($uuid)
     {
         $page_name = "Data Pembekalan";
+
+        $no_akhir = Invoice::max('id');
+        $no_urut = sprintf("%03s", abs($no_akhir+1));
+        $kd_surat = "Fin-EKS/Tag";
+        $bln = now()->month;
+        $bulan = $this->numberToRoman($bln);
+
         $materi = MateriPembekalan::all();
         $metode = MetodePembekalan::all();
         $bank = Bank::all();
         $detail_pembekalan = Pembekalan::with(['metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic'])->orderBy('tanggal_mulai', 'ASC')->where('uuid',$uuid)->first();
         $surat_penegasan = SuratPenegasan::where('pembekalan_uuid', $uuid)->with('bank')->first();
-        $peserta = Peserta::with('pembekalan')->where('pembekalan_uuid', $uuid)->orderBy('nama', 'ASC')->get();
+        $data_peserta = Peserta::with('pembekalan')->where('pembekalan_uuid', $uuid)->orderBy('nama', 'ASC')->get();
+        // dd($peserta);
         $data_pembekalan = Pembekalan::with(['metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic'])->orderBy('tanggal_mulai', 'ASC')->get(); $data_peserta = Peserta::with('pembekalan')->where('pembekalan_uuid', $uuid)->get();
         $slug_bank = Str::slug($surat_penegasan->bank->nama);
+
+        $schedule = Schedule::with([
+            'pembekalan' => function($query){
+                return $query->with(['materi_pembekalan', 'metode_pembekalan','level_pembekalan', 'pic']);
+            }])->get();
+        foreach($schedule as $data) {
+            $mulai = $data->tanggal;
+            $selesai = $data->tanggal;
+            $title = $data->pembekalan->materi_pembekalan->kode.' - '.$data->pembekalan->bank->nama;
+            $events[] = [
+                'title' => $title,
+                'start' => $mulai,
+                'end' => $selesai,
+                'borderColor' => 'black',
+                'description' => $title,
+                'color' => 'blue',
+                'display' => 'background',
+            ];
+
+            $peserta = Peserta::join('pembekalan', 'pembekalan.uuid', '=', 'peserta.pembekalan_uuid')
+                            ->where('peserta.pembekalan_uuid', $data->pembekalan->uuid)
+                            ->get();
+            $jml_peserta = Peserta::join('pembekalan', 'pembekalan.uuid', '=', 'peserta.pembekalan_uuid')
+                            ->where('peserta.pembekalan_uuid', $data->pembekalan->uuid)
+                            ->count();
+        }
+        $count_peserta = Peserta::join('pembekalan', 'pembekalan.uuid', '=', 'peserta.pembekalan_uuid')
+                        ->where('peserta.pembekalan_uuid', $data->pembekalan->uuid)
+                        ->count() > 0;
 
         return view('pages.pembekalan.detail', get_defined_vars());
     }
@@ -238,7 +275,6 @@ class PembekalanController extends Controller
     public function getDetail($uuid)
     {
         $detail_pembekalan = Pembekalan::with(['bank', 'metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic', 'surat_penegasan'])->orderBy('tanggal_mulai', 'ASC')->where('uuid',$uuid)->first();
-        // dd($detail_pembekalan);
         return response()->json($detail_pembekalan, 200);
     }
 

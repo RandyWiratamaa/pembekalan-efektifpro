@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DataTables;
 use App\Models\Bpo;
 use App\Models\Bank;
 use App\Models\BeritaAcara;
@@ -11,7 +12,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class BeritaAcaraController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $page_name = 'Berita Acara';
         $bank = Bank::all();
@@ -21,6 +22,30 @@ class BeritaAcaraController extends Controller
                 return $query->with(['materi_pembekalan', 'bank']);
             }
             ])->orderBy('tanggal')->get();
+        if($request->ajax()){
+            $data = BeritaAcara::with([
+                'pembekalan' => function($query){
+                    return $query->with(['materi_pembekalan', 'bank']);
+                }
+                ])->orderBy('tanggal', 'ASC')->get();
+            return Datatables::of($data)->addIndexColumn()
+                ->addColumn('bank', function (BeritaAcara $berita_acara){
+                    return $berita_acara->pembekalan->bank->nama;
+                })
+                ->addColumn('materi_pembekalan', function (BeritaAcara $berita_acara){
+                    return $berita_acara->pembekalan->materi_pembekalan->materi;
+                })
+                ->addColumn('tanggal', function($row){
+                    $tgl = $row['tanggal']->isoFormat('dddd, DD MMMM YYYY');
+                    return $tgl;
+                })
+                ->addColumn('action', function($row){
+                    $btn = '<a href="javascript:void(0)" class="btn btn-soft-primary btn-sm">View</a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
         return view('pages.berita-acara.index', get_defined_vars());
     }
 

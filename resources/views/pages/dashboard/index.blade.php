@@ -51,13 +51,6 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-body">
-                    <div id="new-chart" style="height: 150"></div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 @endsection

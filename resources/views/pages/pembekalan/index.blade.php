@@ -142,13 +142,16 @@
                                                     @if ($i->tanggal_mulai == $i->tanggal_selesai)
                                                     {{ $i->tanggal_mulai->isoFormat('dddd, DD MMMM Y') }} <br>
                                                     ({{ $i->mulai->isoFormat('HH:mm') }} - {{ $i->selesai->isoFormat('HH:mm') }} WIB)
-                                                    @elseif ($i->tanggal_mulai->isoFormat('MMMM') == $i->tanggal_selesai->isoFormat('MMMM'))
-                                                    {{ $i->tanggal_mulai->isoFormat('dddd') }} ,{{ $i->tanggal_selesai->isoFormat('dddd') }} <br>
+                                                    @elseif ($i->tanggal_mulai->isoFormat('dddd') == $i->tanggal_selesai->isoFormat('dddd'))
+                                                    {{ $i->tanggal_mulai->isoFormat('dddd') }}<br>
                                                     {{ $i->tanggal_mulai->isoFormat('D') }} & {{ $i->tanggal_selesai->isoFormat('D MMMM YYYY') }} <br>
-                                                    ({{ $i->mulai->isoFormat('HH:mm') }} - {{ $i->selesai->isoFormat('HH:mm') }} WIB)
+                                                    @elseif ($i->tanggal_mulai->isoFormat('MMMM') == $i->tanggal_selesai->isoFormat('MMMM'))
+                                                    {{ $i->tanggal_mulai->isoFormat('dddd') }} & {{ $i->tanggal_selesai->isoFormat('dddd') }} <br>
+                                                    {{ $i->tanggal_mulai->isoFormat('D') }} & {{ $i->tanggal_selesai->isoFormat('D MMMM YYYY') }} <br>
+                                                    {{-- ({{ $i->mulai->isoFormat('HH:mm') }} - {{ $i->selesai->isoFormat('HH:mm') }} WIB) --}}
                                                     @else
                                                     {{ $i->tanggal_mulai->isoFormat('dddd, DD MMMM Y') }} & {{ $i->tanggal_selesai->isoFormat('dddd, DD MMMM Y') }}
-                                                    ({{ $i->mulai->isoFormat('HH:mm') }} - {{ $i->selesai->isoFormat('HH:mm') }} WIB)
+                                                    {{-- ({{ $i->mulai->isoFormat('HH:mm') }} - {{ $i->selesai->isoFormat('HH:mm') }} WIB) --}}
                                                     @endif
                                                 </td>
                                                 <td>{{ $i->pengajar->nama }}</td>
@@ -305,95 +308,15 @@
 
             });
         });
-
     </script>
 
     <script>
-        // var check = $check_berita_acara
-        // $(function () {
-        //     var table = $('#tb-schedule').DataTable({
-        //       processing: true,
-        //       serverSide: true,
-        //       ajax: "{{ route('pembekalan.index') }}",
-        //       columns: [
-        //             {data: 'bank', name: 'bank.nama'},
-        //             {data: 'materi_pembekalan', name: 'materi_pembekalan.materi'},
-        //             {data: 'tanggal_mulai', name: 'tanggal_mulai'},
-        //             {data: 'pengajar', name: 'pengajar.nama'},
-        //             {data: 'link_zoom', name: 'link_zoom',
-        //                 "render": function(data, type, row){
-        //                     if(row.link_zoom == null){
-        //                         return `<button class="btn btn-xs btn-primary" data-bs-toggle="modal" data-bs-target="#update` + row.uuid+ `">
-        //                                     Insert Link Zoom
-        //                                 </button>`;
-        //                     } else {
-        //                         return `<a href="` + row.link_zoom + `" target="_blank">` + row.link_zoom + `</a>`;
-        //                     }
-        //                 }
-        //             },
-        //             {data: 'pic', name: 'pic.first_name'},
-        //             {data: 'action', name: 'action',
-        //                 "render": function (data, type, row) {
-
-        //                     if (row.is_done == '1'){
-        //                         return `
-        //                             <div class="dropdown d-inline-block">
-        //                                 <button class="btn btn-light dropdown-toggle" type="button"
-        //                                     data-bs-toggle="dropdown" aria-haspopup="true"
-        //                                     aria-expanded="false">
-        //                                     <i class='mdi mdi-dots-horizontal font-18'></i>
-        //                                 </button>
-        //                                 <div class="dropdown-menu dropdown-menu-end">
-        //                                     <a class="dropdown-item" id="dataPeserta" data-id="` + row.uuid + `">
-        //                                         <i class='mdi mdi-account me-1'></i> Peserta Pembekalan
-        //                                     </a>
-        //                                     <a class="dropdown-item" href="{{ url('pembekalan/detail/'.` + row.uuid + `) }}">
-        //                                         <i class='mdi mdi-send me-1'></i> Kirim Email Invitation
-        //                                     </a>
-        //                                     <a class="dropdown-item" id="invoice" data-id="` + row.uuid + `">
-        //                                         <i class='mdi mdi-file me-1'></i> Terbitkan Invoice
-        //                                     </a>
-        //                                 </div>
-        //                             </div>`;
-        //                     } else {
-        //                         return `
-        //                             <div class="dropdown d-inline-block">
-        //                                 <button class="btn btn-light dropdown-toggle" type="button"
-        //                                     data-bs-toggle="dropdown" aria-haspopup="true"
-        //                                     aria-expanded="false">
-        //                                     <i class='mdi mdi-dots-horizontal font-18'></i>
-        //                                 </button>
-        //                                 <div class="dropdown-menu dropdown-menu-end">
-        //                                     <a class="dropdown-item" id="beritaAcara" data-id="` + row.uuid + `">
-        //                                         Buatkan Berita Acara
-        //                                     </a>
-        //                                     <a class="dropdown-item">
-        //                                         Surat Penawaran
-        //                                     </a>
-        //                                     <a class="dropdown-item">
-        //                                         Surat Penegasan
-        //                                     </a>
-        //                                     <a class="dropdown-item" id="dataPeserta" data-id="` + row.uuid + `">
-        //                                         <i class='mdi mdi-account me-1'></i> Peserta Pembekalan
-        //                                     </a>
-        //                                     <a class="dropdown-item" href="{{ url('pembekalan/detail/'.` + row.uuid + `) }}">
-        //                                         <i class='mdi mdi-send me-1'></i> Kirim Email Invitation
-        //                                     </a>`
-        //                                 `</div>
-        //                             </div>`;
-        //                     }
-        //                 }
-        //             }
-        //       ]
-        //     });
-        // });
-
         $(document).on('click', '#dataPeserta', function() {
             var idx = $(this).attr('data-id')
-            $('#peserta'+idx).modal('show');
+            $('#modalPeserta'+idx).modal('show');
             // console.log(idx);
             var data_peserta = $('#data-peserta'+idx)
-            data_peserta.html('')
+            // data_peserta.html('')
             $.ajax({
                 url:"{{ url('peserta') }}/"+idx,
                 method:'get',
@@ -402,15 +325,14 @@
                     // console.log(res)
                     $.each(res, function(idk,val){
                     //     sub_total = parseInt(val.menu.harga * val.qty)
-                        // console.log(val.id)
                         data_peserta.append(`
                             <tr>
                                 <td>${val.nama}</td>
                                 <td class="text-center">
-                                    <a class="btn btn-sm btn-soft-info text-dark" data-bs-toggle="modal" data-bs-target="#editPeserta${val.id}">
+                                    <a class="btn btn-sm btn-soft-info text-dark" data-bs-toggle="modal" data-bs-target="#modalEditPeserta${val.id}">
                                         <i class="fas fa-edit"></i> Edit
                                     </a>
-                                    <a class="btn btn-sm btn-soft-danger text-dark" data-bs-toggle="modal" data-bs-target="#hapusPeserta${val.id}">
+                                    <a class="btn btn-sm btn-soft-danger text-dark" data-bs-toggle="modal" data-bs-target="#modalHapusPeserta${val.id}">
                                         <i class="fas fa-trash"></i> Hapus
                                     </a>
                                 </td>
@@ -435,15 +357,16 @@
                 url:"{{ url('pembekalan/getDetail') }}/"+idx,
                 method:'get',
                 success:function(res){
-                    $('#nama_program1').text(res.metode_pembekalan.metode + ' ' + res.materi_pembekalan.materi + ' - ' + res.materi_pembekalan.kode)
-                    $('#nama_program2').text(res.metode_pembekalan.metode + ' ' + res.materi_pembekalan.materi + ' - ' + res.materi_pembekalan.kode)
-                    $('#pengajar').text(res.pengajar.nama)
-                    $('#tgl_pembekalan').text(res.tanggal_mulai)
-                    $('#lokasi').text(res.metode_pembekalan.metode)
-                    $('#investasi1').text(res.investasi)
-                    $('#investasi2').text(res.investasi)
-                    $('#investasi3').text(res.investasi)
-                    console.log(res)
+                    $('#val-program'+idx).text(res.materi_pembekalan.materi + ' - ' + res.materi_pembekalan.kode)
+                    $('#val-program2'+idx).text(res.materi_pembekalan.materi + ' - ' + res.materi_pembekalan.kode)
+                    $('#val-program3'+idx).text(res.materi_pembekalan.materi)
+                    $('#val-program4'+idx).text(res.materi_pembekalan.materi + ' - ' + res.materi_pembekalan.kode)
+                    $('#val-tanggal'+idx).text(moment(res.tanggal_mulai).format('DD MMMM YYYY') + ' & ' + moment(res.tanggal_selesai).format('DD MMMM YYYY'))
+                    $('#val-pengajar'+idx).text(res.pengajar.nama)
+                    $('#val-lokasi'+idx).text(res.metode_pembekalan.metode)
+                    $('#val-investasi'+idx).text(res.investasi)
+                    $('#val-investasi2'+idx).text(res.investasi)
+                    $('#val-investasi3'+idx).text(res.investasi)
                 },
                 error: function(xhr, status, error) {
                     alert(xhr.responseText);

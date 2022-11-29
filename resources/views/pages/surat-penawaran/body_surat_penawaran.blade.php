@@ -4,18 +4,13 @@
     bagi Pengurus dan Pejabat Bank Umum, dengan ini kami - PT. Efektifpro Knowledge Source - menawarkan Pembekalan  Public Class (VC)
     {{-- {{ $data_pembekalan->materi_pembekalan->materi }} ({{ $data_pembekalan->materi_pembekalan->singkatan }}) {{ $data_pembekalan->level_pembekalan->level }}  --}}
     dengan ketentuan dan detail sebagai berikut:</p>
-<table class="table-bordered" style="width:95%; border: 1px solid black; border-collapse: collapse" border="1">
+<table class="table-bordered" style="width:100%; border: 1px solid black; border-collapse: collapse" border="1">
     <thead>
       <tr>
-        <th colspan="3" class="text-center" style="border: 1px solid black; border-collapse: collapse">In House Class
-            {{-- ({{ $data_pembekalan->metode_pembekalan->metode }}) --}}
-        </th>
+        <th colspan="3" class="text-center" style="border: 1px solid black; border-collapse: collapse">In House Class</th>
       </tr>
     </thead>
     <tbody>
-        <tr>
-            <th colspan="3"></th>
-        </tr>
         <tr style="text-align: center">
             <td>Nama Pembekalan</td>
             <td>Investasi /Batch</td>
@@ -29,7 +24,7 @@
             <td style="text-align: center">Level1</td>
             <td style="text-align: center">Rp. /Batch</td>
             <td>
-                <table border="" style="width: 100%;">
+                <table border="0" style="width: 100%;">
                     <tbody>
                         <tr>
                             <td style="text-align: left">Hari / Tanggal</td>

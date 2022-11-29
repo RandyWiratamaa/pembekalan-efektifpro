@@ -61,14 +61,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($peserta as $key => $i)
+                            @foreach ($data_peserta as $key => $i)
                             <tr>
                                 <td>{{ $key+1 }}</td>
                                 <td>{{ $i->nama }}</td>
                                 <td>(+62) {{ $i->nohp }}</td>
                                 <td>{{ strtolower($i->email_kantor) }}</td>
                                 <td class="text-center">
-                                    <a href="#" class="text-danger" data-bs-toggle="modal" data-bs-target="#invite{{ $i->id }}">
+                                    <a href="#" class="text-danger" data-bs-toggle="modal" data-bs-target="#invite-peserta{{ $i->id }}">
                                         <i class='fe-chevrons-right me-1'></i>Kirim <i class='fe-chevrons-left me-1'></i>
                                     </a>
                                 </td>
