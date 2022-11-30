@@ -10,6 +10,7 @@ use App\Models\Schedule;
 use App\Models\Pembekalan;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\Penyelenggara;
 use App\Models\SuratPenegasan;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\MateriPembekalan;
@@ -43,6 +44,7 @@ class SuratPenegasanController extends Controller
         $bank = Bank::all();
         $bpo = Bpo::all();
         $pic = Pic::all();
+        $penyelenggara = Penyelenggara::all();
 
         if($request->get('bank_id')){
             $surat_penegasan = SuratPenegasan::with([
@@ -110,6 +112,8 @@ class SuratPenegasanController extends Controller
 
         $surat_penegasan = new SuratPenegasan;
         $surat_penegasan->no_surat_penawaran = $request->no_surat_penawaran;
+        $surat_penegasan->penyelenggara_id = $request->penyelenggara;
+        $surat_penegasan->jenis_id = $request->jenis_id;
         $surat_penegasan->pembekalan_uuid = $uuid;
         $surat_penegasan->no_surat = $request->no_surat;
         $surat_penegasan->tgl_surat = $request->tgl_surat;

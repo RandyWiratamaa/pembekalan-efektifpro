@@ -51,4 +51,14 @@ class SuratPenawaran extends Model
     {
         return $this->belongsTo(Bpo::class, 'approved_by', 'id');
     }
+
+    public function jenis_pembekalan()
+    {
+        return $this->belongsTo(JenisPembekalan::class, 'jenis_id', 'id');
+    }
+
+    public function penyelenggara()
+    {
+        return $this->belongsTo(Penyelenggara::class, 'penyelenggara_id', 'id');
+    }
 }

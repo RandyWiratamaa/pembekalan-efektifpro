@@ -24,6 +24,16 @@
                                 <input type="date" class="form-control" name="tgl_surat" id="tgl_surat" value="{{ $i->tgl_surat->isoFormat('YYYY-MM-DD') }}">
                             </div>
                         </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label class="form-label">Penyelenggara *</label>
+                                @foreach ($penyelenggara as $j)
+                                    <option value={{ $j->id }} @if($j->id == $i->penyelenggara_id) selected @endif>
+                                        {{ strtoupper($j->singkatan) }}{{ ucwords($j->nama) }}
+                                    </option>
+                                @endforeach
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-3">

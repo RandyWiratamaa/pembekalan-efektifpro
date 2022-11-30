@@ -1,18 +1,18 @@
 <p>Dengan hormat,</p>
 <p>Sesuai Peraturan Bank Indonesia No.12/7/PBI/2010 mengenai Pembekalan
-    {{-- {{ $data_pembekalan->materi_pembekalan->materi }} ({{ $data_pembekalan->materi_pembekalan->singkatan }})  --}}
-    bagi Pengurus dan Pejabat Bank Umum, dengan ini kami - PT. Efektifpro Knowledge Source - menawarkan Pembekalan  Public Class (VC)
-    {{-- {{ $data_pembekalan->materi_pembekalan->materi }} ({{ $data_pembekalan->materi_pembekalan->singkatan }}) {{ $data_pembekalan->level_pembekalan->level }}  --}}
+    <span id="materi_pembekalan"></span>
+    bagi Pengurus dan Pejabat Bank Umum, dengan ini kami - PT. Efektifpro Knowledge Source - menawarkan Pembekalan <span id="jenis_kelas"></span>
+    <span id="materi_pembekalan"></span>
     dengan ketentuan dan detail sebagai berikut:</p>
 <table class="table-bordered" style="width:100%; border: 1px solid black; border-collapse: collapse" border="1">
     <thead>
       <tr>
-        <th colspan="3" class="text-center" style="border: 1px solid black; border-collapse: collapse">In House Class</th>
+        <th colspan="3" class="text-center" style="border: 1px solid black; border-collapse: collapse"><span id="jenis_kelas2">Jenis</span></th>
       </tr>
     </thead>
     <tbody>
         <tr style="text-align: center">
-            <td>Nama Pembekalan</td>
+            <td><span id="materi_pembekalan2">Program Pembekalan</span></td>
             <td>Investasi /Batch</td>
             <td>
                 <p>PT. Efektifpro Knowledge Source</p>
@@ -33,19 +33,17 @@
                         </tr>
                         <tr>
                             <td style="text-align: left">Tempat</td>
-                            <td style="text-align: left">:</td>
-                            {{-- <td>{{ $data_pembekalan->metode_pembekalan->metode }}</td> --}}
+                            <td style="text-align: left">: <span id="metode_pembekalan"></span></td>
+                            {{-- <td></td> --}}
                         </tr>
                         <tr>
                             <td style="text-align: left">Waktu</td>
-                            <td style="text-align: left">:</td>
-                            {{-- <td>{{ $data_pembekalan->mulai->format('H:i') }} - {{ $data_pembekalan->selesai->format('H:i') }}</td> --}}
+                            <td style="text-align: left">: 08.00 - 17.00 WIB</td>
+                            {{-- <td></td> --}}
                         </tr>
                         <tr>
                             <td style="text-align: left">Room</td>
                             <td style="text-align: left">:</td>
-                            <td id="level"></td>
-                            {{-- <td>{{ $data_pembekalan->metode_pembekalan->metode }}</td> --}}
                         </tr>
                     </tbody>
                 </table>

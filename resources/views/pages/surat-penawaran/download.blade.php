@@ -76,10 +76,10 @@
 
 
         <div class="tanggal">
-            Jakarta, 1 Januari 2022
+            Jakarta, {{ $surat_penawaran->tgl_surat->isoFormat('DD MMMM YYYY') }}
         </div>
         <div class="nomor" style="margin-top:-15px">
-            Nomor : 1234567778
+            Nomor : {{ $surat_penawaran->no_surat }}
         </div>
 
         <div class="nomor" style="margin-bottom:20px;margin-top:20px">
@@ -87,22 +87,35 @@
         </div>
 
         <div class="nomor">
-            <p>Up. Yth : Ibu. nama PIC</p>
+            <p>
+                Up. Yth : @if ($surat_penawaran->pic->jenkel == 'perempuan') Ibu @else Bapak @endif
+                @if ($surat_penawaran->pic->midle_name == '')
+                    {{ $surat_penawaran->pic->first_name }} {{ $surat_penawaran->pic->last_name }}
+                @elseif($surat_penawaran->pic->last_name == '')
+                    {{ $surat_penawaran->pic->first_name }} {{ $surat_penawaran->pic->midle_name }}
+                @elseif($surat_penawaran->pic->last_name == '' && $surat_penawaran->pic->midle_name == '')
+                    {{ $surat_penawaran->pic->first_name }}
+                @else
+                    {{ $surat_penawaran->pic->first_name }} {{ $surat_penawaran->pic->midle_name }} {{ $surat_penawaran->pic->last_name }}
+                @endif
+            </p>
         </div>
-        <div class="nomor" style="padding-left:60px; margin-top:-25px">
-            <p>HR Learning Development</p>
+        <div class="nomor" style="padding-left:50px; margin-top:-25px">
+            <p>{{ $surat_penawaran->pic->jabatan }}</p>
         </div>
         <div class="nomor">
             <p>Perihal : {{ $surat_penawaran->perihal }}</p>
         </div>
-        <div class="nomor" style="padding-left:60px; margin-top:-25px; margin-bottom:20px">
-            <p>Lembaga Sertifikasi Profesi Perbankan (LSPP)</p>
+        <div class="nomor" style="padding-left:45px; margin-top:-25px; margin-bottom:20px">
+            <p>
+                {{ ucwords($surat_penawaran->penyelenggara->nama) }} ({{ strtoupper($surat_penawaran->penyelenggara->singkatan) }})
+            </p>
         </div>
         @php
             $body = $surat_penawaran->body;
             $exp = explode("<br>", $body);
         @endphp
-        <table>
+        <table style="text-align: justify">
             @foreach ($exp as $key => $i)
                 <tr>{!! $i !!}</tr>
             @endforeach

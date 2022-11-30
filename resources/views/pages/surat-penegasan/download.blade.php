@@ -3,7 +3,7 @@
     <title>Surat Penegasan</title>
     <style type="text/css">
 
-@page {
+        @page {
             margin: 100px;
             font-size: 12px;
             font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -85,15 +85,26 @@
         </div>
 
         <div class="nomor">
-            <p>Up. Yth : Ibu. {{ $surat_penegasan->pembekalan->pic->nama }}</p>
+            <p>
+                Up. Yth : @if ($surat_penegasan->pembekalan->pic->jenkel == 'perempuan') Ibu @else Bapak @endif
+                @if ($surat_penegasan->pembekalan->pic->midle_name == '')
+                    {{ $surat_penegasan->pembekalan->pic->first_name }} {{ $surat_penegasan->pembekalan->pic->last_name }}
+                @elseif($surat_penegasan->pembekalan->pic->last_name == '')
+                    {{ $surat_penegasan->pembekalan->pic->first_name }} {{ $surat_penegasan->pembekalan->pic->midle_name }}
+                @elseif($surat_penegasan->pembekalan->pic->last_name == '' && $surat_penegasan->pembekalan->pic->midle_name == '')
+                    {{ $surat_penegasan->pembekalan->pic->first_name }}
+                @else
+                    {{ $surat_penegasan->pembekalan->pic->first_name }} {{ $surat_penegasan->pembekalan->pic->midle_name }} {{ $surat_penegasan->pembekalan->pic->last_name }}
+                @endif
+            </p>
         </div>
-        <div class="nomor" style="padding-left:60px; margin-top:-25px">
+        <div class="nomor" style="padding-left:50px; margin-top:-25px">
             <p>{{ $surat_penegasan->pembekalan->pic->jabatan }}</p>
         </div>
         <div class="nomor">
             <p>Perihal : {{ $surat_penegasan->perihal }}</p>
         </div>
-        <div class="nomor" style="padding-left:60px; margin-top:-25px">
+        <div class="nomor" style="padding-left:50px; margin-top:-25px">
             <p>Lembaga Sertifikasi Profesi Perbankan (LSPP)</p>
         </div>
         @php

@@ -12,14 +12,25 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">No. Surat *</label>
-                                <input type="text" class="form-control" name="no_surat" id="no_surat"
+                                <input type="text" class="form-control" name="no_surat" id="no_surat" required
                                 value="{{ $kode_perusahaan }}.{{ $jenis_surat }}/{{ $no_urut }}/{{ $bulan }}/{{ now()->year }}">
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="mb-3">
                                 <label class="form-label">Tanggal Surat *</label>
-                                <input type="date" class="form-control" name="tgl_surat" id="tgl_surat">
+                                <input type="date" class="form-control" name="tgl_surat" id="tgl_surat" required>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label class="form-label">Penyelenggara</label>
+                                <select name="penyelenggara" id="penyelenggara" class="form-control" required>
+                                    <option value="">-- Pilih --</option>
+                                    @foreach ($penyelenggara as $j)
+                                    <option value="{{ $j->id }}">{{ strtoupper($j->singkatan) }} - {{ ucwords($j->nama) }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -27,7 +38,7 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Bank *</label>
-                                <select name="bank_id" id="bank_id" class="form-control">
+                                <select name="bank_id" id="bank_id" class="form-control" required>
                                     <option value="">-- Pilih Bank --</option>
                                     @foreach ($bank as $j)
                                     <option value="{{ $j->id }}">{{ $j->nama }}</option>
@@ -47,9 +58,9 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="mb-3">
-                                <label class="form-label">Jenis *</label>
-                                <select name="materi_id" id="materi_id" class="form-control">
-                                    {{-- <option value="">-- Pilih Jenis Sertifikasi --</option>     --}}
+                                <label class="form-label">Jenis Kelas *</label>
+                                <select name="jenis_id" id="jenis_id" class="form-control" required>
+                                    <option value="">-- Pilih Jenis Kelas --</option>
                                     @foreach ($jenis as $i)
                                     <option value="{{ $i->id }}">
                                         {{ ucwords($i->jenis) }}
@@ -61,11 +72,11 @@
                         <div class="col-md-5">
                             <div class="mb-3">
                                 <label class="form-label">Sertifikasi *</label>
-                                <select name="materi_id" id="materi_id" class="form-control">
-                                    {{-- <option value="">-- Pilih Jenis Sertifikasi --</option>     --}}
+                                <select name="materi_id" id="materi_id" class="form-control" required>
+                                    <option value="">-- Pilih Jenis Sertifikasi --</option>
                                     @foreach ($materi as $i)
                                     <option value="{{ $i->id }}">
-                                        {{ strtoupper($i->kode) }} - {{ strtoupper($i->materi) }}
+                                        {{ ucwords($i->materi) }} ({{ strtoupper($i->kode) }})
                                     </option>
                                     @endforeach
                                 </select>
@@ -74,7 +85,8 @@
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label class="form-label">Metode *</label>
-                                <select name="metode_id" id="metode_id" class="form-control">
+                                <select name="metode_id" id="metode_id" class="form-control" required>
+                                    <option value="">-- Pilih --</option>
                                     @foreach ($metode as $l)
                                     <option value="{{ $l->id }}">
                                         {{ ucwords($l->metode) }}
@@ -137,7 +149,17 @@
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label class="form-label">Tanggal Surat *</label>
-                                <input type="date" class="form-control" name="tgl_surat" id="tgl_surat">
+                                <input type="date" class="form-control" name="tgl_surat" id="tgl_surat" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label class="form-label">Penyelenggara *</label>
+                                <select name="penyelenggara" id="penyelenggara" class="form-control" required>
+                                    <option value="{{ $i->penyelenggara_id }}">
+                                        {{ strtoupper($i->penyelenggara->singkatan) }} - {{ ucwords($i->penyelenggara->nama) }}
+                                    </option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -184,21 +206,31 @@
                         <div class="col-md-2">
                             <div class="mb-3">
                                 <label class="form-label">Tanggal Mulai *</label>
-                                <input type="date" class="form-control" name="tanggal_mulai" id="tanggal_mulai">
+                                <input type="date" class="form-control" name="tanggal_mulai" id="tanggal_mulai_pembekalan" required>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="mb-3">
                                 <label class="form-label">Tanggal Selesai *</label>
-                                <input type="date" class="form-control" name="tanggal_selesai" id="tanggal_selesai">
+                                <input type="date" class="form-control" name="tanggal_selesai" id="tanggal_selesai_pembekalan" required>
                             </div>
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label class="form-label">Jenis Kelas *</label>
+                                <select name="jenis_id" id="jenis_id" class="form-control" required>
+                                    <option value="{{ $i->jenis_id }}">
+                                        {{ ucwords($i->jenis_pembekalan->jenis) }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="col-md-3">
                             <div class="mb-3">
                                 <label class="form-label">Sertifikasi *</label>
-                                <select name="materi_id" id="materi_id" class="form-control">
+                                <select name="materi_id" id="materi_penegasan" class="form-control">
                                     <option value="{{ $i->materi_id }}">
                                         {{ $i->materi_pembekalan->materi }}
                                     </option>
@@ -208,7 +240,7 @@
                         <div class="col-md-2">
                             <div class="mb-3">
                                 <label class="form-label">Metode *</label>
-                                <select name="metode_id" id="metode_id" class="form-control">
+                                <select name="metode_id" id="metode_penegasan" class="form-control">
                                     <option value="{{ $i->metode_id }}">
                                         {{ $i->metode_pembekalan->metode }}
                                     </option>
@@ -218,19 +250,19 @@
                         <div class="col md-1">
                             <div class="mb-3">
                                 <label class="form-label">Jam Mulai</label>
-                                <input type="time" name="mulai" id="mulai" class="form-control">
+                                <input type="time" name="mulai" id="mulai" class="form-control" required>
                             </div>
                         </div>
                         <div class="col md-1">
                             <div class="mb-3">
                                 <label class="form-label">Jam Selesai</label>
-                                <input type="time" name="selesai" id="selesai" class="form-control">
+                                <input type="time" name="selesai" id="selesai" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="col-mb-3">
                                 <label class="form-label">Investasi /Batch</label>
-                                <input type="text" name="investasi" id="investasi" class="form-control">
+                                <input type="text" name="investasi" id="investasi" class="form-control" required>
                             </div>
                         </div>
                     </div>
@@ -241,7 +273,8 @@
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label class="form-label">Perihal *</label>
-                                <input type="text" name="perihal" id="perihal" class="form-control" value="">
+                                <input type="text" name="perihal" id="perihal_surat_penegasan" class="form-control"
+                                value="{{ ucwords($i->jenis_pembekalan->jenis) }} - Penegasan {{ $i->materi_pembekalan->materi }}">
                             </div>
                         </div>
                     </div>

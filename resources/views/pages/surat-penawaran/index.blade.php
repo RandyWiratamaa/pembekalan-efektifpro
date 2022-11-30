@@ -50,10 +50,10 @@
                                     @csrf
                                     <label class="form-label">Daftar Sertifikasi</label>
                                     <div class="input-group">
-                                        <select class="form-select" name="materi_id" id="materi_id" type="text" placeholder="Cari berdasarkan nama Bank">
+                                        <select class="form-select" name="materi_id" id="search_materi" type="text" placeholder="Cari berdasarkan nama Bank">
                                             <option value="">-- All --</option>
                                             @foreach ($materi as $i)
-                                            <option value="{{ $i->id }}">{{ $i->kode }} - {{ $i->materi }}</option>
+                                            <option value="{{ $i->id }}">{{ $i->materi }} ({{ $i->kode }})</option>
                                             @endforeach
                                         </select>
                                         <button type="submit" class="btn waves-effect waves-light btn-primary">
@@ -69,7 +69,7 @@
                                     @csrf
                                     <label class="form-label">Daftar Nama Bank</label>
                                     <div class="input-group">
-                                        <select class="form-select" name="bank_id" id="bank_id" type="text" placeholder="Cari berdasarkan nama Bank">
+                                        <select class="form-select" name="bank_id" id="search_bank" type="text" placeholder="Cari berdasarkan nama Bank">
                                             <option value="">-- Cari berdasarkan nama Bank --</option>
                                             @foreach ($bank as $i)
                                             <option value="{{ $i->id }}">{{ $i->nama }}</option>
@@ -256,6 +256,35 @@
                 }
             });
         })
+
+        // JS Surat Penawaran
+        $(document).on('change', '#jenis_id', function(){
+            var jenis = $("#jenis_id option:selected").text();
+            var materi = $("#materi_id option:selected").text();
+            var trim_jenis = $.trim(jenis)
+            var trim_materi = $.trim(materi)
+            $('#perihal').val(trim_jenis + ' - Penawaran ' + trim_materi)
+            $('#jenis_kelas').html(trim_jenis)
+            $('#jenis_kelas2').html(trim_jenis)
+        })
+
+        $(document).on('change', '#materi_id', function(){
+            var jenis = $("#jenis_id option:selected").text();
+            var materi = $("#materi_id option:selected").text();
+            var trim_jenis = $.trim(jenis)
+            var trim_materi = $.trim(materi)
+            $('#perihal').val(trim_jenis + ' - Penawaran ' + trim_materi)
+            $('#materi_pembekalan').html(trim_materi)
+            $('#jenis_kelas').html(trim_jenis)
+            $('#materi_pembekalan2').html(trim_materi)
+            $('#jenis_kelas2').html(trim_jenis)
+        })
+        $(document).on('change', '#metode_id', function(){
+            var metode = $("#metode_id option:selected").text();
+            var trim_metode = $.trim(metode)
+            $('#metode_pembekalan').html(trim_metode)
+        })
+
     </script>
     <script>
         $(document).ready(function() {

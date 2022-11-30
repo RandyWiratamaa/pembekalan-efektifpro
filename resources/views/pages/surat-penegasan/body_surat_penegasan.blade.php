@@ -1,17 +1,20 @@
 <p>Dengan hormat,</p>
-<p style="text-align: justify">Pertama-tama kami menyampaikan terimakasih dan penghargaan yang tinggi atas kepercayaan yang diberikan kepada kami. Dengan ini kami - PT. Efektifpro Knowledge Source - menegaskan program pembekalan
-    {{-- {{ $data_pembekalan->materi_pembekalan->materi }} ({{ $data_pembekalan->materi_pembekalan->singkatan }}) {{ $data_pembekalan->level_pembekalan->level }} --}}
-    - LSPP sebagai berikut :
+<p style="text-align: justify">Pertama-tama kami menyampaikan terimakasih dan penghargaan yang tinggi atas kepercayaan yang diberikan kepada kami.
+    Dengan ini kami - PT. Efektifpro Knowledge Source - menegaskan program pembekalan
+    {{ $i->materi_pembekalan->materi }} ({{ $i->materi_pembekalan->kode }})
+    - {{ strtoupper($i->penyelenggara->singkatan) }} sebagai berikut :
 </p>
 <table class="table-bordered" style="width:100%; border: 1px solid black; border-collapse: collapse" border="1">
     <thead>
       <tr>
-        <th colspan="3" class="text-center" style="border: 1px solid black; border-collapse: collapse">In House Class</th>
+        <th colspan="3" class="text-center" style="border: 1px solid black; border-collapse: collapse">
+            {{ ucwords($i->jenis_pembekalan->jenis) }}
+        </th>
       </tr>
     </thead>
     <tbody>
         <tr style="text-align: center">
-            <td>Pembekalan</td>
+            <td>{{ $i->materi_pembekalan->materi }}</td>
             <td>Investasi /Batch</td>
             <td>
                 <p><b>PT. Efektifpro Knowledge Source</b></p>
@@ -20,14 +23,14 @@
             </td>
         </tr>
         <tr>
-            <td style="text-align: center">Level1</td>
+            <td style="text-align: center">Level 1</td>
             <td style="text-align: center">Rp. /Batch</td>
             <td>
                 <table style="width: 100%;"border="0">
                     <tbody>
                         <tr>
                             <td style="text-align: left">Hari / Tanggal</td>
-                            <td style="text-align: left">:</td>
+                            <td style="text-align: left">: <span id="tanggal_mulai"></span></td>
                             {{-- <td> --}}
                                 {{-- {{ $data_pembekalan->hari_tanggal->isoFormat('dddd, DD-MM-YYYY') }} --}}
                             {{-- </td> --}}
@@ -86,7 +89,7 @@
     </ol>
 </ol>
 <p>Surat penegasan ini telah kami sesuaikan dengan kebutuhan
-    {{-- {{ $data_pembekalan->bank->nama }} --}}
+    {{ $i->bank->nama }}
 </p>
 <br>
 <p>Demikian surat penegasan ini, atas perhatian dan kerjasamanya kami ucapkan terima kasih.

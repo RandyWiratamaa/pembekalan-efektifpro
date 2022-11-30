@@ -11,6 +11,7 @@ use App\Models\Pengajar;
 use App\Models\Pembekalan;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\Penyelenggara;
 use App\Models\SuratPenawaran;
 use App\Models\SuratPenegasan;
 use App\Models\JenisPembekalan;
@@ -72,24 +73,25 @@ class SuratPenawaranController extends Controller
         $bank = Bank::all();
         $pic = Pic::all();
         $bpo = Bpo::all();
+        $penyelenggara = Penyelenggara::all();
 
         if($request->get('bank_id')){
             // Filter data by Nama Bank
             $surat_penawaran = SuratPenawaran::with([
                 'pembekalan' => function($query){
                     return $query->with(['materi_pembekalan']);
-            }, 'bank'])->where('bank_id', $request->get('bank_id'))->get();
+            }, 'bank', 'jenis_pembekalan', 'penyelenggara'])->where('bank_id', $request->get('bank_id'))->get();
         } elseif($request->get('materi_id')){
             // Filter data by Materi
             $surat_penawaran = SuratPenawaran::with([
                 'pembekalan' => function($query){
                     return $query->with(['materi_pembekalan']);
-            }, 'bank'])->where('materi_id', $request->get('materi_id'))->get();
+            }, 'bank', 'jenis_pembekalan', 'penyelenggara'])->where('materi_id', $request->get('materi_id'))->get();
         } else {
             $surat_penawaran = SuratPenawaran::with([
                 'pembekalan' => function($query){
                     return $query->with(['materi_pembekalan']);
-                }, 'bank'])->get();
+                }, 'bank', 'jenis_pembekalan', 'penyelenggara'])->get();
         }
 
         return view('pages.surat-penawaran.index', get_defined_vars());
@@ -111,6 +113,8 @@ class SuratPenawaranController extends Controller
         $surat_penawaran = new SuratPenawaran;
         $surat_penawaran->no_surat = $request->no_surat;
         $surat_penawaran->tgl_surat = $request->tgl_surat;
+        $surat_penawaran->jenis_id = $request->jenis_id;
+        $surat_penawaran->penyelenggara_id = $request->penyelenggara;
         $surat_penawaran->bank_id = $request->bank_id;
         $surat_penawaran->pic_id = $request->pic_id;
         $surat_penawaran->materi_id = $request->materi_id;
@@ -175,7 +179,8 @@ class SuratPenawaranController extends Controller
 
     public function generatePDF(Request $request, $id)
     {
-        $surat_penawaran = SuratPenawaran::with('bank', 'bpo')->firstWhere('id', $id);
+        $surat_penawaran = SuratPenawaran::with(['bank', 'bpo', 'pic', 'penyelenggara'])->firstWhere('id', $id);
+        // dd($surat_penawaran);
         $slug_bank = Str::slug($surat_penawaran->bank->nama);
         $filename = "{$surat_penawaran->tgl_surat->isoFormat('DDMMYYYY')}-{$slug_bank}.pdf";
         $surat_penawaran->dokumen = $filename;
