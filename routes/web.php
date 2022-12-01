@@ -63,6 +63,7 @@ Route::group(['middleware' => 'auth'], function (){
     Route::match(['put', 'patch'], 'surat-penegasan/approve/{id}', [App\Http\Controllers\SuratPenegasanController::class, 'approve'])->name('surat-penegasan.approve');
     Route::get('surat-penegasan/generate-PDF/{id}', [App\Http\Controllers\SuratPenegasanController::class, 'generatePDF'])->name('surat-penegasan.generate-PDF');
     Route::delete('surat-penegasan/{id}', [App\Http\Controllers\SuratPenegasanController::class, 'destroy'])->name('surat-penegasan.destroy');
+    Route::post('surat-penegasan/send-email/{uuid}', [App\Http\Controllers\SuratPenegasanController::class, 'sendEmail'])->name('surat-penegasan.send-email');
 
     Route::post('peserta', [App\Http\Controllers\PesertaController::class, 'store'])->name('peserta.store');
     Route::get('peserta/{uuid}', [App\Http\Controllers\PembekalanController::class, 'getPeserta'])->name('peserta.getPeserta');

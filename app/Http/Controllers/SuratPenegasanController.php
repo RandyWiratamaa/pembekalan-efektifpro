@@ -12,10 +12,13 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Penyelenggara;
 use App\Models\SuratPenegasan;
+use App\Models\JenisPembekalan;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Mail\SuratPenegasanMail;
 use App\Models\MateriPembekalan;
 use App\Models\MetodePembekalan;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class SuratPenegasanController extends Controller
 {
@@ -45,20 +48,21 @@ class SuratPenegasanController extends Controller
         $bpo = Bpo::all();
         $pic = Pic::all();
         $penyelenggara = Penyelenggara::all();
+        $jenis = JenisPembekalan::all();
 
         if($request->get('bank_id')){
             $surat_penegasan = SuratPenegasan::with([
                 'pembekalan' => function($q) {
                     return $q->with(['pengajar', 'metode_pembekalan', 'pic']);
                 }
-                , 'materi_pembekalan', 'level_pembekalan', 'bank'
+                , 'materi_pembekalan', 'level_pembekalan', 'bank', 'penyelenggara', 'jenis_pembekalan'
             ])->where('bank_id', $request->get('bank_id'))->get();
         } else{
             $surat_penegasan = SuratPenegasan::with([
                     'pembekalan' => function($q) {
                         return $q->with(['pengajar', 'metode_pembekalan', 'pic']);
                     }
-                    , 'materi_pembekalan', 'level_pembekalan', 'bank'
+                    , 'materi_pembekalan', 'level_pembekalan', 'bank', 'penyelenggara', 'jenis_pembekalan'
                 ])->get();
         }
         return view('pages.surat-penegasan.index', get_defined_vars());
@@ -244,6 +248,32 @@ class SuratPenegasanController extends Controller
             return redirect()->route('surat-penegasan.index');
         } else {
             return redirect()->back()->withInput();
+        }
+    }
+
+    public function sendEMail(Request $request, $uuid)
+    {
+        $email = $request->email_pic;
+        $surat_penegasan = SuratPenegasan::with([
+            'pembekalan' => function($q) {
+                return $q->with(['pengajar', 'metode_pembekalan', 'pic']);
+            }
+            , 'materi_pembekalan', 'level_pembekalan', 'bank', 'penyelenggara', 'jenis_pembekalan'
+        ])->where('pembekalan_uuid', $uuid)->first();
+
+        Mail::to($email)->send(new SuratPenegasanMail($surat_penegasan));
+
+        if(Mail::flushMacros()){
+            return response()->with([
+                alert()->warning('Gagal', 'Pesanan Gagal')
+            ]);
+        } else {
+            // DB::table('surat_penegasan')->where('pembekalan_uuid', $uuid)->update(['status', 1]);
+            SuratPenegasan::where([
+                ['pembekalan_uuid', $uuid]
+            ])->update(['status' => 1]);
+            toastr()->success('Surat Penegasan berhasil dikirim ke email PIC');
+            return redirect()->route('surat-penegasan.index');
         }
     }
 }

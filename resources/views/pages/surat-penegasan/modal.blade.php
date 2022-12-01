@@ -1,5 +1,5 @@
 @foreach ($surat_penegasan as $i)
-<div id="editSuratPenegasan{{ $i->id }}" class="modal fade penegasan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div id="modalUpdatePenegasan{{ $i->id }}" class="modal fade penegasan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-dialog-centered modal-lg modal-full-width">
         <div class="modal-content">
             <div class="modal-header">
@@ -27,11 +27,13 @@
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label class="form-label">Penyelenggara *</label>
-                                @foreach ($penyelenggara as $j)
+                                <select name="penyelenggara" id="penyelenggara" class="form-control">
+                                    @foreach ($penyelenggara as $j)
                                     <option value={{ $j->id }} @if($j->id == $i->penyelenggara_id) selected @endif>
-                                        {{ strtoupper($j->singkatan) }}{{ ucwords($j->nama) }}
+                                        {{ strtoupper($j->singkatan) }} - {{ ucwords($j->nama) }}
                                     </option>
-                                @endforeach
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -93,6 +95,20 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Jenis Kelas *</label>
+                                    <select name="jenis_id" id="jenis_id" class="form-control" required>
+                                        @foreach ($jenis as $j)
+                                        <option value={{ $j->id }} @if($j->id == $i->jenis_pembekalan->jenis_id) selected @endif>
+                                            {{ ucwords($j->jenis) }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-md-3">
                             <div class="mb-3">
                                 <label class="form-label">Sertifikasi *</label>
@@ -162,7 +178,10 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-info waves-effect waves-light">Simpan</button>
+                    <div class="button-list pe-xl-4 d-grid">
+                        <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-info waves-effect waves-light width-xl">Ubah</button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -171,7 +190,7 @@
 @endforeach
 
 @foreach ($surat_penegasan as $i)
-<div id="approve{{ $i->id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div id="modalApprovePenegasan{{ $i->id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-dialog-centered modal-md">
         <div class="modal-content">
             <div class="modal-header">
@@ -196,7 +215,10 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-info waves-effect waves-light">Approve</button>
+                    <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-info waves-effect waves-light width-xl">
+                        APPROVE
+                    </button>
                 </div>
             </form>
         </div>
@@ -205,7 +227,7 @@
 @endforeach
 
 @foreach ($surat_penegasan as $i)
-<div id="hapusSuratPenegasan{{ $i->id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div id="modalHapusPenegasan{{ $i->id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-dialog-centered modal-md">
         <div class="modal-content">
             <div class="modal-header">
@@ -219,8 +241,49 @@
                     <h4>Apakah anda yakin akan menghapus data {{ $i->no_surat }} ini ? </h4>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Tutup</button>
-                    <button type="submit" class="btn btn-info waves-effect waves-light">Hapus</button>
+                    <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-danger waves-effect waves-light width-xl">Hapus</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endforeach
+
+@foreach ($surat_penegasan as $i)
+<div id="modalKirimPenegasan{{ $i->id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Kirim Surat Penegasan</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ url('surat-penegasan/send-email/'.$i->pembekalan_uuid) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body p-4">
+                    <h4>Send Email</h4>
+                    <p>Kirim Surat Penegasan dengan No. <b>{{ $i->no_surat }}</b> ke
+                        @if ($i->pembekalan->pic->jenkel == 'perempuan')
+                            Ibu
+                        @else
+                            Bapak
+                        @endif
+                        @if ($i->pembekalan->pic->midle_name == '')
+                        {{ $i->pembekalan->pic->first_name }} {{ $i->pembekalan->pic->last_name }}
+                        @elseif ($i->pembekalan->pic->last_name == '')
+                        {{ $i->pembekalan->pic->first_name }} {{ $i->pembekalan->pic->midle_name }}
+                        @elseif ($i->pembekalan->pic->midle_name && $i->pembekalan->pic->last_name == '')
+                        {{ $i->pembekalan->pic->first_name }}
+                        @else
+                        {{ $i->pembekalan->pic->first_name }} {{ $i->pembekalan->pic->midle_name }} {{ $i->pembekalan->pic->last_name }}
+                        @endif
+                        ({{ $i->pembekalan->bank->nama }})
+                    </p>
+                    <input type="text" name="email_pic" class="form-control" value="{{ $i->pembekalan->pic->email_kantor }}">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-info waves-effect waves-light width-xl">Kirim</button>
                 </div>
             </form>
         </div>

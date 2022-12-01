@@ -145,6 +145,8 @@ class SuratPenawaranController extends Controller
         $update_penawaran = SuratPenawaran::firstWhere('id', $id);
         $update_penawaran->no_surat = $request->no_surat;
         $update_penawaran->tgl_surat = $request->tgl_surat;
+        $update_penawaran->jenis_id = $request->jenis_id;
+        $update_penawaran->penyelenggara_id = $request->penyelenggara;
         $update_penawaran->bank_id = $request->bank_id;
         $update_penawaran->pic_id = $request->pic_id;
         $update_penawaran->materi_id = $request->materi_id;

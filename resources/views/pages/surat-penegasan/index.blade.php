@@ -104,7 +104,7 @@
                                         </td>
                                         <td class="text-center">
                                             @if ($i->status == 1)
-                                                <span class="badge bg-success">Sudah dikirim</span>
+                                                <span class="badge bg-info text-dark ">Sudah dikirim</span>
                                             @else
                                                 <span class="badge bg-danger text-dark">Belum dikirim</span>
                                             @endif
@@ -117,24 +117,32 @@
                                                     <i class='mdi mdi-dots-horizontal font-18'></i>
                                                 </button>
                                                 <div class="dropdown-menu dropdown-menu-end">
-                                                    <a href="{{ url('surat-penegasan/view/'.$i->id) }}" class="dropdown-item" target="_blank">
-                                                        <i class='mdi mdi-eye me-1'></i> Review
-                                                    </a>
                                                     @if ($i->is_approved == 0)
-                                                    <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editSuratPenegasan{{ $i->id }}">
-                                                        <i class='mdi mdi-lead-pencil me-1'></i> Update Jadwal
-                                                    </a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#hapusSuratPenegasan{{ $i->id }}">
-                                                        <i class='mdi mdi-trash-can me-1'></i> Delete
-                                                    </a>
-                                                    <a class="dropdown-item text-center text-dark bg-soft-success" href="#"  data-bs-toggle="modal" data-bs-target="#approve{{ $i->id }}">
-                                                        Approve
-                                                    </a>
+                                                        <a href="{{ url('surat-penegasan/view/'.$i->id) }}" class="dropdown-item" target="_blank">
+                                                            <i class='mdi mdi-eye me-1'></i> Review
+                                                        </a>
+                                                        <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalUpdatePenegasan{{ $i->id }}">
+                                                            <i class='mdi mdi-lead-pencil me-1'></i> Update Jadwal
+                                                        </a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#modalHapusPenegasan{{ $i->id }}">
+                                                            <i class='mdi mdi-trash-can me-1'></i> Delete
+                                                        </a>
+                                                        <a class="dropdown-item text-center text-dark bg-soft-success" href="#"  data-bs-toggle="modal" data-bs-target="#modalApprovePenegasan{{ $i->id }}">
+                                                            Approve
+                                                        </a>
                                                     @else
-                                                    <a href="{{ url('surat-penegasan/generate-PDF/'.$i->id) }}" class="dropdown-item" target="_blank">
-                                                        <i class='mdi mdi-download me-1'></i> Simpan Surat Penegasan
-                                                    </a>
+                                                        <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalKirimPenegasan{{ $i->id }}">
+                                                            <i class='mdi mdi-send me-1'></i> Kirim ke PIC
+                                                        </a>
+                                                        <a href="{{ url('surat-penegasan/generate-PDF/'.$i->id) }}" class="dropdown-item" target="_blank">
+                                                            <i class='mdi mdi-download me-1'></i> Simpan Surat Penegasan
+                                                        </a>
+                                                        @if ($i->dokumen != '')
+                                                            <a href="{{ asset('assets/surat-penegasan/'.$i->dokumen) }}" class="dropdown-item" target="_blank">
+                                                                <i class='mdi mdi-eye me-1'></i> Show
+                                                            </a>
+                                                        @endif
                                                     @endif
                                                 </div>
                                             </div>

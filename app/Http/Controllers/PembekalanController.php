@@ -125,18 +125,34 @@ class PembekalanController extends Controller
             }])->get();
 
         foreach($schedule as $data) {
-            $mulai = $data->tanggal;
-            $selesai = $data->tanggal;
-            $title = $data->pembekalan->materi_pembekalan->kode.' - '.$data->pembekalan->bank->nama;
-            $events[] = [
-                'title' => $title,
-                'start' => $mulai,
-                'end' => $selesai,
-                'borderColor' => 'black',
-                'description' => $title,
-                'color' => 'blue',
-                'display' => 'background',
-            ];
+            if($data->pembekalan->is_done == '1')
+            {
+                $mulai = $data->tanggal;
+                $selesai = $data->tanggal;
+                $title = $data->pembekalan->materi_pembekalan->kode.' - '.$data->pembekalan->bank->nama;
+                $events[] = [
+                    'title' => $title,
+                    'start' => $mulai,
+                    'end' => $selesai,
+                    'borderColor' => 'black',
+                    'description' => $title,
+                    'color' => 'red',
+                    'display' => 'background',
+                ];
+            } else {
+                $mulai = $data->tanggal;
+                $selesai = $data->tanggal;
+                $title = $data->pembekalan->materi_pembekalan->kode.' - '.$data->pembekalan->bank->nama;
+                $events[] = [
+                    'title' => $title,
+                    'start' => $mulai,
+                    'end' => $selesai,
+                    'borderColor' => 'black',
+                    'description' => $title,
+                    'color' => 'blue',
+                    'display' => 'background',
+                ];
+            }
 
             $peserta = Peserta::join('pembekalan', 'pembekalan.uuid', '=', 'peserta.pembekalan_uuid')
                             ->where('peserta.pembekalan_uuid', $data->pembekalan->uuid)
@@ -245,18 +261,35 @@ class PembekalanController extends Controller
                 return $query->with(['materi_pembekalan', 'metode_pembekalan','level_pembekalan', 'pic']);
             }])->get();
         foreach($schedule as $data) {
-            $mulai = $data->tanggal;
-            $selesai = $data->tanggal;
-            $title = $data->pembekalan->materi_pembekalan->kode.' - '.$data->pembekalan->bank->nama;
-            $events[] = [
-                'title' => $title,
-                'start' => $mulai,
-                'end' => $selesai,
-                'borderColor' => 'black',
-                'description' => $title,
-                'color' => 'blue',
-                'display' => 'background',
-            ];
+            if($data->pembekalan->is_done == '1')
+            {
+                $mulai = $data->tanggal;
+                $selesai = $data->tanggal;
+                $title = $data->pembekalan->materi_pembekalan->kode.' - '.$data->pembekalan->bank->nama;
+                $events[] = [
+                    'title' => $title,
+                    'start' => $mulai,
+                    'end' => $selesai,
+                    'borderColor' => 'black',
+                    'description' => $title,
+                    'color' => 'red',
+                    'display' => 'background',
+                ];
+            } else {
+                $mulai = $data->tanggal;
+                $selesai = $data->tanggal;
+                $title = $data->pembekalan->materi_pembekalan->kode.' - '.$data->pembekalan->bank->nama;
+                $events[] = [
+                    'title' => $title,
+                    'start' => $mulai,
+                    'end' => $selesai,
+                    'borderColor' => 'black',
+                    'description' => $title,
+                    'color' => 'blue',
+                    'display' => 'background',
+                ];
+            }
+
 
             $peserta = Peserta::join('pembekalan', 'pembekalan.uuid', '=', 'peserta.pembekalan_uuid')
                             ->where('peserta.pembekalan_uuid', $data->pembekalan->uuid)

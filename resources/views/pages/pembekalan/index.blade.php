@@ -247,6 +247,8 @@
                     <h4>Calendar</h4>
                     <div id="calendarJadwal" class="collapse show">
                         <div id="calendar"></div>
+                       <span class="badge" style="background-color: red">&nbsp;</span> Telah selesai <br>
+                       <span class="badge" style="background-color: blue">&nbsp;</span> Belum selesai
                     </div>
                 </div>
             </div>

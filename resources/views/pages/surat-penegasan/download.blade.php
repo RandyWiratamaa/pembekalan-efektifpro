@@ -105,7 +105,9 @@
             <p>Perihal : {{ $surat_penegasan->perihal }}</p>
         </div>
         <div class="nomor" style="padding-left:50px; margin-top:-25px">
-            <p>Lembaga Sertifikasi Profesi Perbankan (LSPP)</p>
+            <p>
+                {{ $surat_penegasan->penyelenggara->nama }} ({{ $surat_penegasan->penyelenggara->singkatan }})
+            </p>
         </div>
         @php
             $body = $surat_penegasan->body;

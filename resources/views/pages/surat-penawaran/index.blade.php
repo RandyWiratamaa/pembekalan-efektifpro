@@ -142,7 +142,7 @@
                                                         <i class='mdi mdi-file me-1'></i> Surat Penegasan
                                                     </a>
                                                     @else
-                                                    <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#addSuratPenegasan{{ $i->id }}">
+                                                    <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalAddPenegasan{{ $i->id }}">
                                                         <i class='mdi mdi-email-newsletter me-1'></i> Buatkan Surat Penegasan
                                                     </a>
                                                     @endif
@@ -155,14 +155,14 @@
                                                     </a>
                                                     @endif
                                                     @if ($i->is_approved == 0)
-                                                    <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editSuratPenawaran{{ $i->id }}">
+                                                    <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalUpdatePenawaran{{ $i->id }}">
                                                         <i class='mdi mdi-lead-pencil me-1'></i> Edit
                                                     </a>
                                                     <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#hapusSuratPenawaran{{ $i->id }}">
+                                                    <a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#modalHapusPenawaran{{ $i->id }}">
                                                         <i class='mdi mdi-trash-can me-1'></i> Delete
                                                     </a>
-                                                    <a class="dropdown-item text-center text-dark bg-soft-success" href="#"  data-bs-toggle="modal" data-bs-target="#approve{{ $i->id }}">
+                                                    <a class="dropdown-item text-center text-dark bg-soft-success" href="#"  data-bs-toggle="modal" data-bs-target="#modalApprovePenawaran{{ $i->id }}">
                                                         Approve
                                                     </a>
                                                     @endif
