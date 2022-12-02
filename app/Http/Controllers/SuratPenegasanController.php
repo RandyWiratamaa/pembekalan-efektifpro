@@ -89,17 +89,19 @@ class SuratPenegasanController extends Controller
         $uuid = 'EKS-'.$now.'-'.$string;
         $pembekalan = new Pembekalan;
         $pembekalan->uuid = $uuid;
+        $pembekalan->jenis_id = $request->jenis_id;
+        $pembekalan->penyelenggara_id = $request->penyelenggara;
         $pembekalan->bank_id = $request->bank_id;
         $pembekalan->pic_id = $request->pic_id;
         $pembekalan->materi_id = $request->materi_id;
+        $pembekalan->metode_id = $request->metode_id;
         $pembekalan->investasi = $request->investasi;
-        $pembekalan->pengajar_id = $request->pengajar_id;
         $pembekalan->tanggal_mulai = $request->tanggal_mulai;
         $pembekalan->tanggal_selesai = $request->tanggal_selesai;
         $pembekalan->mulai = $request->mulai;
         $pembekalan->selesai = $request->selesai;
-        $pembekalan->metode_id = $request->metode_id;
         $pembekalan->min_peserta = $request->min_peserta;
+        $pembekalan->pengajar_id = $request->pengajar_id;
         $pembekalan->save();
 
         $data = [

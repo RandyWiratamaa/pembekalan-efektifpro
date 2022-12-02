@@ -16,8 +16,12 @@ return new class extends Migration
         Schema::create('schedule', function (Blueprint $table) {
             $table->id();
             $table->string('pembekalan_uuid');
+            $table->unsignedBigInteger('pengajar_id');
             $table->date('tanggal');
+            $table->string('ket');
             $table->timestamps();
+
+            $table->foreign('pengajar_id')->references('id')->on('pengajar')->onUpdate('cascade')->onDelete('restrict');
         });
     }
 

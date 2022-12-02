@@ -80,6 +80,22 @@ class BeritaAcaraController extends Controller
         }
     }
 
+    public function update(Request $request, $id)
+    {
+        $berita_acara = BeritaAcara::firstWhere('id', $id);
+        $berita_acara->tanggal = $request->tanggal;
+        $berita_acara->body = $request->body;
+        $berita_acara->save();
+
+        if ($berita_acara) {
+            toastr()->success('Berita Acara berhasil dibuat');
+            return redirect()->route('berita-acara.index');
+        } else {
+            toastr()->error('Gagal membuat berita acara');
+            return redirect()->back()->withInput();
+        }
+    }
+
     public function view($id)
     {
         $berita_acara = BeritaAcara::firstWhere('id', $id);
@@ -129,6 +145,19 @@ class BeritaAcaraController extends Controller
         if($berita_acara) {
             toastr()->success('Berita Acara berhasil diapprove');
             return $pdf->download($filename);
+        }
+    }
+
+    public function destroy($id)
+    {
+        $berita_acara = BeritaAcara::findOrFail($id);
+        $berita_acara->delete();
+
+        if($berita_acara) {
+            toastr()->success('Berita Acara berhasil dihapus');
+            return redirect()->route('berita-acara.index');
+        } else {
+            return redirect()->back()->withInput();
         }
     }
 }

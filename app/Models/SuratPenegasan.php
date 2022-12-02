@@ -54,4 +54,9 @@ class SuratPenegasan extends Model
     {
         return $this->belongsTo(Penyelenggara::class, 'penyelenggara_id', 'id');
     }
+
+    public function surat_penawaran()
+    {
+        return $this->hasOne(SuratPenawaran::class, 'no_surat', 'no_surat_penawaran');
+    }
 }

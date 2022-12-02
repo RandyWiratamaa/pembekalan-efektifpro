@@ -106,6 +106,12 @@
                         <span> File Manager </span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('laporan.index') }}">
+                        <i data-feather="book-open"></i>
+                        <span> Laporan </span>
+                    </a>
+                </li>
             </ul>
         </div>
         <div class="clearfix"></div>

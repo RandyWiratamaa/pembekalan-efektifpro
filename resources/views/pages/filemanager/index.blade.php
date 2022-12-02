@@ -110,7 +110,11 @@
                                                     </div>
                                                 </div>
                                                 <div class="col">
+                                                    @if ($i->dokumen == '')
+                                                    <a href="{{ route('berita-acara.index') }}" class="fw-normal" style="color:red">Dokumen belum disimpan</a>
+                                                    @else
                                                     <a href="{{ asset('assets/berita-acara/'.$i->dokumen) }}" target="_blank" class="fw-normal" style="color:blue">{{ $i->dokumen }}</a>
+                                                    @endif
                                                     <p class="mb-0 font-13"> {{ strtoupper($i->pembekalan->materi_pembekalan->kode) }} - {{ $i->pembekalan->bank->nama }}</p>
                                                     <span>
                                                         <small class="float-end text-muted">{{ $i->tanggal->isoFormat('dddd, DD MMMM YYYY') }}</small>

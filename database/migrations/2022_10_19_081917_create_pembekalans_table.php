@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('pembekalan', function (Blueprint $table) {
             $table->id();
             $table->string('uuid');
+            $table->unsignedBigInteger('jenis_id');
+            $table->unsignedBigInteger('penyelenggara_id');
             $table->unsignedBigInteger('bank_id');
             $table->unsignedBigInteger('pic_id');
             $table->unsignedBigInteger('materi_id');
@@ -28,8 +30,11 @@ return new class extends Migration
             $table->string('link_zoom');
             $table->string('min_peserta');
             $table->unsignedBigInteger('pengajar_id');
+            $table->boolean('is_done')->default(false);
             $table->timestamps();
 
+            $table->foreign('jenis_id')->references('id')->on('jenis_pembekalan')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreign('penyelenggara_id')->references('id')->on('penyelenggara')->onUpdate('cascade')->onDelete('restrict');
             $table->foreign('bank_id')->references('id')->on('bank')->onUpdate('cascade')->onDelete('restrict');
             $table->foreign('pic_id')->references('id')->on('pic')->onUpdate('cascade')->onDelete('restrict');
             $table->foreign('pengajar_id')->references('id')->on('pengajar')->onUpdate('cascade')->onDelete('restrict');

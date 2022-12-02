@@ -119,10 +119,10 @@
                                                 <div class="dropdown-menu dropdown-menu-end">
                                                     @if ($i->is_approved == 0)
                                                         <a href="{{ url('surat-penegasan/view/'.$i->id) }}" class="dropdown-item" target="_blank">
-                                                            <i class='mdi mdi-eye me-1'></i> Review
+                                                            <i class='mdi mdi-eye me-1 text-primary'></i> Review
                                                         </a>
                                                         <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalUpdatePenegasan{{ $i->id }}">
-                                                            <i class='mdi mdi-lead-pencil me-1'></i> Update Jadwal
+                                                            <i class='mdi mdi-lead-pencil me-1 text-primary'></i> Update Jadwal
                                                         </a>
                                                         <div class="dropdown-divider"></div>
                                                         <a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#modalHapusPenegasan{{ $i->id }}">
@@ -133,14 +133,14 @@
                                                         </a>
                                                     @else
                                                         <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalKirimPenegasan{{ $i->id }}">
-                                                            <i class='mdi mdi-send me-1'></i> Kirim ke PIC
+                                                            <i class='mdi mdi-send me-1 text-primary'></i> Kirim ke PIC
                                                         </a>
                                                         <a href="{{ url('surat-penegasan/generate-PDF/'.$i->id) }}" class="dropdown-item" target="_blank">
-                                                            <i class='mdi mdi-download me-1'></i> Simpan Surat Penegasan
+                                                            <i class='mdi mdi-download me-1 text-primary'></i> Simpan Surat Penegasan
                                                         </a>
                                                         @if ($i->dokumen != '')
                                                             <a href="{{ asset('assets/surat-penegasan/'.$i->dokumen) }}" class="dropdown-item" target="_blank">
-                                                                <i class='mdi mdi-eye me-1'></i> Show
+                                                                <i class='mdi mdi-eye me-1 text-primary'></i> Show
                                                             </a>
                                                         @endif
                                                     @endif

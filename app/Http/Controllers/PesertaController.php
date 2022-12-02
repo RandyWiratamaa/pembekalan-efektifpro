@@ -33,7 +33,7 @@ class PesertaController extends Controller
 
         if ($peserta) {
             toastr()->success('Data peserta berhasil ditambahkan');
-            return redirect()->route('pembekalan.index')->refresh();
+            return redirect()->route('pembekalan.index');
         }
     }
 

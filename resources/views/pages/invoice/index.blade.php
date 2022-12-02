@@ -189,9 +189,9 @@
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-end">
                                             <a class="dropdown-item" id="dataPeserta" data-id="` + row.id + `">
-                                                <i class='mdi mdi-pencil me-1'></i> Edit
+                                                <i class='mdi mdi-pencil me-1 text-primary'></i> Edit
                                             </a>
-                                            <a class="dropdown-item" id="dataPeserta" data-id="` + row.id + `">
+                                            <a class="dropdown-item text-danger" id="dataPeserta" data-id="` + row.id + `">
                                                 <i class='mdi mdi-trash-can me-1'></i> Delete
                                             </a>
                                             <a class="dropdown-item text-center text-dark bg-soft-success" href="#"  data-bs-toggle="modal" data-bs-target="#approve` + row.uuid + `">

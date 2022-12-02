@@ -138,20 +138,22 @@
                                                     $surat_penegasan = DB::table('surat_penegasan')->where('no_surat_penawaran', $i->no_surat)->first();
                                                     @endphp
                                                     @if ($check_penegasan)
-                                                    <a href="{{ url('surat-penegasan/view/'.$surat_penegasan->id) }}" class="dropdown-item" target="_blank">
+                                                    <a href="{{ url('surat-penegasan/view/'.$surat_penegasan->id) }}" class="dropdown-item text-primary" target="_blank">
                                                         <i class='mdi mdi-file me-1'></i> Surat Penegasan
                                                     </a>
                                                     @else
-                                                    <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalAddPenegasan{{ $i->id }}">
-                                                        <i class='mdi mdi-email-newsletter me-1'></i> Buatkan Surat Penegasan
-                                                    </a>
+                                                        @if ($i->is_approved != 0)
+                                                        <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalAddPenegasan{{ $i->id }}">
+                                                            <i class='mdi mdi-email-newsletter me-1 text-primary'></i> Buatkan Surat Penegasan
+                                                        </a>
+                                                        @endif
                                                     @endif
                                                     <a href="{{ url('surat-penawaran/view/'.$i->id) }}" class="dropdown-item" target="_blank">
-                                                        <i class='mdi mdi-eye me-1'></i> Review
+                                                        <i class='mdi mdi-eye me-1 text-primary'></i> Review
                                                     </a>
                                                     @if ($i->is_approved == 1)
                                                     <a href="{{ url('surat-penawaran/generate-PDF/'.$i->id) }}" class="dropdown-item" target="_blank">
-                                                        <i class='mdi mdi-download me-1'></i> Simpan Surat Penawaran
+                                                        <i class='mdi mdi-download me-1 text-primary'></i> Simpan Surat Penawaran
                                                     </a>
                                                     @endif
                                                     @if ($i->is_approved == 0)

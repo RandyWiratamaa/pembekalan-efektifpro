@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use DataTables;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
+use App\Models\DetailInvoice;
 
 class InvoiceController extends Controller
 {
@@ -43,8 +44,10 @@ class InvoiceController extends Controller
     {
         $invoice = new Invoice;
         $invoice->pembekalan_uuid = $request->uuid;
+        $invoice->no_surat =  $request->no_surat;
         $invoice->no_invoice =  $request->no_invoice;
         $invoice->tanggal =  $request->tanggal;
+        $invoice->jatuh_tempo =  $request->jatuh_tempo;
         $invoice->bank_id =  $request->bank_id;
         $invoice->perihal =  $request->perihal;
         $invoice->body =  $request->invoice;
@@ -52,7 +55,7 @@ class InvoiceController extends Controller
 
         if($invoice) {
             toastr()->success('Invoice berhasil dibuat');
-            return redirect()->route('pembekalan.index');
+            return redirect()->route('invoice.index');
         } else {
             return redirect()->back()->withInput();
         }

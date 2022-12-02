@@ -245,7 +245,7 @@
                                                 <i class='mdi mdi-lead-pencil me-1'></i> Edit
                                             </a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#hapusBeritaAcara` + row.id + `">
+                                            <a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#modalHapusBeritaAcara` + row.id + `">
                                                 <i class='mdi mdi-trash-can me-1'></i> Delete
                                             </a>
                                             <a class="dropdown-item text-center text-dark bg-soft-success" href="#" data-bs-toggle="modal" data-bs-target="#approve` + row.id + `">

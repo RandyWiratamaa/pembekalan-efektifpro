@@ -6,7 +6,7 @@
                 <h4 class="modal-title">Ubah {{ $page_name }}</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="#" method="POST" enctype="multipart/form-data">
+            <form action="{{ url('berita-acara', $i->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
                 <div class="modal-body p-4">
@@ -56,6 +56,34 @@
 @endforeach
 
 @foreach ($berita_acara as $i)
+<div id="modalHapusBeritaAcara{{ $i->id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Hapus {{ $page_name }}</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ url('berita-acara', $i->id) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('Delete')
+                <div class="modal-body p-4">
+                    <h4>
+                        Apakah anda yakin akan menghapus Berita Acara : <br>
+                        <b>{{ $i->pembekalan->bank->nama }}</b>
+                        ({{ $i->pembekalan->materi_pembekalan->materi }}) ini ?
+                    </h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-info waves-effect waves-light">Hapus</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endforeach
+
+@foreach ($berita_acara as $i)
 <div id="approve{{ $i->id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-dialog-centered modal-md">
         <div class="modal-content">
@@ -79,6 +107,9 @@
                             </select>
                         </div>
                     </div>
+                </div>
+                <div class="modal-footer">
+                    <span class="text-muted">Setelah berita acara diapprove, Berita Acara tidak dapat diubah ataupun dihapus.</span>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-info waves-effect waves-light">Approve</button>

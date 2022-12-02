@@ -65,7 +65,7 @@ class Pembekalan extends Model
 
     public function berita_acara()
     {
-        return $this->hasMany(BeritaAcara::class, 'pembekalan_uuid', 'uuid');
+        return $this->hasOne(BeritaAcara::class, 'pembekalan_uuid', 'uuid');
     }
 
     public function schedule()
@@ -76,5 +76,15 @@ class Pembekalan extends Model
     public function invoice()
     {
         return $this->hasOne(Invoice::class, 'pembekalan_uuid', 'uuid');
+    }
+
+    public function jenis_pembekalan()
+    {
+        return $this->belongsTo(JenisPembekalan::class, 'jenis_id', 'id');
+    }
+
+    public function penyelenggara()
+    {
+        return $this->belongsTo(Penyelenggara::class, 'penyelenggara_id', 'id');
     }
 }

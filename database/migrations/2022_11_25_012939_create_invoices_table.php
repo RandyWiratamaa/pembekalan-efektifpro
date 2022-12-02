@@ -16,8 +16,10 @@ return new class extends Migration
         Schema::create('invoice', function (Blueprint $table) {
             $table->id();
             $table->string('pembekalan_uuid');
+            $table->string('no_surat');
             $table->string('no_invoice');
             $table->date('tanggal');
+            $table->date('jatuh_tempo');
             $table->unsignedBigInteger('bank_id');
             $table->string('perihal');
             $table->longText('body');

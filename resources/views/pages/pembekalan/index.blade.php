@@ -37,7 +37,7 @@
     </div>
 
     <div class="row">
-        <div class="col-3">
+        <div class="col-12">
             <div class="card">
                 <div class="card-body">
                     <div class="card-widgets">
@@ -46,7 +46,23 @@
                     <h5 class="header-title mb-2">Filter Data</h5>
                     <div id="search" class="collapse show">
                         <div class="row">
-                            <div class="col-sm-12">
+                            <div class="col-3">
+                                <form method="get" action="#" >
+                                    @csrf
+                                    <div class="col-sm-12">
+                                        <label class="form-label">Dari</label>
+                                        <input type="date" name="dari" id="dari" class="form-control">
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label class="form-label">Ke</label>
+                                        <input type="date" name="ke" id="ke" class="form-control">
+                                    </div>
+                                    <button type="submit" class="btn btn-sm waves-effect waves-light btn-primary mt-1 float-start">
+                                        <i class="mdi mdi-magnify"></i>
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="col-sm-3">
                                 <form class="search-bar form-inline" method="get" action="#" >
                                     @csrf
                                     <label class="form-label">Daftar Nama Bank</label>
@@ -63,9 +79,7 @@
                                     </div>
                                 </form>
                             </div>
-                        </div>
-                        <div class="row mt-2">
-                            <div class="col-sm-12">
+                            <div class="col-sm-3">
                                 <form class="search-bar form-inline" method="get" action="#" >
                                     @csrf
                                     <label class="form-label">Status</label>
@@ -82,29 +96,11 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="row mt-2">
-                            <div class="col-12">
-                                <form method="get" action="#" >
-                                    @csrf
-                                    <div class="col-sm-12">
-                                        <label class="form-label">Dari</label>
-                                        <input type="date" name="dari" id="dari" class="form-control">
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <label class="form-label">Ke</label>
-                                        <input type="date" name="ke" id="ke" class="form-control">
-                                    </div>
-                                    <button type="submit" class="btn btn-sm waves-effect waves-light btn-primary mt-1 float-end">
-                                        <i class="mdi mdi-magnify"></i>
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-xl-9">
+        <div class="col-xl-12">
             <div class="row">
                 <div class="col">
                     <div class="card">
@@ -115,9 +111,9 @@
                                 </a>
                             </div>
                             <h5 class="header-title mb-2">Schedule Pembekalan</h5>
-                            <div id="tableJadwal" class="collapse show">
-                                <div class="table-responsive pt-3">
-                                    <table id="scroll-horizontal-datatable" class="table w-100 nowrap">
+                            <div id="tableJadwal" class="collapse show" style="height: 600px">
+                                <div class="table-responsive pt-3" style="height: 600px">
+                                    <table id="basic-datatable" class="table w-100 nowrap">
                                         <thead class="table-light">
                                             <tr>
                                                 <th class="text-center">Bank</th>
@@ -197,9 +193,10 @@
                                                         <div class="dropdown-menu dropdown-menu-end">
                                                             @php
                                                                 $check_berita_acara = DB::table('berita_acara')->where('pembekalan_uuid', $i->uuid)->count() > 0;
+                                                                $check_invoice = DB::table('invoice')->where('pembekalan_uuid', $i->uuid)->count() > 0;
                                                             @endphp
                                                             @if (!$check_berita_acara)
-                                                            <a class="dropdown-item" id="beritaAcara" data-id="{{ $i->uuid }}">
+                                                            <a href="#" class="dropdown-item" id="beritaAcara" data-bs-toggle="modal" data-bs-target="#modalBeritaAcara{{ $i->uuid }}">
                                                                 Buatkan Berita Acara
                                                             </a>
                                                             <a class="dropdown-item">
@@ -209,16 +206,24 @@
                                                                 Surat Penegasan
                                                             </a>
                                                             @endif
-                                                            <a class="dropdown-item" id="dataPeserta" data-id="{{ $i->uuid }}">
+                                                            {{-- <a class="dropdown-item" id="dataPeserta" data-id="{{ $i->uuid }}">
                                                                 <i class='mdi mdi-account me-1'></i> Peserta Pembekalan
+                                                            </a> --}}
+                                                            <a href="#" class="dropdown-item" id="dataPeserta" data-bs-toggle="modal" data-bs-target="#modalDataPeserta{{ $i->uuid }}">
+                                                                <i class='mdi mdi-account me-1 text-primary'></i> Peserta Pembekalan
                                                             </a>
                                                             <a class="dropdown-item" href="{{ url('pembekalan/detail/'.$i->uuid) }}">
-                                                                <i class='mdi mdi-send me-1'></i> Kirim Email Invitation
+                                                                <i class='mdi mdi-send me-1 text-primary'></i> Kirim Email Invitation
                                                             </a>
                                                             @if ($i->is_done == true)
-                                                            <a class="dropdown-item" id="invoice" data-id="{{ $i->uuid }}">
-                                                                <i class='mdi mdi-file me-1'></i> Terbitkan Invoice
+                                                            @if (!$check_invoice)
+                                                            <a href="#" class="dropdown-item" id="dataPeserta" data-bs-toggle="modal" data-bs-target="#modalAddInvoice{{ $i->uuid }}">
+                                                                <i class='mdi mdi-file me-1 text-primary'></i> Terbitkan Invoice
                                                             </a>
+                                                            @endif
+                                                            {{-- <a class="dropdown-item" id="invoice" data-id="{{ $i->uuid }}">
+                                                                <i class='mdi mdi-file me-1'></i> Terbitkan Invoice
+                                                            </a> --}}
                                                             @endif
                                                         </div>
                                                     </div>
@@ -313,69 +318,6 @@
     </script>
 
     <script>
-        $(document).on('click', '#dataPeserta', function() {
-            var idx = $(this).attr('data-id')
-            $('#modalPeserta'+idx).modal('show');
-            // console.log(idx);
-            var data_peserta = $('#data-peserta'+idx)
-            // data_peserta.html('')
-            $.ajax({
-                url:"{{ url('peserta') }}/"+idx,
-                method:'get',
-                success:function(res){
-                    $('#jml_peserta'+idx).text(res.length)
-                    // console.log(res)
-                    $.each(res, function(idk,val){
-                    //     sub_total = parseInt(val.menu.harga * val.qty)
-                        data_peserta.append(`
-                            <tr>
-                                <td>${val.nama}</td>
-                                <td class="text-center">
-                                    <a class="btn btn-sm btn-soft-info text-dark" data-bs-toggle="modal" data-bs-target="#modalEditPeserta${val.id}">
-                                        <i class="fas fa-edit"></i> Edit
-                                    </a>
-                                    <a class="btn btn-sm btn-soft-danger text-dark" data-bs-toggle="modal" data-bs-target="#modalHapusPeserta${val.id}">
-                                        <i class="fas fa-trash"></i> Hapus
-                                    </a>
-                                </td>
-                            </tr>
-                        `)
-                    })
-                },
-                error: function(xhr, status, error) {
-                    // alert(xhr.responseText);
-                    alert("error")
-                }
-            })
-        });
-
-        $(document).on('click', '#beritaAcara', function() {
-            var idx = $(this).attr('data-id')
-            $('#beritaAcara'+idx).modal('show');
-
-            var berita_acara = $('#beritaAcara'+idx)
-            // berita_acara.html('')
-            $.ajax({
-                url:"{{ url('pembekalan/getDetail') }}/"+idx,
-                method:'get',
-                success:function(res){
-                    $('#val-program'+idx).text(res.materi_pembekalan.materi + ' - ' + res.materi_pembekalan.kode)
-                    $('#val-program2'+idx).text(res.materi_pembekalan.materi + ' - ' + res.materi_pembekalan.kode)
-                    $('#val-program3'+idx).text(res.materi_pembekalan.materi)
-                    $('#val-program4'+idx).text(res.materi_pembekalan.materi + ' - ' + res.materi_pembekalan.kode)
-                    $('#val-tanggal'+idx).text(moment(res.tanggal_mulai).format('DD MMMM YYYY') + ' & ' + moment(res.tanggal_selesai).format('DD MMMM YYYY'))
-                    $('#val-pengajar'+idx).text(res.pengajar.nama)
-                    $('#val-lokasi'+idx).text(res.metode_pembekalan.metode)
-                    $('#val-investasi'+idx).text(res.investasi)
-                    $('#val-investasi2'+idx).text(res.investasi)
-                    $('#val-investasi3'+idx).text(res.investasi)
-                },
-                error: function(xhr, status, error) {
-                    alert(xhr.responseText);
-                    // alert("error")
-                }
-            })
-        });
 
         $(document).on('click', '#invoice', function(){
             var idx = $(this).attr('data-id')

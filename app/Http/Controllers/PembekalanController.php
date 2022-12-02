@@ -69,11 +69,12 @@ class PembekalanController extends Controller
         $materi = MateriPembekalan::all();
         $metode = MetodePembekalan::all();
         $bank = Bank::all();
+        $data_peserta = Peserta::all();
 
         $data_pembekalan = Pembekalan::with([
             'surat_penegasan' => function($query) {
                 return $query->orderBy('tgl_surat', 'ASC');
-            }, 'metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic', 'peserta', 'schedule'])->get();
+            }, 'metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic', 'peserta', 'schedule', 'jenis_pembekalan', 'penyelenggara'])->where('is_done', false)->get();
 
         // if($request->ajax()){
         //     $data = Pembekalan::with([
@@ -160,11 +161,10 @@ class PembekalanController extends Controller
             $jml_peserta = Peserta::join('pembekalan', 'pembekalan.uuid', '=', 'peserta.pembekalan_uuid')
                             ->where('peserta.pembekalan_uuid', $data->pembekalan->uuid)
                             ->count();
+            $count_peserta = Peserta::join('pembekalan', 'pembekalan.uuid', '=', 'peserta.pembekalan_uuid')
+                            ->where('peserta.pembekalan_uuid', $data->pembekalan->uuid)
+                            ->count() > 0;
         }
-        $data_peserta = Peserta::all();
-        $count_peserta = Peserta::join('pembekalan', 'pembekalan.uuid', '=', 'peserta.pembekalan_uuid')
-                        ->where('peserta.pembekalan_uuid', $data->pembekalan->uuid)
-                        ->count() > 0;
         return view('pages.pembekalan.index', get_defined_vars());
     }
 
@@ -253,7 +253,7 @@ class PembekalanController extends Controller
         $surat_penegasan = SuratPenegasan::where('pembekalan_uuid', $uuid)->with('bank')->first();
         $data_peserta = Peserta::with('pembekalan')->where('pembekalan_uuid', $uuid)->orderBy('nama', 'ASC')->get();
         // dd($peserta);
-        $data_pembekalan = Pembekalan::with(['metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic'])->orderBy('tanggal_mulai', 'ASC')->get(); $data_peserta = Peserta::with('pembekalan')->where('pembekalan_uuid', $uuid)->get();
+        $data_pembekalan = Pembekalan::with(['metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic', 'jenis_pembekalan', 'penyelenggara'])->orderBy('tanggal_mulai', 'ASC')->get(); $data_peserta = Peserta::with('pembekalan')->where('pembekalan_uuid', $uuid)->get();
         $slug_bank = Str::slug($surat_penegasan->bank->nama);
 
         $schedule = Schedule::with([

@@ -265,7 +265,7 @@
 
 {{-- Modal Berita Acara --}}
 @foreach ($data_pembekalan as $i)
-<div id="beritaAcara{{ $i->uuid }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div id="modalBeritaAcara{{ $i->uuid }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -322,7 +322,7 @@
 
 {{-- Modal Peserta Pembekalan --}}
 @foreach ($data_pembekalan as $i)
-<div id="modalPeserta{{ $i->uuid }}" class="modal fade" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div id="modalDataPeserta{{ $i->uuid }}" class="modal fade" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -419,17 +419,35 @@
                         <a href="#" class="btn btn-soft-info waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#import{{ $i->uuid }}"><i class='fe-upload me-1'></i>Import Excel</a></span>
                     </div>
                 </div>
+                @php
+                $peserta = DB::table('peserta')->where('pembekalan_uuid', $i->uuid)->orderBy('nama', 'ASC')->get();
+                $jml_peserta = count($peserta);
+                @endphp
                 <div class="table-responsive pt-3" style="height: 600px">
-                    Jumlah Peserta : <span id="jml_peserta{{ $i->uuid }}"></span>
+                    Jumlah Peserta : {{ $jml_peserta }}
                     <table class="table table-bordered table-centered mb-0 client" style="width:100%" id="btn-editable">
                         <thead class="table-light">
                             <tr class="text-center">
                                 <th>Nama</th>
+                                <th>Email Kantor</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody id="data-peserta{{ $i->uuid }}">
-
+                        <tbody>
+                            @foreach ($peserta as $data_peserta)
+                            <tr>
+                                <td>{{ $data_peserta->nama }}</td>
+                                <td>{{ $data_peserta->email_kantor }}</td>
+                                <td class="text-center">
+                                    <a class="btn btn-sm btn-soft-info text-dark" data-bs-toggle="modal" data-bs-target="#modalEditPeserta{{ $data_peserta->id }}">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </a>
+                                    <a class="btn btn-sm btn-soft-danger text-dark" data-bs-toggle="modal" data-bs-target="#modalHapusPeserta{{ $data_peserta->id }}">
+                                        <i class="fas fa-trash"></i> Hapus
+                                    </a>
+                                </td>
+                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -799,7 +817,7 @@
 
 {{-- Modal Invoice --}}
 @foreach ($data_pembekalan as $i)
-<div id="invoice{{ $i->uuid }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div id="modalAddInvoice{{ $i->uuid }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -810,21 +828,33 @@
                 @csrf
                 <div class="modal-body p-4">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="mb-3">
-                                <label class="form-label">No. Invoice *</label>
-                                <input type="text" class="form-control" name="no_invoice" id="no_invoice"
+                                <label class="form-label">No. Surat *</label>
+                                <input type="text" class="form-control" name="no_surat" id="no_surat"
                                 value="{{ $no_urut }}/{{ $kd_surat }}/{{ $bulan }}/{{ now()->year }}">
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="mb-3">
-                                <label class="form-label">Tanggal *</label>
-                                <input type="date" class="form-control" name="tanggal" id="tanggal"
-                                min="{{ $i->tanggal_mulai->isoFormat('YYYY-MM-DD') }}"
-                                max="{{ $i->tanggal_selesai->addDays(30)->isoFormat('YYYY-MM-DD') }}">
+                                <label class="form-label">No. Invoice *</label>
+                                <input type="text" class="form-control" name="no_invoice" id="no_invoice">
                             </div>
                         </div>
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label class="form-label">Tanggal *</label>
+                                <input type="date" class="form-control" name="tanggal" id="tanggal">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label class="form-label">Jatuh Tempo *</label>
+                                <input type="date" class="form-control" name="jatuh_tempo" id="jatuh_tempo">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label class="form-label">Bank *</label>
@@ -834,12 +864,11 @@
                             </div>
                         </div>
                         <input type="hidden" class="form-control" name="uuid" id="uuid" value="{{ $i->uuid }}">
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-8">
                             <div class="mb-3">
                                 <label class="form-label">Perihal</label>
-                                <input type="text" name="perihal" id="perihal{{ $i->uuid }}" class="form-control">
+                                <input type="text" name="perihal"class="form-control"
+                                value="Invoice - {{ ucwords($i->jenis_pembekalan->jenis) }} ({{ $i->metode_pembekalan->metode }}) {{ $i->materi_pembekalan->materi }}">
                             </div>
                         </div>
                     </div>

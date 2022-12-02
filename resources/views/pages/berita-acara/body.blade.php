@@ -1,27 +1,27 @@
 <p>
     Sehubungan dengan adanya pengajuan program In House Class (Video Conference)
-    Pembekalan <span id="val-program{{ $i->uuid }}"></span>,
+    Pembekalan {{ $i->materi_pembekalan->materi }} ({{ $i->materi_pembekalan->kode }}),
     kami informasikan rincian sebagai berikut :</p>
 <table border="0">
     <tr>
         <td>Nama Program</td>
         <td>:</td>
-        <td id="val-program2{{ $i->uuid }}"></td>
+        <td>{{ $i->materi_pembekalan->kode }} - {{ $i->materi_pembekalan->materi }}</td>
     </tr>
     <tr>
         <td>Fasilitator</td>
         <td>:</td>
-        <td id="val-pengajar{{ $i->uuid }}"></td>
+        <td>{{ $i->pengajar->nama }}</td>
     </tr>
     <tr>
         <td>Tanggal Pelaksanaan</td>
         <td>:</td>
-        <td id="val-tanggal{{ $i->uuid }}"></td>
+        <td>{{ $i->tanggal_mulai->isoFormat('DD MMMM YYYY') }} & {{ $i->tanggal_selesai->isoFormat('DD MMMM YYYY') }}</td>
     </tr>
     <tr>
         <td>Lokasi</td>
         <td>:</td>
-        <td id="val-lokasi{{ $i->uuid }}"></td>
+        <td>{{ $i->metode_pembekalan->metode }}</td>
     </tr>
     <tr>
         <td>Jumlah Peserta</td>
@@ -31,7 +31,7 @@
 </table>
 <br>
 <p>
-    Yang mana program In House Class <span id="val-program3{{ $i->uuid }}"></span> sesuai dengan PO no_po tersebut telah dilaksanakan dengan baik sesuai
+    Yang mana program In House Class {{ $i->materi_pembekalan->materi }} ({{ $i->materi_pembekalan->kode }}) sesuai dengan PO no_po tersebut telah dilaksanakan dengan baik sesuai
     jadwal yang telah dilaksanakan. Adapun rincian sebagai berikut :
 </p>
 <strong><em>Rincian PO :</em></strong>
@@ -50,21 +50,21 @@
       <tr>
         <td style="text-align: center">1</td>
         <td>Pembekalan
-            <span id="val-program4{{ $i->uuid }}"></span>
+            {{ $i->materi_pembekalan->materi }}
             (1 Day, 1 Batch min 35 person;
             Include PPH 23; Exclude PPN;
             Garansi Pelatihan Ulang Tanpa Biaya Jika Tidak Lulus Ujian)
         </td>
         <td style="text-align: center">1</td>
         <td style="text-align: center">Batch</td>
-        <td style="text-align: center" id="val-investasi{{ $i->uuid }}"></td>
-        <td style="text-align: center" id="val-investasi2{{ $i->uuid }}"></td>
+        <td style="text-align: center">{{ $i->investasi }}</td>
+        <td style="text-align: center">{{ $i->investasi }}</td>
       </tr>
     </tbody>
     <tfoot>
         <tr>
             <td colspan="5" class="text-center">Grand Total</td>
-            <td id="val-investasi3{{ $i->uuid }}"></td>
+            <td>{{ $i->investasi }}</td>
         </tr>
     </tfoot>
 </table>

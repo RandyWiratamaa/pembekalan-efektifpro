@@ -9,4 +9,9 @@ class JenisPembekalan extends Model
 {
     use HasFactory;
     protected $table = 'jenis_pembekalan';
+
+    public function pembekalan()
+    {
+        return $this->hasMany(Pembekelan::class, 'jenis_id', 'id');
+    }
 }

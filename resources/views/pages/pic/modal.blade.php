@@ -79,14 +79,6 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="mb-3">
-                                <label class="form-label">Alamat Kantor</label>
-                                <textarea class="form-control" name="alamat_kantor" id="alamat_kantor" placeholder="Alamat Kantor"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="mb-3">
                                 <label class="form-label">Alamat Rumah</label>
                                 <textarea class="form-control" name="alamat_rumah" id="alamat_rumah" placeholder="Alamat Rumah"></textarea>
                             </div>

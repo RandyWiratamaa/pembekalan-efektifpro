@@ -16,7 +16,7 @@ class MetodePembekalanSeeder extends Seeder
     public function run()
     {
         DB::table('metode_pembekalan')->insert([
-        	'metode'=> 'Video Converence',
+        	'metode'=> 'Video Conference',
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);

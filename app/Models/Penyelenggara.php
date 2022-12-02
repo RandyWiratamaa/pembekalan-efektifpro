@@ -20,4 +20,9 @@ class Penyelenggara extends Model
     {
         return $this->hasMany(SuratPenawaran::class, 'penyelenggara_id', 'id');
     }
+
+    public function pembekalan()
+    {
+        return $this->hasMany(Pembekelan::class, 'penyelenggara_id', 'id');
+    }
 }
