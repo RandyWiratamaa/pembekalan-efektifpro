@@ -91,4 +91,6 @@ Route::group(['middleware' => 'auth'], function (){
 
     Route::get('invoice', [App\Http\Controllers\InvoiceController::class, 'index'])->name('invoice.index');
     Route::post('invoice', [App\Http\Controllers\InvoiceController::class, 'store'])->name('invoice.store');
+    Route::match(['put', 'patch'], 'invoice/{id}', [App\Http\Controllers\InvoiceController::class, 'update'])->name('invoice.update');
+    Route::delete('invoice/{id}', [App\Http\Controllers\InvoiceController::class, 'destroy'])->name('invoice.destroy');
 });

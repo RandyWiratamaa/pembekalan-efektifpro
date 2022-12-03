@@ -9,7 +9,7 @@ class Invoice extends Model
 {
     use HasFactory;
     protected $table = 'invoice';
-    protected $dates = ['tanggal'];
+    protected $dates = ['tanggal', 'jatuh_tempo'];
     protected $fillable = [
         'pembekalan_uuid', 'no_invoice', 'perihal', 'body',
     ];

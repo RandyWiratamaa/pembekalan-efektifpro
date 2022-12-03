@@ -74,46 +74,16 @@ class PembekalanController extends Controller
         $data_pembekalan = Pembekalan::with([
             'surat_penegasan' => function($query) {
                 return $query->orderBy('tgl_surat', 'ASC');
-            }, 'metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic', 'peserta', 'schedule', 'jenis_pembekalan', 'penyelenggara'])->where('is_done', false)->get();
+            },
+            'pic',
+            'peserta',
+            'pengajar',
+            'schedule',
+            'penyelenggara',
+            'jenis_pembekalan',
+            'materi_pembekalan',
+            'metode_pembekalan'])->get();
 
-        // if($request->ajax()){
-        //     $data = Pembekalan::with([
-        //         'bank', 'metode_pembekalan', 'materi_pembekalan', 'pengajar', 'pic', 'peserta', 'schedule'
-        //         ]);
-        //     return Datatables::of($data)->addIndexColumn()
-        //         ->addColumn('bank', function (Pembekalan $pembekalan){
-        //             return $pembekalan->bank->nama;
-        //         })
-        //         ->addColumn('materi_pembekalan', function (Pembekalan $pembekalan){
-        //             return $pembekalan->materi_pembekalan->materi;
-        //         })
-        //         ->addColumn('pengajar', function (Pembekalan $pembekalan){
-        //             return $pembekalan->pengajar->nama;
-        //         })
-        //         ->addColumn('pic', function (Pembekalan $pembekalan){
-        //             if($pembekalan->pic->midle_name == null){
-        //                 return $pembekalan->pic->first_name . ' ' .$pembekalan->pic->last_name;
-        //             } elseif($pembekalan->pic->last_name == null){
-        //                 return $pembekalan->pic->first_name . ' ' .$pembekalan->pic->midle_name;
-        //             } elseif($pembekalan->pic->last_name && $pembekalan->pic->last_name == null){
-        //                 return $pembekalan->pic->first_name;
-        //             } else {
-        //                 return $pembekalan->pic->first_name . ' ' .$pembekalan->pic->midle_name . ' ' . $pembekalan->pic->last_name;
-        //             }
-        //         })
-        //         ->addColumn('tanggal_mulai', function($row){
-        //             $tgl = $row['tanggal_mulai']->isoFormat('dddd, DD MMMM YYYY');
-        //             return $tgl;
-        //         })
-        //         ->addColumn('action', function($row){
-        //             $btn = '<a href="javascript:void(0)" class="btn btn-soft-primary btn-sm">View</a>';
-        //             return $btn;
-        //         })
-        //         ->rawColumns(['action'])
-        //         ->make(true);
-        // }
-
-        // $pembekalan = Pembekalan::all();
         $surat_penegasan = SuratPenegasan::with([
             'pembekalan' => function($query){
                 return $query->with(['materi_pembekalan', 'level_pembekalan', 'pic']);
