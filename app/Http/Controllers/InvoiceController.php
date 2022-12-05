@@ -8,6 +8,7 @@ use App\Models\Invoice;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\DetailInvoice;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class InvoiceController extends Controller
 {
@@ -116,8 +117,9 @@ class InvoiceController extends Controller
     {
         $invoice = Invoice::with([
             'pembekalan' => function($query) {
-                return $query->with('metode_pembekalan', 'materi_pembekalan', 'bank', 'pic');
-            }])->firstWhere('id', $id);
+                return $query->with('metode_pembekalan', 'materi_pembekalan', 'bank', 'pic', 'surat_penegasan', 'jenis_pembekalan', 'penyelenggara');
+            }, 'bpo'])->firstWhere('id', $id);
+        // dd($invoice);
         $slug_bank = Str::slug($invoice->pembekalan->bank->nama);
         $filename = "INV-{$invoice->tanggal->isoFormat('DDMMYYYY')}-{$slug_bank}.pdf";
         $invoice->dokumen = $filename;

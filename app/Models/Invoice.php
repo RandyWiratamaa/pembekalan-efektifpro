@@ -11,7 +11,7 @@ class Invoice extends Model
     protected $table = 'invoice';
     protected $dates = ['tanggal', 'jatuh_tempo'];
     protected $fillable = [
-        'pembekalan_uuid', 'no_invoice', 'perihal', 'body',
+        'pembekalan_uuid', 'no_invoice', 'perihal', 'body', 'approved_by'
     ];
 
     public function bpo()

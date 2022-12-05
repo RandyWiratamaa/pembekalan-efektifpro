@@ -209,7 +209,7 @@
                                             <i class='mdi mdi-dots-horizontal font-18'></i>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-end">
-                                            <a class="dropdown-item" href="#">
+                                            <a href="{{ url('invoice/generate-PDF/` + row.id + `') }}" class="dropdown-item" target="_blank">
                                                 <i class='mdi mdi-download text-primary me-1'></i> Simpan Invoice
                                             </a>
                                         </div>

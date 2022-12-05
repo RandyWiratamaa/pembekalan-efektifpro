@@ -83,7 +83,11 @@
         </div>
 
         <div class="nomor" style="margin-bottom:20px;margin-top:20px">
-            <p>{{ $surat_penawaran->bank->nama }}<br />{{ $surat_penawaran->bank->alamat }}<br />{{ $surat_penawaran->bank->kota }} - {{ $surat_penawaran->bank->kode_pos }}</p>
+            <p>
+                {{ $surat_penawaran->bank->nama }}<br />
+                {{ $surat_penawaran->bank->alamat }}<br />
+                {{ $surat_penawaran->bank->kota }} - {{ $surat_penawaran->bank->kode_pos }}
+            </p>
         </div>
 
         <div class="nomor">
