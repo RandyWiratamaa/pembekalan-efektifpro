@@ -124,7 +124,13 @@
             <p>{{ $invoice->pembekalan->pic->jabatan }}</p>
         </div>
         <div class="nomor">
-            <p>Perihal : {{ $invoice->perihal }}</p>
+            <p><u>Perihal : {{ $invoice->perihal }}</u></p>
+        </div>
+        <div class="nomor">
+            <p style="text-indent:40px; margin-top: -10px">
+                {{ strtoupper($invoice->pembekalan->penyelenggara->singkatan) }} -
+                {{ ucwords($invoice->pembekalan->penyelenggara->nama) }}
+            </p>
         </div>
         @php
             // $body = $invice->body;
@@ -148,45 +154,12 @@
         </div>
     </main>
 
-    {{-- <table>
-        <thead>
-            <tr>
-                <td>
-                <!--place holder for the fixed-position header-->
-                    <div class="page-header-space"></div>
-                </td>
-            </tr>
-        </thead>
-
-        <tbody>
-            <tr>
-                <td>
-                    <!--*** CONTENT GOES HERE ***-->
-                    <div class="page">
-                        <div style="text-align: justify">
-                            {!! $berita_acara->body !!}
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-
-        <tfoot>
-            <tr>
-                <td>
-                    <!--place holder for the fixed-position footer-->
-                    <div class="page-footer-space"></div>
-                </td>
-            </tr>
-        </tfoot>
-
-    </table> --}}
     <div class="next-page">
         <main>
             <table style="width: 100%">
                 <tr>
                     <td style="width: 50%">
-                        <span style="font-size: 16px">{{ $invoice->pembekalan->bank->nama }}</span><br/>
+                        <strong><span style="font-size: 16px">{{ $invoice->pembekalan->bank->nama }}</span></strong><br/>
                         {{ $invoice->pembekalan->bank->alamat }}<br />
                         {{ $invoice->pembekalan->bank->kota }} - {{ $invoice->pembekalan->bank->kode_pos }}
                     </td>
@@ -214,27 +187,35 @@
                 </tr>
             </table>
 
-            <div class="nomor">
-                <p>
-                    Up. Yth : @if ($invoice->pembekalan->pic->jenkel == 'perempuan') Ibu @else Bapak @endif
-                    @if ($invoice->pembekalan->pic->midle_name == '')
-                        {{ $invoice->pembekalan->pic->first_name }} {{ $invoice->pembekalan->pic->last_name }}
-                    @elseif($invoice->pembekalan->pic->last_name == '')
-                        {{ $invoice->pembekalan->pic->first_name }} {{ $invoice->pembekalan->pic->midle_name }}
-                    @elseif($invoice->pembekalan->pic->last_name == '' && $invoice->pembekalan->pic->midle_name == '')
-                        {{ $invoice->pembekalan->pic->first_name }}
-                    @else
-                        {{ $invoice->pembekalan->pic->first_name }} {{ $invoice->pembekalan->pic->midle_name }} {{ $invoice->pembekalan->pic->last_name }}
-                    @endif
-                </p>
-            </div>
-            <div class="nomor" style="padding-left:50px; margin-top:-25px">
-                <p>{{ $invoice->pembekalan->pic->jabatan }}</p>
-            </div>
+            <table style="width: 100%">
+                <tr>
+                    <td style="width: 50%">
+                        <div class="nomor">
+                            <p>
+                                Up. Yth : @if ($invoice->pembekalan->pic->jenkel == 'perempuan') Ibu @else Bapak @endif
+                                @if ($invoice->pembekalan->pic->midle_name == '')
+                                    {{ $invoice->pembekalan->pic->first_name }} {{ $invoice->pembekalan->pic->last_name }}
+                                @elseif($invoice->pembekalan->pic->last_name == '')
+                                    {{ $invoice->pembekalan->pic->first_name }} {{ $invoice->pembekalan->pic->midle_name }}
+                                @elseif($invoice->pembekalan->pic->last_name == '' && $invoice->pembekalan->pic->midle_name == '')
+                                    {{ $invoice->pembekalan->pic->first_name }}
+                                @else
+                                    {{ $invoice->pembekalan->pic->first_name }} {{ $invoice->pembekalan->pic->midle_name }} {{ $invoice->pembekalan->pic->last_name }}
+                                @endif
+                            </p>
+                        </div>
+                        <div class="nomor" style="padding-left:50px; margin-top:-25px">
+                            <p>{{ $invoice->pembekalan->pic->jabatan }}</p>
+                        </div>
+                    </td>
+                    <td style="width: 50%">
+                        <div class="tanggal">
+                            No. PO
+                        </div>
+                    </td>
+                </tr>
+            </table>
 
-            <div class="tanggal">
-                No. PO
-            </div>
 
             <table border="1" style="border-style: solid; border-collapse:collapse">
                 <tr style="text-align: center">

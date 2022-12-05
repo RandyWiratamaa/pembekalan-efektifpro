@@ -117,9 +117,16 @@ class InvoiceController extends Controller
     {
         $invoice = Invoice::with([
             'pembekalan' => function($query) {
-                return $query->with('metode_pembekalan', 'materi_pembekalan', 'bank', 'pic', 'surat_penegasan', 'jenis_pembekalan', 'penyelenggara');
+                return $query->with(
+                    'pic',
+                    'bank',
+                    'surat_penegasan',
+                    'jenis_pembekalan',
+                    'metode_pembekalan',
+                    'materi_pembekalan',
+                    'penyelenggara');
             }, 'bpo'])->firstWhere('id', $id);
-        // dd($invoice);
+
         $slug_bank = Str::slug($invoice->pembekalan->bank->nama);
         $filename = "INV-{$invoice->tanggal->isoFormat('DDMMYYYY')}-{$slug_bank}.pdf";
         $invoice->dokumen = $filename;

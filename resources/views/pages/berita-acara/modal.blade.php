@@ -128,14 +128,18 @@
                 <h4 class="modal-title">Kirim {{ $page_name }}</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="#" method="POST" enctype="multipart/form-data">
+            <form action="{{ url('berita-acara/send-email/'.$i->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body p-4">
                     <div class="row">
                         <h3>Kirim Berita Acara : </h3><br>
-                            <h4><span class="text-dark"><strong>{{ $i->pembekalan->materi_pembekalan->kode }} - {{ $i->pembekalan->bank->nama }}</strong></span></h4>
+                        <h4><span class="text-dark">
+                            <strong>
+                                {{ $i->pembekalan->materi_pembekalan->kode }} - {{ $i->pembekalan->bank->nama }}
+                            </strong></span>
+                        </h4>
                         <div class="col-12">
-
+                            <input type="text" name="email_pic" class="form-control" value="{{ $i->pembekalan->pic->email_kantor }}">
                         </div>
                     </div>
                 </div>

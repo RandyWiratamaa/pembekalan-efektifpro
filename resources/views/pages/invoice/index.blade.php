@@ -212,6 +212,9 @@
                                             <a href="{{ url('invoice/generate-PDF/` + row.id + `') }}" class="dropdown-item" target="_blank">
                                                 <i class='mdi mdi-download text-primary me-1'></i> Simpan Invoice
                                             </a>
+                                            <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalKirimInvoice` + row.id + `">
+                                                <i class='mdi mdi-send text-primary me-1'></i> Kirim Invoice
+                                            </a>
                                         </div>
                                     </div>`;
                             }

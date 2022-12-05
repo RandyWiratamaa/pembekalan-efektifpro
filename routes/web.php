@@ -78,6 +78,7 @@ Route::group(['middleware' => 'auth'], function (){
     Route::match(['put', 'patch'], 'berita-acara/approve/{id}', [App\Http\Controllers\BeritaAcaraController::class, 'approve'])->name('berita-acara.approve');
     Route::get('berita-acara/generate-PDF/{id}', [App\Http\Controllers\BeritaAcaraController::class, 'generatePDF'])->name('berita-acara.generate-PDF');
     Route::delete('berita-acara/{id}', [App\Http\Controllers\BeritaAcaraController::class, 'destroy'])->name('berita-acara.destroy');
+    Route::post('berita-acara/send-email/{id}', [App\Http\Controllers\BeritaAcaraController::class, 'sendEmail'])->name('berita-acara.send-email');
 
     Route::get('bpo', [App\Http\Controllers\BpoController::class, 'index'])->name('bpo.index');
     Route::post('bpo', [App\Http\Controllers\BpoController::class, 'store'])->name('bpo.store');

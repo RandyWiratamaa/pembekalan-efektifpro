@@ -8,7 +8,9 @@ use App\Models\Bank;
 use App\Models\BeritaAcara;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Mail\BeritaAcaraMail;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Mail;
 
 class BeritaAcaraController extends Controller
 {
@@ -158,6 +160,30 @@ class BeritaAcaraController extends Controller
             return redirect()->route('berita-acara.index');
         } else {
             return redirect()->back()->withInput();
+        }
+    }
+
+    public function sendEmail(Request $request, $id)
+    {
+        $email = $request->email_pic;
+        $berita_acara = BeritaAcara::with([
+            'pembekalan' => function($query){
+                return $query->with(['materi_pembekalan', 'bank', 'level_pembekalan', 'pic', 'jenis_pembekalan']);
+            }, 'bpo'])->firstWhere('id', $id);
+
+        Mail::to($email)->send(new BeritaAcaraMail($berita_acara));
+
+        if(Mail::flushMacros()){
+            return response()->with([
+                alert()->warning('Gagal', 'Pesanan Gagal')
+            ]);
+        } else {
+            // DB::table('surat_penegasan')->where('pembekalan_uuid', $uuid)->update(['status', 1]);
+            BeritaAcara::where([
+                ['id', $id]
+            ])->update(['status' => 1]);
+            toastr()->success('Berita Acara berhasil dikirim ke email PIC');
+            return redirect()->route('berita-acara.index');
         }
     }
 }
