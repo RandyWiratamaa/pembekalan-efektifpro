@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use DataTables;
+use App\Models\Bpo;
 use App\Models\Invoice;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -38,6 +39,7 @@ class InvoiceController extends Controller
                 return $query->with('metode_pembekalan', 'materi_pembekalan', 'bank', 'pic');
             }])->get();
 
+        $bpo = Bpo::all();
         return view('pages.invoice.index', get_defined_vars());
     }
 

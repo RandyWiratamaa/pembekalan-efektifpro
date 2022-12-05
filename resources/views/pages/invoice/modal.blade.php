@@ -113,3 +113,40 @@
     </div>
 </div>
 @endforeach
+
+@foreach ($data as $i)
+<div id="modalApproveInvoice{{ $i->id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Approve {{ $page_name }}</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ url('invoice/approve', $i->id) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PATCH')
+                <div class="modal-body p-4">
+                    <div class="row">
+                        <h3>Approve Invoice : </h3><br>
+                            <h4><span class="text-dark"><strong>{{ $i->no_invoice }} - {{ $i->pembekalan->bank->nama }}</strong></span></h4>
+                        <div class="col-12">
+                            <label>Berita Acara ini diapprove oleh : </label>
+                            <select name="approved_by" id="approved_by" class="form-control">
+                                @foreach ($bpo as $j)
+                                <option value="{{ $j->id }}">{{ $j->nama }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <span class="text-muted">Setelah invoice diapprove, Invoice tidak dapat diubah ataupun dihapus.</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-info waves-effect waves-light">Approve</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endforeach

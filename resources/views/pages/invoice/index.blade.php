@@ -195,7 +195,7 @@
                                             <a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#modalHapusInvoice` + row.id + `">
                                                 <i class='mdi mdi-trash-can me-1'></i> Delete
                                             </a>
-                                            <a class="dropdown-item text-center text-dark bg-soft-success" href="#"  data-bs-toggle="modal" data-bs-target="#approve` + row.uuid + `">
+                                            <a class="dropdown-item text-center text-dark bg-soft-success" href="#"  data-bs-toggle="modal" data-bs-target="#modalApproveInvoice` + row.id + `">
                                                 Approve
                                             </a>
                                         </div>
@@ -209,10 +209,10 @@
                                             <i class='mdi mdi-dots-horizontal font-18'></i>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-end">
-                                            <a class="dropdown-item">
-                                                Simpan Invoice
-                                            </a>`
-                                        `</div>
+                                            <a class="dropdown-item" href="#">
+                                                <i class='mdi mdi-download text-primary me-1'></i> Simpan Invoice
+                                            </a>
+                                        </div>
                                     </div>`;
                             }
                         }

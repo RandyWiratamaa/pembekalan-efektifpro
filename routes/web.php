@@ -75,15 +75,14 @@ Route::group(['middleware' => 'auth'], function (){
     Route::post('berita-acara', [App\Http\Controllers\BeritaAcaraController::class, 'store'])->name('berita-acara.store');
     Route::get('berita-acara/view/{id}', [App\Http\Controllers\BeritaAcaraController::class, 'view'])->name('berita-acara.view');
     Route::match(['put', 'patch'], 'berita-acara/{id}', [App\Http\Controllers\BeritaAcaraController::class, 'update'])->name('berita-acara.update');
+    Route::match(['put', 'patch'], 'berita-acara/approve/{id}', [App\Http\Controllers\BeritaAcaraController::class, 'approve'])->name('berita-acara.approve');
+    Route::get('berita-acara/generate-PDF/{id}', [App\Http\Controllers\BeritaAcaraController::class, 'generatePDF'])->name('berita-acara.generate-PDF');
     Route::delete('berita-acara/{id}', [App\Http\Controllers\BeritaAcaraController::class, 'destroy'])->name('berita-acara.destroy');
 
     Route::get('bpo', [App\Http\Controllers\BpoController::class, 'index'])->name('bpo.index');
     Route::post('bpo', [App\Http\Controllers\BpoController::class, 'store'])->name('bpo.store');
     // Route::get('bpo/signature', [App\Http\Controllers\BpoController::class, 'signature'])->name('bpo.signature');
     // Route::post('bpo/signature', [App\Http\Controllers\BpoController::class, 'upload'])->name('signaturepad.upload');
-
-    Route::match(['put', 'patch'], 'berita-acara/approve/{id}', [App\Http\Controllers\BeritaAcaraController::class, 'approve'])->name('berita-acara.approve');
-    Route::get('berita-acara/generate-PDF/{id}', [App\Http\Controllers\BeritaAcaraController::class, 'generatePDF'])->name('berita-acara.generate-PDF');
 
     Route::get('filemanager', [App\Http\Controllers\FileManagerController::class, 'index'])->name('filemanager.index');
 
@@ -92,5 +91,6 @@ Route::group(['middleware' => 'auth'], function (){
     Route::get('invoice', [App\Http\Controllers\InvoiceController::class, 'index'])->name('invoice.index');
     Route::post('invoice', [App\Http\Controllers\InvoiceController::class, 'store'])->name('invoice.store');
     Route::match(['put', 'patch'], 'invoice/{id}', [App\Http\Controllers\InvoiceController::class, 'update'])->name('invoice.update');
+    Route::match(['put', 'patch'], 'invoice/approve/{id}', [App\Http\Controllers\InvoiceController::class, 'approve'])->name('invoice.approve');
     Route::delete('invoice/{id}', [App\Http\Controllers\InvoiceController::class, 'destroy'])->name('invoice.destroy');
 });
