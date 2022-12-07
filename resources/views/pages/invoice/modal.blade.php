@@ -150,3 +150,31 @@
     </div>
 </div>
 @endforeach
+
+@foreach ($data as $i)
+<div id="modalKirimInvoice{{ $i->id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Kirim {{ $page_name }}</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ url('invoice/send-email/'.$i->id) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body p-4">
+                    <div class="row">
+                        <h4 class="text-center"><strong>No: {{ $i->no_invoice }}</strong></h4>
+                        <h5 class="text-center">{{ $i->pembekalan->materi_pembekalan->materi }} | {{ $i->pembekalan->bank->nama }}</h5>
+                        <div class="col-12">
+                            <input type="text" name="email_pic" class="form-control" value="{{ $i->pembekalan->pic->email_kantor }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-info waves-effect waves-light">Kirim</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endforeach

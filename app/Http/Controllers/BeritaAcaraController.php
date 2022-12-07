@@ -175,7 +175,7 @@ class BeritaAcaraController extends Controller
 
         if(Mail::flushMacros()){
             return response()->with([
-                alert()->warning('Gagal', 'Pesanan Gagal')
+                alert()->warning('Gagal', 'Gagal mengirim email')
             ]);
         } else {
             // DB::table('surat_penegasan')->where('pembekalan_uuid', $uuid)->update(['status', 1]);

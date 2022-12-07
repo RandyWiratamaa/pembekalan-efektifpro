@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use DataTables;
 use App\Models\Bpo;
 use App\Models\Invoice;
+use App\Mail\InvoiceMail;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\DetailInvoice;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Mail;
 
 class InvoiceController extends Controller
 {
@@ -146,6 +148,37 @@ class InvoiceController extends Controller
         if($invoice) {
             toastr()->success('Invoice berhasil diapprove');
             return $pdf->download($filename);
+        }
+    }
+
+    public function sendEmail(Request $request, $id)
+    {
+        $email = $request->email_pic;
+        $invoice = Invoice::with([
+            'pembekalan' => function($query) {
+                return $query->with(
+                    'pic',
+                    'bank',
+                    'surat_penegasan',
+                    'jenis_pembekalan',
+                    'metode_pembekalan',
+                    'materi_pembekalan',
+                    'penyelenggara');
+            }, 'bpo'])->firstWhere('id', $id);
+
+        Mail::to($email)->send(new InvoiceMail($invoice));
+
+        if(Mail::flushMacros()){
+            return response()->with([
+                alert()->warning('Gagal', 'Gagal mengirim email')
+            ]);
+        } else {
+            // DB::table('surat_penegasan')->where('pembekalan_uuid', $uuid)->update(['status', 1]);
+            Invoice::where([
+                ['id', $id]
+            ])->update(['status' => 1]);
+            toastr()->success('Invoice berhasil dikirim ke email PIC');
+            return redirect()->route('invoice.index');
         }
     }
 }

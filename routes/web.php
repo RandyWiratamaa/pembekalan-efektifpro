@@ -95,4 +95,5 @@ Route::group(['middleware' => 'auth'], function (){
     Route::match(['put', 'patch'], 'invoice/approve/{id}', [App\Http\Controllers\InvoiceController::class, 'approve'])->name('invoice.approve');
     Route::get('invoice/generate-PDF/{id}', [App\Http\Controllers\InvoiceController::class, 'generatePDF'])->name('invoice.generate-PDF');
     Route::delete('invoice/{id}', [App\Http\Controllers\InvoiceController::class, 'destroy'])->name('invoice.destroy');
+    Route::post('invoice/send-email/{id}', [App\Http\Controllers\InvoiceController::class, 'sendEmail'])->name('invoice.send-email');
 });
