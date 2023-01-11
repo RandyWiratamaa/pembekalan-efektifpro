@@ -20,3 +20,6 @@ php artisan migrate
 ```
 php artisan db:seed
 ```
+#### Login
+- email : admin-efektifpro@gmail.com
+- password : Efektifpro*123#
