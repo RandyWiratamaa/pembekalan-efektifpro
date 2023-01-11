@@ -12,6 +12,8 @@
 
         <link rel="shortcut icon" href="{{ asset('assets/images/efpro.png') }}">
 
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.13.1/datatables.min.css"/>       
+
         <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('assets/css/app.min.css') }}" rel="stylesheet" type="text/css" id="app-style"/>
         <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
@@ -44,6 +46,20 @@
 
         <script src="{{ asset('assets/js/app.min.js') }}"></script>
 
+        
 
+        <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.13.1/datatables.min.js"></script>
+       
+       <script>
+            
+            $(document).ready( function () {
+                $('#myTable').DataTable();
+            } );
+
+            $(document).ready( function () {
+                $('#tabelPic').DataTable();
+            } );
+
+        </script>
     </body>
 </html>

@@ -6,6 +6,7 @@ use DataTables;
 use App\Models\Bank;
 use App\Models\JenisBank;
 use Illuminate\Http\Request;
+use JamesDordoy\LaravelVueDatatable\Http\Resources\DataTableCollectionResource;
 
 class BankController extends Controller
 {
