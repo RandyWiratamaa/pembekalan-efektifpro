@@ -27,7 +27,7 @@
                     <div id="tableBank" class="collapse show">
                         <div class="table-responsive pt-3">
                             <button type="button" class="btn btn-soft-success waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#addBank">Tambah</button>
-                            <table class="table table-bordered table-centered mb-0 bank" style="width:100%" id="myTable">
+                            <table class="table table-bordered table-centered mb-0 bank" style="width:100%" id="myTabel">
                                 <thead class="table-light">
                                     <tr>
                                         <th class="text-center">Nama Bank</th>
@@ -40,7 +40,28 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
+                                    @foreach ($data as $i)
+                                    <tr>
+                                        <td>{{ $i->nama }}</td>
+                                        <td>{{ $i->jenis_id }}</td>
+                                        <td>{{ $i->alamat }}</td>
+                                        <td>{{ $i->email }}</td>
+                                        <td>{{ $i->kota }}</td>
+                                        <td>{{ $i->kode_pos }}</td>
+                                        <td class="text-center">
+                                            <div class="dropdown text-center">
+                                                <a href="#" class="dropdown-toggle card-drop arrow-none" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="mdi mdi-dots-horizontal m-0 text-muted h3"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-end">
+                                                    <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editBank` + row.id + `"><i class="fas fa-edit"></i> Edit </a>
+                                                    <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#deleteBank` + row.id + `"><i class="fas fa-trash"></i> Delete</a>
+                                                </div>
+                                            </div>`;
+                                        </td>
+                                
+                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -55,4 +76,17 @@
 
 @endsection
 
+@once
+    @push('javascript')
+   
+            <script type="text/javascript">
+    $(function () {
+      var table = $('#myTabel').DataTable({
+         
+        });
+    });
+</script>
+    
+    @endpush
+@endonce
 

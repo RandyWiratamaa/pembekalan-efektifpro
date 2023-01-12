@@ -28,7 +28,7 @@
                     <div id="tableBank" class="collapse show">
                         <div class="table-responsive pt-3">
                             <button type="button" class="btn btn-soft-success waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#addPIC">Tambah</button>
-                            <table class="table table-bordered table-centered mb-0 pic" style="width:100%" id="tabelPic">
+                            <table class="table table-bordered table-centered mb-0 pic" style="width:100%" id="btn-editable">
                                 <thead class="table-light">
                                     <tr>
                                         <th class="text-center">Nama</th>
@@ -52,5 +52,6 @@
     </div>
 </div>
 @include('pages.pic.modal')
+
 @endsection
 

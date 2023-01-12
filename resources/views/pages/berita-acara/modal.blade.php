@@ -132,7 +132,7 @@
                 @csrf
                 <div class="modal-body p-4">
                     <div class="row">
-                        <h3>Kirim Berita Acara : </h3><br>
+                        <h3>    Kirim Berita Acara : </h3><br>
                         <h4><span class="text-dark">
                             <strong>
                                 {{ $i->pembekalan->materi_pembekalan->kode }} - {{ $i->pembekalan->bank->nama }}
