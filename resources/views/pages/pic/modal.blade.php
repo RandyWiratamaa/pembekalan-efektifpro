@@ -270,3 +270,54 @@
     </div>
 </div>
 @endforeach
+
+
+@once
+    @push('javascript')    
+
+    <script type="text/javascript">
+        $(function () {
+          var table = $('.pic').DataTable({
+              processing: true,
+              serverSide: true,
+              ajax: "{{ route('pic.index') }}",
+              columns: [
+                    {data: 'first_name', name: 'first_name',
+                        "render": function (data, type, row) {
+                            if(row.midle_name == null) {
+                                return row.first_name + ' ' + row.last_name
+                            } else if(row.last_name == null) {
+                                return row.first_name + ' ' + row.midle_name
+                            } else if (row.midle_name && row.last_name == null) {
+                                return row.first_name
+                            } else {
+                                return row.first_name + ' ' + row.midle_name + ' ' + row.last_name
+                            }
+                        }
+                    },
+                    {data: 'nama_bank', name: 'bank.nama'},
+                    {data: 'no_hp', name: 'no_hp'},
+                    {data: 'alamat_bank', name: 'bank.alamat'},
+                    {data: 'alamat_rumah', name: 'alamat_rumah'},
+                    {data: 'email_pribadi', name: 'email_pribadi'},
+                    {data: 'jabatan', name: 'jabatan'},
+                    {data: 'action', name: 'action', orderable: false, searchable: false,
+                        "render": function (data, type, row) {
+                            return `<div class="dropdown text-center">
+                                        <a href="#" class="dropdown-toggle card-drop arrow-none" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="mdi mdi-dots-horizontal m-0 text-muted h3"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#view` + row.id + `"><i class="fas fa-eye"></i> View</a>
+                                            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editPIC` + row.id + `"><i class="fas fa-edit"></i> Edit </a>
+                                            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#deletePIC` + row.id + `"><i class="fas fa-trash"></i> Delete</a>
+                                        </div>
+                                    </div>`;
+                        }
+                    }
+              ]
+          });
+        });
+    </script>
+    @endpush
+@endonce

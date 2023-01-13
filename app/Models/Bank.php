@@ -9,10 +9,12 @@ use App\Models\SuratPenawaran;
 use App\Models\SuratPenegasan;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use JamesDordoy\LaravelVueDatatable\Traits\LaravelVueDatatableTrait;
 
 class Bank extends Model
 {
-    use HasFactory;
+    use HasFactory, LaravelVueDatatableTrait;
+    
     protected $table = 'bank';
     protected $dates = ['created_at'];
     protected $fillable = [

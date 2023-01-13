@@ -1,25 +1,6 @@
 @extends('layouts.main')
-
-@once
-    @push('css')
-        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-        <link href="assets/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/libs/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/libs/datatables.net-select-bs5/css//select.bootstrap5.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/libs/dropify/css/dropify.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/libs/mohithg-switchery/switchery.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/libs/multiselect/css/multi-select.css" rel="stylesheet" type="text/css" />
-        <link href="assets/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/libs/selectize/css/selectize.bootstrap3.css" rel="stylesheet" type="text/css" />
-        <link href="assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" type="text/css" />
-
-        <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-    @endpush
-@endonce
-
 @section('content')
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
@@ -121,7 +102,7 @@
                                     <table id="tb-invoice" class="table table-bordered table-centered mb-0 bank" style="width:100%">
                                         <thead class="table-light">
                                             <tr>
-                                                <th class="text-center">No. Invoice</th>
+                                                <th class="text-center">No. Invoice</th> 
                                                 <th class="text-center">Tanggal</th>
                                                 <th class="text-center">Bank</th>
                                                 <th class="text-center">Action</th>
@@ -144,29 +125,7 @@
 
 @once
     @push('javascript')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-
-    <script src="assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="assets/libs/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
-    <script src="assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="assets/libs/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
-    <script src="assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="assets/libs/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
-    <script src="assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
-    <script src="assets/libs/datatables.net-buttons/js/buttons.flash.min.js"></script>
-    <script src="assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
-    <script src="assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-    <script src="assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
-    <script src="assets/libs/pdfmake/build/pdfmake.min.js"></script>
-    <script src="assets/libs/pdfmake/build/vfs_fonts.js"></script>
-    <script src="{{ asset('assets/js/moment.js') }}"></script>
-
-    <script src="assets/js/pages/datatables.init.js"></script>
-    <script src="assets/js/app.min.js"></script>
-
+       
     <script>
         $(function () {
             var table = $('#tb-invoice').DataTable({

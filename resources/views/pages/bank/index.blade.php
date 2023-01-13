@@ -1,15 +1,6 @@
 @extends('layouts.main')
-
-@once
-    @push('css')
-        <link href="assets/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/libs/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/libs/datatables.net-select-bs5/css//select.bootstrap5.min.css" rel="stylesheet" type="text/css" />
-    @endpush
-@endonce
-
 @section('content')
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
@@ -36,7 +27,7 @@
                     <div id="tableBank" class="collapse show">
                         <div class="table-responsive pt-3">
                             <button type="button" class="btn btn-soft-success waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#addBank">Tambah</button>
-                            <table class="table table-bordered table-centered mb-0 bank" style="width:100%" id="bank">
+                            <table class="table table-bordered table-centered mb-0 bank" style="width:100%" id="myTabel">
                                 <thead class="table-light">
                                     <tr>
                                         <th class="text-center">Nama Bank</th>
@@ -49,7 +40,28 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
+                                    @foreach ($data as $i)
+                                    <tr>
+                                        <td>{{ $i->nama }}</td>
+                                        <td>{{ $i->jenis_id }}</td>
+                                        <td>{{ $i->alamat }}</td>
+                                        <td>{{ $i->email }}</td>
+                                        <td>{{ $i->kota }}</td>
+                                        <td>{{ $i->kode_pos }}</td>
+                                        <td class="text-center">
+                                            <div class="dropdown text-center">
+                                                <a href="#" class="dropdown-toggle card-drop arrow-none" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="mdi mdi-dots-horizontal m-0 text-muted h3"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-end">
+                                                    <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editBank` + row.id + `"><i class="fas fa-edit"></i> Edit </a>
+                                                    <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#deleteBank` + row.id + `"><i class="fas fa-trash"></i> Delete</a>
+                                                </div>
+                                            </div>`;
+                                        </td>
+                                
+                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -66,49 +78,15 @@
 
 @once
     @push('javascript')
-    <script src="assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="assets/libs/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
-    <script src="assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="assets/libs/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
-    <script src="assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="assets/libs/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
-    <script src="assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
-    <script src="assets/libs/datatables.net-buttons/js/buttons.flash.min.js"></script>
-    <script src="assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
-    <script src="assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-    <script src="assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
-    <script src="assets/libs/pdfmake/build/pdfmake.min.js"></script>
-    <script src="assets/libs/pdfmake/build/vfs_fonts.js"></script>
-
-    <script type="text/javascript">
-        $(function () {
-          var table = $('#bank').DataTable({
-              processing: true,
-              serverSide: true,
-              ajax: "{{ route('bank.index') }}",
-              columns: [
-                    {data: 'nama', name: 'nama'},
-                    {data: 'jenis_bank', name: 'jenis_bank.jenis'},
-                    {data: 'alamat', name: 'alamat'},
-                    {data: 'email', name: 'email'},
-                    {data: 'kota', name: 'kota'},
-                    {data: 'kode_pos', name: 'kode_pos'},
-                    {data: 'action', name: 'action', orderable: false, searchable: false,
-                        "render": function (data, type, row) {
-                            return `<div class="dropdown text-center">
-                                        <a href="#" class="dropdown-toggle card-drop arrow-none" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="mdi mdi-dots-horizontal m-0 text-muted h3"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-end">
-                                            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editBank` + row.id + `"><i class="fas fa-edit"></i> Edit </a>
-                                            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#deleteBank` + row.id + `"><i class="fas fa-trash"></i> Delete</a>
-                                        </div>
-                                    </div>`;
-                        }
-                    }
-              ]
-            });
+   
+            <script type="text/javascript">
+    $(function () {
+      var table = $('#myTabel').DataTable({
+         
         });
-    </script>
+    });
+</script>
+    
     @endpush
 @endonce
+
