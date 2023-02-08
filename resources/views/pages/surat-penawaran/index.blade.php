@@ -65,6 +65,43 @@
                                 </form>
                             </div>
                         </div>
+                        <div class="row mt-2">
+                            <div class="col-sm-12">
+                                <form class="search-bar form-inline" method="get" action="{{ route('surat-penawaran.index') }}" >
+                                    @csrf
+                                    <label class="form-label">Daftar Nama Program Pembekalan</label>
+                                    <div class="input-group">
+                                        <select class="form-select" name="materi_id" id="materi_id" type="text" placeholder="Cari berdasarkan nama Program Pembekalan">
+                                            <option value="">-- Cari berdasarkan nama Program Pembekalan --</option>
+                                            @foreach ($materi as $i)
+                                            <option value="{{ $i->id }}">{{ $i->materi }}</option>
+                                            @endforeach
+                                        </select>
+                                        <button type="submit" class="btn waves-effect waves-light btn-primary">
+                                            <i class="mdi mdi-magnify"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-12">
+                                <form method="get" action="#" >
+                                    @csrf
+                                    <div class="col-sm-12 mb-1">
+                                        <label class="form-label">Dari</label>
+                                        <input type="date" name="dari" id="dari" class="form-control">
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label class="form-label">Ke</label>
+                                        <input type="date" name="ke" id="ke" class="form-control">
+                                    </div>
+                                    <button type="submit" class="btn btn-sm waves-effect waves-light btn-primary mt-1 float-end">
+                                        <i class="mdi mdi-magnify"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
