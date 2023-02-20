@@ -19,6 +19,7 @@ use App\Models\MateriPembekalan;
 use App\Models\MetodePembekalan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Carbon\Carbon;
 
 class SuratPenegasanController extends Controller
 {
@@ -57,6 +58,10 @@ class SuratPenegasanController extends Controller
                 }
                 , 'materi_pembekalan', 'level_pembekalan', 'bank', 'penyelenggara', 'jenis_pembekalan'
             ])->where('bank_id', $request->get('bank_id'))->get();
+        } elseif(request()->start_date || request()->end_date) {
+            $start_date = Carbon::parse(request()->start_date)->toDateTimeString();
+            $end_date = Carbon::parse(request()->end_date)->toDateTimeString();
+            $surat_penegasan = SuratPenegasan::whereBetween('tgl_surat',[$start_date,$end_date])->get();
         } else{
             $surat_penegasan = SuratPenegasan::with([
                     'pembekalan' => function($q) {

@@ -20,6 +20,7 @@ use App\Models\MateriPembekalan;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\MetodePembekalan;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class SuratPenawaranController extends Controller
 {
@@ -87,7 +88,11 @@ class SuratPenawaranController extends Controller
                 'pembekalan' => function($query){
                     return $query->with(['materi_pembekalan']);
             }, 'bank', 'jenis_pembekalan', 'penyelenggara'])->where('materi_id', $request->get('materi_id'))->get();
-        } else {
+        } elseif(request()->start_date || request()->end_date) {
+            $start_date = Carbon::parse(request()->start_date)->toDateTimeString();
+            $end_date = Carbon::parse(request()->end_date)->toDateTimeString();
+            $surat_penawaran = SuratPenawaran::whereBetween('tgl_surat',[$start_date,$end_date])->get();
+        }else {
             $surat_penawaran = SuratPenawaran::with([
                 'pembekalan' => function($query){
                     return $query->with(['materi_pembekalan']);

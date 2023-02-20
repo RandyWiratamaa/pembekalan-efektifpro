@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Models\DetailInvoice;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Mail;
+use Carbon\Carbon;
 
 class InvoiceController extends Controller
 {
@@ -36,6 +37,10 @@ class InvoiceController extends Controller
                 })
                 ->rawColumns(['action'])
                 ->make(true);
+        }elseif(request()->start_date || request()->end_date) {
+            $start_date = Carbon::parse(request()->start_date)->toDateTimeString();
+            $end_date = Carbon::parse(request()->end_date)->toDateTimeString();
+            $data = Invoice::whereBetween('tanggal',[$start_date,$end_date])->get();
         }
         $data = Invoice::with([
             'pembekalan' => function($query) {

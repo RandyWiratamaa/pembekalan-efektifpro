@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Mail\BeritaAcaraMail;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Mail;
+use Carbon\Carbon;
 
 class BeritaAcaraController extends Controller
 {
@@ -47,6 +48,10 @@ class BeritaAcaraController extends Controller
                 })
                 ->rawColumns(['action'])
                 ->make(true);
+        }elseif(request()->start_date || request()->end_date) {
+            $start_date = Carbon::parse(request()->start_date)->toDateTimeString();
+            $end_date = Carbon::parse(request()->end_date)->toDateTimeString();
+            $berita_acara = BeritaAcara::whereBetween('tanggal',[$start_date,$end_date])->get();
         }
         return view('pages.berita-acara.index', get_defined_vars());
     }
