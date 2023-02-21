@@ -33,9 +33,9 @@
                                     <div class="input-group">
                                         <select class="form-select" name="bank_id" id="bank_id" type="text" placeholder="Cari berdasarkan nama Bank">
                                             <option value="">-- Cari berdasarkan nama Bank --</option>
-                                            {{-- @foreach ($bank as $i)
+                                            @foreach ($bank as $i)
                                             <option value="{{ $i->id }}">{{ $i->nama }}</option>
-                                            @endforeach --}}
+                                            @endforeach
                                         </select>
                                         <button type="submit" class="btn waves-effect waves-light btn-primary">
                                             <i class="mdi mdi-magnify"></i>

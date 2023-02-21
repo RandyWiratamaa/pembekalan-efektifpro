@@ -218,18 +218,9 @@
     <script>
         $(document).ready(function() {
             $('#body').summernote();
-        });
-        $(document).ready(function() {
+            var table = $('#spenegasan').DataTable();
             $('.body_penegasan').summernote();
         });
     </script>
-    
-    <script type="text/javascript">
-        $(function () {
-          var table = $('#spenegasan').DataTable({
-              
-          });
-        });
-        </script>
     @endpush
 @endonce

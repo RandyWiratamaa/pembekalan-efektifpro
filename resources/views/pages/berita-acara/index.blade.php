@@ -37,7 +37,7 @@
                                             <option value="{{ $i->id }}">{{ $i->nama }}</option>
                                             @endforeach
                                         </select>
-                                        <button type="submit" class="btn waves-effect waves-light btn-primary">
+                                        <button type="submit" id="bankSearch" class="btn waves-effect waves-light btn-primary">
                                             <i class="mdi mdi-magnify"></i>
                                         </button>
                                     </div>
@@ -52,11 +52,11 @@
                                     <div class="input-group">
                                         <select class="form-select" name="materi_id" id="materi_id" type="text" placeholder="Cari berdasarkan nama Program Pembekalan">
                                             <option value="">-- Cari berdasarkan nama Program Pembekalan --</option>
-                                            {{-- @foreach ($materi as $i)
+                                            @foreach ($materi as $i)
                                             <option value="{{ $i->id }}">{{ $i->materi }}</option>
-                                            @endforeach --}}
+                                            @endforeach
                                         </select>
-                                        <button type="submit" class="btn waves-effect waves-light btn-primary">
+                                        <button type="submit" id="pembekalanSearch" class="btn waves-effect waves-light btn-primary">
                                             <i class="mdi mdi-magnify"></i>
                                         </button>
                                     </div>
@@ -69,13 +69,13 @@
                                     @csrf
                                     <div class="col-sm-12 mb-1">
                                         <label class="form-label">Dari</label>
-                                        <input type="date" name="start_date" class="form-control">
+                                        <input type="date" name="start_date" id="start_date" class="form-control" value="{{ \Carbon\Carbon::now()->format('m/d/Y') }}">
                                     </div>
                                     <div class="col-sm-12">
                                         <label class="form-label">Ke</label>
-                                        <input type="date" name="end_date" class="form-control">
+                                        <input type="date" name="end_date" id="end_date" class="form-control" value="{{ \Carbon\Carbon::now()->format('m/d/Y') }}">
                                     </div>
-                                    <button type="submit" class="btn btn-sm waves-effect waves-light btn-primary mt-1 float-end">
+                                    <button type="submit" class="btn btn-sm waves-effect waves-light btn-primary mt-1 float-end" id="dateSearch">
                                         <i class="mdi mdi-magnify"></i>
                                     </button>
                                 </form>
@@ -177,15 +177,23 @@
     
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function(){
             $('.ubah-berita-acara').summernote();
-        });
 
-        $(function () {
             var table = $('#tb_beritaAcara').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('berita-acara.index') }}",
+                ajax: {
+                    url: "{{ route('berita-acara.index') }}",
+                    type:"GET",
+                    data: function(d){
+                        _token            = '{{ csrf_token() }}',
+                        d.banksearch = $('#bank_id').val();
+                        d.pembekalansearch = $('#materi_id').val();
+                        d.start_date = $('#start_date').val();
+                        d.end_date = $('#end_date').val();
+                    }
+            },
                 columns: [
                     {data: 'tanggal', name: 'tanggal'},
                     {data: 'bank', name: 'pembekalan.bank.nama'},
@@ -256,7 +264,35 @@
                     }
                 ]
             })
-        })
+
+        // $('#bank_id').on('change',function(){
+        //     table.draw();
+        // });
+
+        // $('#materi_id').on('change',function(){
+        //     table.draw();
+        // });
+
+        // $('#start_date').on('change',function(){
+        //     table.draw();
+        // });
+
+        // $('#end_date').on('change',function(){
+        //     table.draw();
+        // });
+
+        $('#bankSearch').on('click', function(){
+            table.draw();
+        });
+
+        $('#pembekalanSearch').on('click', function(){
+            table.draw();
+        });
+
+        $('#searchDate').on('click', function(){
+            $('#tb_beritaAcara').DataTable().draw(true);
+        });
+    });
 
         $(document).on('change', '.image', function(){
             var filesCount = $(this)[0].files.length;
