@@ -25,7 +25,7 @@
                     </div>
                     <h5 class="header-title mb-2">Filter Data</h5>
                     <div id="search" class="collapse show">
-                        <div class="row">
+                        <div class="row mt-2">
                             <div class="col-sm-12">
                                 <form class="search-bar form-inline" method="get" action="{{ route('surat-penegasan.index') }}" >
                                     @csrf
@@ -41,6 +41,43 @@
                                             <i class="mdi mdi-magnify"></i>
                                         </button>
                                     </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-sm-12">
+                                <form class="search-bar form-inline" method="get" action="{{ route('surat-penegasan.index') }}" >
+                                    @csrf
+                                    <label class="form-label">Daftar Nama Program Pembekalan</label>
+                                    <div class="input-group">
+                                        <select class="form-select" name="materi_id" id="materi_id" type="text" placeholder="Cari berdasarkan nama Program Pembekalan">
+                                            <option value="">-- Cari berdasarkan nama Program Pembekalan --</option>
+                                            @foreach ($materi as $i)
+                                            <option value="{{ $i->id }}">{{ $i->materi }}</option>
+                                            @endforeach
+                                        </select>
+                                        <button type="submit" class="btn waves-effect waves-light btn-primary">
+                                            <i class="mdi mdi-magnify"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-12">
+                                <form method="get" action="{{ route('surat-penegasan.index') }}" >
+                                    @csrf
+                                    <div class="col-sm-12 mb-1">
+                                        <label class="form-label">Dari</label>
+                                        <input type="date" name="start_date" class="form-control">
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label class="form-label">Ke</label>
+                                        <input type="date" name="end_date" class="form-control">
+                                    </div>
+                                    <button type="submit" class="btn btn-sm waves-effect waves-light btn-primary mt-1 float-end">
+                                        <i class="mdi mdi-magnify"></i>
+                                    </button>
                                 </form>
                             </div>
                         </div>
@@ -181,18 +218,9 @@
     <script>
         $(document).ready(function() {
             $('#body').summernote();
-        });
-        $(document).ready(function() {
+            var table = $('#spenegasan').DataTable();
             $('.body_penegasan').summernote();
         });
     </script>
-    
-    <script type="text/javascript">
-        $(function () {
-          var table = $('#spenegasan').DataTable({
-              
-          });
-        });
-        </script>
     @endpush
 @endonce

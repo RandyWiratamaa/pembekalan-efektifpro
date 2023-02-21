@@ -6,11 +6,13 @@ use DataTables;
 use App\Models\Bpo;
 use App\Models\Bank;
 use App\Models\BeritaAcara;
+use App\Models\MateriPembekalan;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Mail\BeritaAcaraMail;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Mail;
+use Carbon\Carbon;
 
 class BeritaAcaraController extends Controller
 {
@@ -19,11 +21,18 @@ class BeritaAcaraController extends Controller
         $page_name = 'Berita Acara';
         $bank = Bank::all();
         $bpo = Bpo::all();
-        $berita_acara = BeritaAcara::with([
-            'pembekalan' => function($query){
-                return $query->with(['materi_pembekalan', 'bank']);
-            }
-            ])->orderBy('tanggal')->get();
+        $materi = MateriPembekalan::all();
+        if ($request->get('materi_id')) {
+            $instance->where('materi_id', $request->get('materi_id'));
+        }
+        if ($request->get('bank_id')) {
+            $instance->where('bank_id', $request->get('bank_id'));
+        }
+        if(request()->start_date || request()->end_date) {
+            $start_date = Carbon::parse(request()->start_date)->toDateTimeString();
+            $end_date = Carbon::parse(request()->end_date)->toDateTimeString();
+            $data = BeritaAcara::whereBetween('tanggal',[$start_date,$end_date])->get();
+        }
         if($request->ajax()){
             $data = BeritaAcara::with([
                 'pembekalan' => function($query){
@@ -46,8 +55,15 @@ class BeritaAcaraController extends Controller
                     return $btn;
                 })
                 ->rawColumns(['action'])
-                ->make(true);
+                ->make(true);             
         }
+
+        $berita_acara = BeritaAcara::with([
+            'pembekalan' => function($query){
+                return $query->with(['materi_pembekalan', 'bank']);
+            }
+            ])->orderBy('tanggal')->get();
+
         return view('pages.berita-acara.index', get_defined_vars());
     }
 

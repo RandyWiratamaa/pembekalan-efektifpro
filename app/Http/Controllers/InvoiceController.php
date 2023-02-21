@@ -5,18 +5,21 @@ namespace App\Http\Controllers;
 use DataTables;
 use App\Models\Bpo;
 use App\Models\Invoice;
+use App\Models\Bank;
 use App\Mail\InvoiceMail;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\DetailInvoice;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Mail;
+use Carbon\Carbon;
 
 class InvoiceController extends Controller
 {
     public function index(Request $request)
     {
         $page_name = 'Invoice';
+        $bank = Bank::all();
         if($request->ajax()){
             $data = Invoice::with([
                 'pembekalan' => function($query) {
@@ -36,7 +39,14 @@ class InvoiceController extends Controller
                 })
                 ->rawColumns(['action'])
                 ->make(true);
+        } 
+        
+        if(request()->start_date || request()->end_date) {
+            $start_date = Carbon::parse(request()->start_date)->toDateTimeString();
+            $end_date = Carbon::parse(request()->end_date)->toDateTimeString();
+            $data = Invoice::whereBetween('tanggal',[$start_date,$end_date])->get();
         }
+        
         $data = Invoice::with([
             'pembekalan' => function($query) {
                 return $query->with('metode_pembekalan', 'materi_pembekalan', 'bank', 'pic');
