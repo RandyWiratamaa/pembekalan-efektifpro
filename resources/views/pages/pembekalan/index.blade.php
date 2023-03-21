@@ -17,7 +17,7 @@
     </div>
 
     <div class="row">
-        <div class="col-12">
+        <div class="col-3">
             <div class="card">
                 <div class="card-body">
                     <div class="card-widgets">
@@ -26,7 +26,8 @@
                     <h5 class="header-title mb-2">Filter Data</h5>
                     <div id="search" class="collapse show">
                         <div class="row">
-                            <div class="col-3">
+                            <div class="row mt-2">
+                            <div class="col-sm-12">
                                 <form method="get" action="#" >
                                     @csrf
                                     <div class="col-sm-12">
@@ -42,7 +43,9 @@
                                     </button>
                                 </form>
                             </div>
-                            <div class="col-sm-3">
+                            </div>
+                            <div class="row mt-2">
+                            <div class="col-12">
                                 <form class="search-bar form-inline" method="get" action="#" >
                                     @csrf
                                     <label class="form-label">Daftar Nama Bank</label>
@@ -59,7 +62,9 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="col-sm-3">
+                            </div>
+                            <div class="row mt-2">
+                            <div class="col-12">
                                 <form class="search-bar form-inline" method="get" action="#" >
                                     @csrf
                                     <label class="form-label">Status</label>
@@ -75,12 +80,13 @@
                                     </div>
                                 </form>
                             </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-xl-12">
+        <div class="col-xl-9">
             <div class="row">
                 <div class="col">
                     <div class="card">

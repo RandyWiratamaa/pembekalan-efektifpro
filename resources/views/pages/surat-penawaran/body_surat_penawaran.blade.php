@@ -1,3 +1,9 @@
+<script>
+    $('#tgl_surat').on('change', function () {
+        var tglprint = $(this).val();
+        $('#print_tgl').text(tglprint);
+    });
+ </script>
 <p>Dengan hormat,</p>
 <p>Sesuai Peraturan Bank Indonesia No.12/7/PBI/2010 mengenai Pembekalan
     <span id="materi_pembekalan"></span>
@@ -28,7 +34,7 @@
                     <tbody>
                         <tr>
                             <td style="text-align: left">Hari / Tanggal</td>
-                            <td style="text-align: left">:</td>
+                            <td style="text-align: left">: <span id="print_tgl"></span></td>
                             {{-- <td>{{ $data_pembekalan->hari_tanggal->isoFormat('dddd, DD-MM-YYYY') }}</td> --}}
                         </tr>
                         <tr>

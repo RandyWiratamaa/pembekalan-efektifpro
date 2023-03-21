@@ -1,5 +1,4 @@
 {{-- Modal CRUD & Approve Surat Penawaran --}}
-
     {{-- Create --}}
     <div id="addSuratPenawaran" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog modal-dialog-centered modal-lg modal-full-width">
@@ -22,7 +21,7 @@
                             <div class="col-md-3">
                                 <div class="mb-3">
                                     <label class="form-label">Tanggal Surat *</label>
-                                    <input type="date" class="form-control" name="tgl_surat" id="tgl_surat" required>
+                                    <input type="date" class="form-control" name="tgl_surat" id="tgl_surat" value="<?php echo date('d/m/Y H:i:s'); ?>" required>
                                 </div>
                             </div>
                             <div class="col-md-3">

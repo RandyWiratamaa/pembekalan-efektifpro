@@ -32,6 +32,8 @@
     
         @stack('css')
         <script src="{{ asset('assets/js/head.js') }}"></script>
+        <script src="{{ asset('jquery-3.6.4.min.js') }}"></script>
+        <script src="moment.js"></script>
 
     </head>
 
